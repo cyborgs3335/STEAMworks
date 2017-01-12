@@ -8,9 +8,6 @@
 *.war
 *.ear
 
-# Bunch of bullcrap
-bin/
-
 # IDEA project files
 *.iml
 .idea/
