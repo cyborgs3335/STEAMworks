@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3335.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 
 /**
@@ -7,4 +8,13 @@ import edu.wpi.first.wpilibj.buttons.Button;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+    private Joystick joystick;
+
+    public OI() {
+        joystick = new Joystick(0);
+    }
+
+    public Joystick getJoystick() {
+        return joystick;
+    }
 }
