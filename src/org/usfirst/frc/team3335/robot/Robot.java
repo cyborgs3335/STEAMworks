@@ -4,10 +4,12 @@ package org.usfirst.frc.team3335.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team3335.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team3335.robot.subsystems.VisionTest;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,8 +38,18 @@ public class Robot extends IterativeRobot {
 		// chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		
 
 		driveTrain = new DriveTrain();
+		VisionTest visionTest = new VisionTest();
+		addSubsystemToDashboard(visionTest);
+	}
+
+	private void addSubsystemToDashboard(Subsystem subsystem) {
+		if (subsystem == null) {
+			return;
+		}
+		SmartDashboard.putData(subsystem);
 	}
 
 	/**

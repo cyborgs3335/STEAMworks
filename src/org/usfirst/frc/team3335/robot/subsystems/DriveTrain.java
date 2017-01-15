@@ -39,7 +39,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     }
 
     public void drive(Joystick joystick) {
-        drive(joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS), joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS));
+        drive(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS), -joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS));
     }
 
     public void drive(double left, double right) {
