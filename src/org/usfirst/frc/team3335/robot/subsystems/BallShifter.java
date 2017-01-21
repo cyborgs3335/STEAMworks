@@ -2,6 +2,7 @@ package org.usfirst.frc.team3335.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.usfirst.frc.team3335.robot.commands.BallShift;
 
 public class BallShifter extends Subsystem implements LoggableSubsystem{
 
@@ -23,7 +24,7 @@ public class BallShifter extends Subsystem implements LoggableSubsystem{
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		
+		setDefaultCommand(new BallShift());
 	}
 
 	@Override
