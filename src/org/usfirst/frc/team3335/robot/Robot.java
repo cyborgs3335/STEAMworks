@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team3335.robot.subsystems.BallShifter;
 import org.usfirst.frc.team3335.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3335.robot.subsystems.LoggableSubsystem;
 import org.usfirst.frc.team3335.robot.subsystems.VisionTest;
@@ -36,7 +37,8 @@ public class Robot extends IterativeRobot {
 	// Subsystems
 	public static DriveTrain driveTrain;
 	public static VisionTest visionTest;
-
+	public static BallShifter ballShifter;
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
