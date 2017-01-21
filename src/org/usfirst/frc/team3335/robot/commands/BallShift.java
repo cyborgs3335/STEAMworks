@@ -20,7 +20,7 @@ public class BallShift extends Command {
 	}
 
 	@Override
-	protected void execute() {
+	protected void end() {
 		switchGear();
 	}
 
