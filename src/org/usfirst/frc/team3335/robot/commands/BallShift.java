@@ -1,13 +1,13 @@
 package org.usfirst.frc.team3335.robot.commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+//import edu.wpi.first.wpilibj.DoubleSolenoid;
 import org.usfirst.frc.team3335.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team3335.robot.subsystems.BallShifter;
 
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.kForward;
-import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.kOff;
+//import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.kOff;
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.kReverse;
 
 public class BallShift extends Command {
