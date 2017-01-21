@@ -36,12 +36,12 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
 			Mat IMG_MOD = pipeline.hslThresholdOutput();
 	        if (!pipeline.filterContoursOutput().isEmpty()) {
-	            Rect rect = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+	            Rect recCombine = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
 	            synchronized (imgLock) {
-	                centerX = rect.x + (rect.width / 2);
+	                centerX = recCombine.x + (recCombine.width / 2);
 	            }
 	            
-	            Imgproc.rectangle(IMG_MOD, new Point(rect.x, rect.y),new Point(rect.x + rect.width,rect.y + rect.height), new Scalar(0, 255, 0), 5);
+	            Imgproc.rectangle(IMG_MOD, new Point(recCombine.x, recCombine.y),new Point(recCombine.x + recCombine.width,recCombine.y + recCombine.height), new Scalar(0, 255, 0), 5);
 	            
 	        }
 	        cs.putFrame(IMG_MOD);
