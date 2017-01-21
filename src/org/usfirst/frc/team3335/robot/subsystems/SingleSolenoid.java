@@ -13,7 +13,6 @@ public class SingleSolenoid extends Subsystem implements LoggableSubsystem {
 	public SingleSolenoid() {
 		solenoid = new Solenoid(0);
 	}
-
     @Override
     protected void initDefaultCommand() {
     	
