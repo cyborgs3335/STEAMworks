@@ -8,7 +8,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import java.util.ArrayList;
+
 import org.usfirst.frc.team3335.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team3335.robot.subsystems.LoggableSubsystem;
 import org.usfirst.frc.team3335.robot.subsystems.VisionTest;
 
 /**
@@ -26,7 +30,12 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
+	// List of subsystems, convenient for logging, etc.
+	private ArrayList<LoggableSubsystem> subsystemsList = new ArrayList<LoggableSubsystem>();
+
+	// Subsystems
 	public static DriveTrain driveTrain;
+	public static VisionTest visionTest;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -39,17 +48,13 @@ public class Robot extends IterativeRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		
-
+		// Instantiate subsystems and add to subsystem list (e.g., for logging to dashboard)
 		driveTrain = new DriveTrain();
-		VisionTest visionTest = new VisionTest();
-		addSubsystemToDashboard(visionTest);
-	}
+		subsystemsList.add(driveTrain);
+		visionTest = new VisionTest();
+		subsystemsList.add(visionTest);
 
-	private void addSubsystemToDashboard(Subsystem subsystem) {
-		if (subsystem == null) {
-			return;
-		}
-		SmartDashboard.putData(subsystem);
+		addSubsystemsToDashboard(subsystemsList);
 	}
 
 	/**
@@ -100,6 +105,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		log();
 	}
 
 	@Override
@@ -118,6 +124,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		log();
 	}
 
 	/**
@@ -126,5 +133,24 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
+	}
+
+	/**
+	 * The log method puts interesting information to the SmartDashboard.
+	 */
+	private void log() {
+		for (LoggableSubsystem subsystem : subsystemsList) {
+			if (subsystem != null) {
+				subsystem.log();
+			}
+		}
+	}
+
+	private void addSubsystemsToDashboard(ArrayList<LoggableSubsystem> subsystems) {
+		for (LoggableSubsystem subsystem : subsystems) {
+			if (subsystem != null && subsystem instanceof Subsystem) {
+				SmartDashboard.putData((Subsystem) subsystem);
+			}
+		}
 	}
 }
