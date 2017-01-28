@@ -28,7 +28,7 @@ public class Dumper extends Subsystem implements LoggableSubsystem {
                 solenoid.set(Value.kForward);
                 break;
             case kForward:
-                solenoid.set(Value.kOff);
+                solenoid.set(Value.kReverse);
                 break;
         }
     }
