@@ -35,6 +35,7 @@ public class Robot extends IterativeRobot {
 	public static VisionTest visionTest;
 	public static BallShifter ballShifter;
 	public static Dumper dumper;
+	public static Gate gate;
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -54,7 +55,8 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(visionTest);
 		dumper = new Dumper();
 		subsystemsList.add(dumper);
-
+		gate = new Gate();
+		subsystemsList.add(gate);
 
 		//Instantiate after all subsystems and preferences - or the world will die
 		//We don't want that, do we?

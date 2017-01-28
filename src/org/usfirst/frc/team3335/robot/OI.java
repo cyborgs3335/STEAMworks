@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team3335.robot.commands.DumpFuel;
+import org.usfirst.frc.team3335.robot.commands.GateControl;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -18,6 +19,9 @@ public class OI {
 
         JoystickButton dumpFuel = addButton(getJoystick(), 1, "Dump Fuel");
         dumpFuel.whenPressed(new DumpFuel());
+        JoystickButton gateControl = addButton(getJoystick(), 2, "Gate Control");
+        gateControl.whenPressed(new GateControl());
+        
     }
 
     private JoystickButton addButton(Joystick joystick, int buttonNumber, String key) {
