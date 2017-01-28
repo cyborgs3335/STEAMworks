@@ -11,10 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team3335.robot.subsystems.BallShifter;
-import org.usfirst.frc.team3335.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team3335.robot.subsystems.LoggableSubsystem;
-import org.usfirst.frc.team3335.robot.subsystems.VisionTest;
+import org.usfirst.frc.team3335.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -38,6 +35,7 @@ public class Robot extends IterativeRobot {
 	public static DriveTrain driveTrain;
 	public static VisionTest visionTest;
 	public static BallShifter ballShifter;
+	public static Dumper dumper;
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -55,6 +53,8 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(driveTrain);
 		visionTest = new VisionTest();
 		subsystemsList.add(visionTest);
+		dumper = new Dumper();
+		subsystemsList.add(dumper);
 
 		addSubsystemsToDashboard(subsystemsList);
 	}

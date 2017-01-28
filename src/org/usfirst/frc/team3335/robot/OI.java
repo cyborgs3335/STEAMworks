@@ -1,7 +1,9 @@
 package org.usfirst.frc.team3335.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team3335.robot.commands.DumpFuel;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -12,6 +14,16 @@ public class OI {
 
     public OI() {
         joystick = new Joystick(0);
+
+
+        JoystickButton dumpFuel = addButton(getJoystick(), 1, "Dump Fuel");
+        dumpFuel.whenPressed(new DumpFuel());
+    }
+
+    private JoystickButton addButton(Joystick joystick, int buttonNumber, String key) {
+        JoystickButton button = new JoystickButton(joystick, buttonNumber);
+        SmartDashboard.putData(key, button);
+        return button;
     }
 
     public Joystick getJoystick() {
