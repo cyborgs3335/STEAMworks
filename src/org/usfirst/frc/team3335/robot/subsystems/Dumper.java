@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * Created by jacob on 1/21/17.
  */
+@SuppressWarnings("unused")
 public class Dumper extends Subsystem implements LoggableSubsystem {
 
 	private Value state;
@@ -27,7 +28,7 @@ public class Dumper extends Subsystem implements LoggableSubsystem {
     	else {update(Value.kForward);}
     }
     
-    public void update(Value value) {
+    private void update(Value value) {
     	solenoid.set(value);
     }
 
