@@ -12,6 +12,7 @@ public class Gate extends Subsystem implements LoggableSubsystem {
 	
 	public Gate() {
 		solenoid = new DoubleSolenoid(0,1);
+		solenoid.set(Value.kForward);
 	}
 	
 	public void switchPos() {
