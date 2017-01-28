@@ -13,7 +13,7 @@ public class GateControl extends Command{
 
     @Override
     protected void initialize() {
-        Robot.dumper.switchPos();
+        Robot.gate.switchPos();
     }
 
 	@Override
