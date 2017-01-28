@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3335.robot.subsystems;
 
+
+// The NavX library is availble at http://www.pdocs.kauailabs.com/navx-mxp/software/roborio-libraries/java/
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.command.Subsystem;
