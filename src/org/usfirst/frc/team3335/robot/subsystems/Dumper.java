@@ -13,23 +13,24 @@ public class Dumper extends Subsystem implements LoggableSubsystem {
 
 	private Value state;
     private DoubleSolenoid solenoid;
-    //private DoubleSolenoid solenoid;
+    //private Solenoid solenoid;
 
     public Dumper() {
         //solenoid = new Solenoid(3);
         solenoid = new DoubleSolenoid(2, 3); 
         state = Value.kForward;
         solenoid.set(state);
-        
     }
     
     public void switchPos() {
-    	if (state == Value.kForward){update(Value.kReverse);}
-    	else {update(Value.kForward);}
-    }
-    
-    private void update(Value value) {
-    	solenoid.set(value);
+        switch (solenoid.get()) {
+            case kOff: case kReverse:
+                solenoid.set(Value.kForward);
+                break;
+            case kForward:
+                solenoid.set(Value.kOff);
+                break;
+        }
     }
 
     @Override
