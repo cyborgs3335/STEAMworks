@@ -21,8 +21,6 @@ import org.usfirst.frc.team3335.robot.subsystems.*;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
-	//public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -32,6 +30,7 @@ public class Robot extends IterativeRobot {
 	private ArrayList<LoggableSubsystem> subsystemsList = new ArrayList<LoggableSubsystem>();
 
 	// Subsystems
+	public static Compressor compressor;
 	public static DriveTrain driveTrain;
 	public static VisionTest visionTest;
 	public static BallShifter ballShifter;
@@ -48,6 +47,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto mode", chooser);
 		
 		// Instantiate subsystems and add to subsystem list (e.g., for logging to dashboard)
+		compressor = new Compressor();
 		driveTrain = new DriveTrain();
 		subsystemsList.add(driveTrain);
 		visionTest = new VisionTest();
