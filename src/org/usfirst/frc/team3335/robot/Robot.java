@@ -43,7 +43,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		oi = new OI();
 		// chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
@@ -55,6 +54,11 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(visionTest);
 		dumper = new Dumper();
 		subsystemsList.add(dumper);
+
+
+		//Instantiate after all subsystems and preferences - or the world will die
+		//We don't want that, do we?
+		oi = new OI();
 
 		addSubsystemsToDashboard(subsystemsList);
 	}
