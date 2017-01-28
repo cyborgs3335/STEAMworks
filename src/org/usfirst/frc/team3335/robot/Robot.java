@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team3335.robot.commands.Climb;
 import org.usfirst.frc.team3335.robot.subsystems.*;
 
 /**
@@ -36,6 +37,7 @@ public class Robot extends IterativeRobot {
 	public static BallShifter ballShifter;
 	public static Dumper dumper;
 	public static Gate gate;
+	public static Climber climber;
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -57,7 +59,10 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(dumper);
 		gate = new Gate();
 		subsystemsList.add(gate);
-
+		ballShifter = new BallShifter();
+		subsystemsList.add(ballShifter);
+		climber = new Climber();
+		subsystemsList.add(climber);
 		//Instantiate after all subsystems and preferences - or the world will die
 		//We don't want that, do we?
 		oi = new OI();

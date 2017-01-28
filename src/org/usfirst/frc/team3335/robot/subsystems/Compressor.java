@@ -10,7 +10,7 @@ public class Compressor extends Subsystem{
 
     public Compressor() {
         compressor = new edu.wpi.first.wpilibj.Compressor(0);
-        compressor.setClosedLoopControl(true);
+        compressor.setClosedLoopControl(false);
     }
 
     @Override

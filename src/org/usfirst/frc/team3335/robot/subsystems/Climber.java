@@ -8,12 +8,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Climber extends Subsystem {
+public class Climber extends Subsystem implements LoggableSubsystem {
 
 	private CANTalon bagMotor;
 	
-	public Climber(Joystick joystick) {
+	public Climber() {
 		bagMotor = new CANTalon(RobotMap.CLIMBING_MOTOR);
+		bagMotor.enableBrakeMode(true);
 		//while(true)if (joystick.getRawButton(4))manualClimb(joystick);
 	}
 	
@@ -24,18 +25,19 @@ public class Climber extends Subsystem {
 		bagMotor.set(0);
 	}
 	
-	public void manualClimb(Joystick joystick) {
-		while(joystick.getRawButton(4)){
-			bagMotor.set(-1);
-			//joystick.setRumble(RumbleType.kRightRumble, 1.0);
-			//joystick.setRumble(RumbleType.kLeftRumble, 1.0);
-		}
-		bagMotor.set(0);
+	public void manualClimb(double speed) {
+		bagMotor.set(speed);
 		
 	}
 	
 	@Override
 	protected void initDefaultCommand() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void log() {
 		// TODO Auto-generated method stub
 		
 	}

@@ -10,11 +10,11 @@ import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.kForward;
 //import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.kOff;
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.kReverse;
 
-public class BallShift extends Command {
+public class BallShiftHigh extends Command {
 
 	BallShifter ballShifter;
 
-	public BallShift() {
+	public BallShiftHigh() {
 		requires(Robot.ballShifter);
 		ballShifter = Robot.ballShifter;
 	}
@@ -29,14 +29,8 @@ public class BallShift extends Command {
 	 * If solenoid is off, then it will set it to forward
 	 */
 	protected void switchGear() {
-		switch (ballShifter.getSolenoidValue()) {
-			case kOff: case kReverse:
-				ballShifter.setSolenoidValue(kForward);
-				break;
-			case kForward:
-				ballShifter.setSolenoidValue(kReverse);
-				break;
-		}
+		ballShifter.setSolenoidValue(kForward);
+		
 
 	}
 
