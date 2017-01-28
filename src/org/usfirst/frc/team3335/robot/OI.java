@@ -3,6 +3,9 @@ package org.usfirst.frc.team3335.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team3335.robot.commands.BallShiftHigh;
+import org.usfirst.frc.team3335.robot.commands.BallShiftLow;
 import org.usfirst.frc.team3335.robot.commands.DumpFuel;
 import org.usfirst.frc.team3335.robot.commands.GateControl;
 
@@ -21,7 +24,10 @@ public class OI {
         dumpFuel.whenPressed(new DumpFuel());
         JoystickButton gateControl = addButton(getJoystick(), 2, "Gate Control");
         gateControl.whenPressed(new GateControl());
-        
+        JoystickButton ballShiftHigh = addButton(getJoystick(), 6, "Ball Shifter High");
+        ballShiftHigh.whenPressed(new BallShiftHigh());
+        JoystickButton ballShiftLow = addButton(getJoystick(), 5, "Ball Shifter Low");
+        ballShiftLow.whenPressed(new BallShiftLow());
     }
 
     private JoystickButton addButton(Joystick joystick, int buttonNumber, String key) {
