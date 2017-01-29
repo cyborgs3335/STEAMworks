@@ -60,11 +60,12 @@ public class GripPipeline implements VisionPipeline {
 		double filterContoursMaxWidth = 1000000.0;
 		double filterContoursMinHeight = 0.0;
 		double filterContoursMaxHeight = 100000.0;
-		double[] filterContoursSolidity = {55.755397827505206, 100.0};
+		//double[] filterContoursSolidity = {55.755397827505206, 100.0};
+		double[] filterContoursSolidity = {0.0, 100.0};
 		double filterContoursMaxVertices = 3000.0;
 		double filterContoursMinVertices = 4.0;
-		double filterContoursMinRatio = 0.3;
-		double filterContoursMaxRatio = 0.6;
+		double filterContoursMinRatio = 0.8;//0.3;
+		double filterContoursMaxRatio = 2.0; //0.6;
 		filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, filterContoursOutput);
 
 	}

@@ -23,6 +23,8 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 	
 	private VisionThread visionThread;
 	private double centerX = 0.0;
+	private double targetDistance;
+	private double targetAzimuth;
 	
 	
 	private final Object imgLock = new Object();
@@ -31,19 +33,21 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
 		
-		CvSource cs= CameraServer.getInstance().putVideo("name", 320, 240);
+		CvSource cs= CameraServer.getInstance().putVideo("name", IMG_WIDTH, IMG_HEIGHT);
 		
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
 			Mat IMG_MOD = pipeline.hslThresholdOutput();
 	        if (!pipeline.filterContoursOutput().isEmpty()) {
 	            Rect recCombine = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+                computeCoords(recCombine);
 	            synchronized (imgLock) {
 	                centerX = recCombine.x + (recCombine.width / 2);
 	            }
 	            
-	            Imgproc.rectangle(IMG_MOD, new Point(recCombine.x, recCombine.y),new Point(recCombine.x + recCombine.width,recCombine.y + recCombine.height), new Scalar(0, 255, 0), 5);
+	            Imgproc.rectangle(IMG_MOD, new Point(recCombine.x, recCombine.y),new Point(recCombine.x + recCombine.width,recCombine.y + recCombine.height), new Scalar(255, 20, 0), 5);
 	            
 	        }
+           
 	        cs.putFrame(IMG_MOD);
 	    });
 		
@@ -63,10 +67,24 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 
 	}
 
+	private void computeCoords(Rect rec) {
+		double pixelFOV = IMG_WIDTH;
+		double targetFeet = 20.0 / 12.0; // Stronghold target width / height
+		double diagonalFOVDegrees = 68.5;
+		double distance = targetFeet * pixelFOV / (2 * rec.width * Math.tan(Math.toRadians(diagonalFOVDegrees / 2)));
+		double targetCx = rec.x + rec.width / 2;
+		double width = (targetCx - pixelFOV / 2) * targetFeet / rec.width;
+		double azimuth = Math.toDegrees(Math.atan2(width,  distance));
+		targetDistance = distance;
+		targetAzimuth =  azimuth;
+	}
+
 	@Override
 	public void log() {
-		SmartDashboard.putNumber("Center Value", centerX);
-		
+		double cx = centerX;
+		SmartDashboard.putNumber("Vision: Center Value", cx);
+		SmartDashboard.putNumber("Vision: Target Distance", targetDistance);
+		SmartDashboard.putNumber("Vision: Target Azimuth", targetAzimuth);
 	}
 
 }
