@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team3335.robot.commands.Climb;
 import org.usfirst.frc.team3335.robot.subsystems.*;
 
 /**
@@ -39,7 +38,8 @@ public class Robot extends IterativeRobot {
 	public static Dumper dumper;
 	public static Gate gate;
 	public static Climber climber;
-	
+	public static DoubleUltrasonic ultrasonics;
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -49,9 +49,10 @@ public class Robot extends IterativeRobot {
 		// chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
-		
+
 		// Instantiate subsystems and add to subsystem list (e.g., for logging to dashboard)
 		compressor = new Compressor();
+		subsystemsList.add(compressor);
 		driveTrain = new DriveTrain();
 		subsystemsList.add(driveTrain);
 		visionTest = new VisionTest();
@@ -66,6 +67,9 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(ballShooter);
 		climber = new Climber();
 		subsystemsList.add(climber);
+		ultrasonics = new DoubleUltrasonic();
+		subsystemsList.add(ultrasonics);
+
 		//Instantiate after all subsystems and preferences - or the world will die
 		//We don't want that, do we?
 		oi = new OI();

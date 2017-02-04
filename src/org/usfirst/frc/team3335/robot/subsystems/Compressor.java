@@ -5,8 +5,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * Created by jacob on 1/28/17.
  */
-public class Compressor extends Subsystem{
-    private static edu.wpi.first.wpilibj.Compressor compressor;
+public class Compressor extends Subsystem implements LoggableSubsystem {
+
+	private static edu.wpi.first.wpilibj.Compressor compressor;
 
     public Compressor() {
         compressor = new edu.wpi.first.wpilibj.Compressor(0);
@@ -17,4 +18,10 @@ public class Compressor extends Subsystem{
     protected void initDefaultCommand() {
 
     }
+
+	@Override
+	public void log() {
+		// TODO Auto-generated method stub
+		
+	}
 }
