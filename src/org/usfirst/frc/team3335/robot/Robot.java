@@ -35,6 +35,7 @@ public class Robot extends IterativeRobot {
 	public static DriveTrain driveTrain;
 	public static VisionTest visionTest;
 	public static BallShifter ballShifter;
+	public static BallShooter ballShooter;
 	public static Dumper dumper;
 	public static Gate gate;
 	public static Climber climber;
@@ -61,6 +62,8 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(gate);
 		ballShifter = new BallShifter();
 		subsystemsList.add(ballShifter);
+		ballShooter = new BallShooter();
+		subsystemsList.add(ballShooter);
 		climber = new Climber();
 		subsystemsList.add(climber);
 		//Instantiate after all subsystems and preferences - or the world will die

@@ -1,7 +1,10 @@
 package org.usfirst.frc.team3335.robot.subsystems;
 
+import java.util.ArrayList;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
@@ -38,8 +41,9 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
 			Mat IMG_MOD = pipeline.hslThresholdOutput();
 	        if (!pipeline.filterContoursOutput().isEmpty()) {
-	            Rect recCombine = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-                computeCoords(recCombine);
+	            //Rect recCombine = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+                Rect recCombine = computeBoundingRectangle(pipeline.filterContoursOutput());
+	        	computeCoords(recCombine);
 	            synchronized (imgLock) {
 	                centerX = recCombine.x + (recCombine.width / 2);
 	            }
@@ -60,6 +64,22 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 	/*public void processImage() {
 		cs.putFrame()
 	}*/
+	
+	private Rect computeBoundingRectangle(ArrayList<MatOfPoint> contours) {
+		if(contours.size() == 2){
+			MatOfPoint mop1 = contours.get(0);
+			Rect rec1 = Imgproc.boundingRect(mop1);
+			MatOfPoint mop2 = contours.get(1);
+			Rect rec2 = Imgproc.boundingRect(mop2);
+			int x = Math.min(rec1.x, rec2.x);
+			int y = Math.min(rec1.y, rec2.y);
+			int width = Math.max(rec1.x + rec1.width, rec2.x + rec2.width)-x;
+			int height = Math.max(rec1.y + rec1.height, rec2.y + rec2.height)-y;
+			Rect recCombine = new Rect(x, y, width, height);
+			return recCombine;
+		}
+		return null;
+	}
 	
 	@Override
 	protected void initDefaultCommand() {
