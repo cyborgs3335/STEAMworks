@@ -12,8 +12,8 @@ public class Compressor extends Subsystem implements LoggableSubsystem {
 
     public Compressor() {
         compressor = new edu.wpi.first.wpilibj.Compressor(0);
-        compressor.setClosedLoopControl(true); //on
-        //compressor.setClosedLoopControl(false); //off
+        //compressor.setClosedLoopControl(true); //on
+        compressor.setClosedLoopControl(false); //off
     }
 
     @Override

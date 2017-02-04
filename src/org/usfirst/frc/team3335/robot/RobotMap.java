@@ -16,7 +16,8 @@ public class RobotMap {
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
-	
+
+	// Mark 1
 	public static final int DRIVE_TRAIN_FRONT_LEFT = 1;
     public static final int DRIVE_TRAIN_FRONT_RIGHT = 3;
     public static final int DRIVE_TRAIN_BACK_LEFT = 2;
@@ -26,15 +27,16 @@ public class RobotMap {
 	public static final int ANALOG_ULTRASONIC_LEFT = 0;
 	public static final int ANALOG_ULTRASONIC_RIGHT = 1;
 	
-	
 	//Stronghold bot ports
-    /*public static final int DRIVE_TRAIN_FRONT_LEFT = 6;
+	/*
+    public static final int DRIVE_TRAIN_FRONT_LEFT = 6;
     public static final int DRIVE_TRAIN_FRONT_RIGHT = 4;
     public static final int DRIVE_TRAIN_BACK_LEFT = 1;
     public static final int DRIVE_TRAIN_BACK_RIGHT = 3;
 	public static final int CLIMBING_MOTOR = 5;
 	public static final int BALL_SHOOTER_MOTOR = 7;
 	public static final int ANALOG_ULTRASONIC_LEFT = 0;
-	public static final int ANALOG_ULTRASONIC_RIGHT = 1;*/
+	public static final int ANALOG_ULTRASONIC_RIGHT = 1;
+	*/
 
 }

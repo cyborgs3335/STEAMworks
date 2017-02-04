@@ -19,6 +19,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     //http://www.ctr-electronics.com//downloads/lib/CTRE_FRCLibs_NON-WINDOWS_v4.4.1.9.zip for other
     private CANTalon frontLeft, frontRight, backLeft, backRight;
     private RobotDrive drive;
+    private final boolean useTankDrive = false;
 
     public DriveTrain() {
         super();
@@ -41,13 +42,21 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     }
 
     public void drive(Joystick joystick) {
-        drive(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS), -joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS));
+    	if (useTankDrive) {
+    		drive(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS), -joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS));
+    	} else {
+    		driveA(-joystick.getRawAxis(5), -joystick.getRawAxis(4));
+    	}
     }
 
     public void drive(double left, double right) {
         drive.tankDrive(left, right, true);
     }
 
+    public void driveA(double move, double rotate) {
+    	drive.arcadeDrive(move, rotate, true);
+    }
+    
     @Override
     public void log() {
 
