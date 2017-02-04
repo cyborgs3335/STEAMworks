@@ -15,6 +15,8 @@ import org.usfirst.frc.team3335.robot.commands.TankDrive;
  */
 public class DriveTrain extends Subsystem implements LoggableSubsystem{
 
+    //get the cantalons at http://www.ctr-electronics.com/downloads/installers/CTRE%20Toolsuite%20v4.4.1.9-nonadmin.zip for windows,
+    //http://www.ctr-electronics.com//downloads/lib/CTRE_FRCLibs_NON-WINDOWS_v4.4.1.9.zip for other
     private CANTalon frontLeft, frontRight, backLeft, backRight;
     private RobotDrive drive;
 
