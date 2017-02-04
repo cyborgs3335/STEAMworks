@@ -43,8 +43,9 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 	        if (!pipeline.filterContoursOutput().isEmpty()) {
 	            //Rect recCombine = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
                 Rect recCombine = computeBoundingRectangle(pipeline.filterContoursOutput());
+                if (recCombine == null) return;
+		        computeCoords(recCombine);
 	            synchronized (imgLock) {
-		        	computeCoords(recCombine);
 	                centerX = recCombine.x + (recCombine.width / 2);
 	            }
 	            
