@@ -36,15 +36,15 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
 		
-		CvSource cs= CameraServer.getInstance().putVideo("name", IMG_WIDTH, IMG_HEIGHT);
+//		CvSource cs= CameraServer.getInstance().putVideo("name", IMG_WIDTH, IMG_HEIGHT);
 		
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
 			Mat IMG_MOD = pipeline.hslThresholdOutput();
 	        if (!pipeline.filterContoursOutput().isEmpty()) {
 	            //Rect recCombine = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
                 Rect recCombine = computeBoundingRectangle(pipeline.filterContoursOutput());
-	        	computeCoords(recCombine);
 	            synchronized (imgLock) {
+		        	computeCoords(recCombine);
 	                centerX = recCombine.x + (recCombine.width / 2);
 	            }
 	            
@@ -52,7 +52,7 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 	            
 	        }
            
-	        cs.putFrame(IMG_MOD);
+//	        cs.putFrame(IMG_MOD);
 	    });
 		
 	    visionThread.start();
@@ -89,9 +89,12 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 
 	private void computeCoords(Rect rec) {
 		double pixelFOV = IMG_WIDTH;
-		double targetFeet = 20.0 / 12.0; // Stronghold target width / height
-		double diagonalFOVDegrees = 68.5;
+		//double targetFeet = 20.0 / 12.0; // Stronghold target width / 12 in
+		//double targetFeet = 10.25 / 12.0; // Steamworks target width / 12 in
+		double targetFeet = 10.25; // FEET!!!! // Steamworks target width / 12 in
+		double diagonalFOVDegrees = 68.5;  // Field-Of-View angle in degress for Microsoft LifeCam HD-3000(?)
 		double distance = targetFeet * pixelFOV / (2 * rec.width * Math.tan(Math.toRadians(diagonalFOVDegrees / 2)));
+		distance *= 1.47; // Fudge factor [equal to 1/tan(68.5/2)]
 		double targetCx = rec.x + rec.width / 2;
 		double width = (targetCx - pixelFOV / 2) * targetFeet / rec.width;
 		double azimuth = Math.toDegrees(Math.atan2(width,  distance));

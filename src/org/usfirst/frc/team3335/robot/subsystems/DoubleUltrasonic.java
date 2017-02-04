@@ -4,6 +4,7 @@ import org.usfirst.frc.team3335.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DoubleUltrasonic extends Subsystem implements LoggableSubsystem {
 
@@ -36,8 +37,8 @@ public class DoubleUltrasonic extends Subsystem implements LoggableSubsystem {
 
 	@Override
 	public void log() {
-		// TODO Auto-generated method stub
-		
+		SmartDashboard.putNumber("Ultrasonic: Left", getDistanceLeft());
+		SmartDashboard.putNumber("Ultrasonic: Right", getDistanceRight());
 	}
 
 }
