@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3335.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team3335.robot.RobotMap;
 
 import com.ctre.CANTalon;
@@ -28,7 +29,6 @@ public class BallShooter extends Subsystem implements LoggableSubsystem {
 
 	@Override
 	public void log() {
-		// TODO Auto-generated method stub
-		
+		SmartDashboard.putNumber("Ball Shooter Value",motor.get());
 	}
 }
