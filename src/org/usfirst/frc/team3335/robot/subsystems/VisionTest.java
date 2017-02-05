@@ -23,27 +23,31 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 
 	private static final int IMG_WIDTH = 320;
 	private static final int IMG_HEIGHT = 240;
-	
+
 	private VisionThread visionThread;
 	private double centerX = 0.0;
 	private double targetDistance;
 	private double targetAzimuth;
-	
-	
+	private boolean targetDetected = false;
+
 	private final Object imgLock = new Object();
-	
+
 	public VisionTest() {
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
-		
+
 //		CvSource cs= CameraServer.getInstance().putVideo("name", IMG_WIDTH, IMG_HEIGHT);
-		
+
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
 			Mat IMG_MOD = pipeline.hslThresholdOutput();
 	        if (!pipeline.filterContoursOutput().isEmpty()) {
 	            //Rect recCombine = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
                 Rect recCombine = computeBoundingRectangle(pipeline.filterContoursOutput());
-                if (recCombine == null) return;
+                if (recCombine == null) {
+                	targetDetected = false;
+                	return;
+                }
+                targetDetected = true;
 		        computeCoords(recCombine);
 	            synchronized (imgLock) {
 	                centerX = recCombine.x + (recCombine.width / 2);
@@ -51,11 +55,13 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 	            
 	            Imgproc.rectangle(IMG_MOD, new Point(recCombine.x, recCombine.y),new Point(recCombine.x + recCombine.width,recCombine.y + recCombine.height), new Scalar(255, 20, 0), 5);
 	            
+	        } else {
+	        	targetDetected = false;
 	        }
            
 //	        cs.putFrame(IMG_MOD);
 	    });
-		
+
 	    visionThread.start();
 	    Relay relay = new Relay(0,Direction.kForward);
 	    relay.set(Relay.Value.kOn);
@@ -65,7 +71,7 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 	/*public void processImage() {
 		cs.putFrame()
 	}*/
-	
+
 	private Rect computeBoundingRectangle(ArrayList<MatOfPoint> contours) {
 		if(contours.size() == 2){
 			MatOfPoint mop1 = contours.get(0);
@@ -81,7 +87,7 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 		}
 		return null;
 	}
-	
+
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
@@ -92,7 +98,7 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 		double pixelFOV = IMG_WIDTH;
 		//double targetFeet = 20.0 / 12.0; // Stronghold target width / 12 in
 		//double targetFeet = 10.25 / 12.0; // Steamworks target width / 12 in
-		double targetFeet = 10.25; // FEET!!!! // Steamworks target width / 12 in
+		double targetFeet = 10.25; // INCHES!!!! // Steamworks target width in inches
 		double diagonalFOVDegrees = 68.5;  // Field-Of-View angle in degress for Microsoft LifeCam HD-3000(?)
 		double distance = targetFeet * pixelFOV / (2 * rec.width * Math.tan(Math.toRadians(diagonalFOVDegrees / 2)));
 		distance *= 1.47; // Fudge factor [equal to 1/tan(68.5/2)]
@@ -103,12 +109,17 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 		targetAzimuth =  azimuth;
 	}
 
+	public boolean isTargetDetected() {
+		return targetDetected;
+	}
+
 	@Override
 	public void log() {
 		double cx = centerX;
 		SmartDashboard.putNumber("Vision: Center Value", cx);
 		SmartDashboard.putNumber("Vision: Target Distance", targetDistance);
 		SmartDashboard.putNumber("Vision: Target Azimuth", targetAzimuth);
+		SmartDashboard.putBoolean("Vision: Target Detected", targetDetected);
 	}
 
 }
