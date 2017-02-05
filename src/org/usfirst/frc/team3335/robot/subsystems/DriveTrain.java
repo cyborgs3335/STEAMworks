@@ -20,6 +20,8 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     private CANTalon frontLeft, frontRight, backLeft, backRight;
     private RobotDrive drive;
     private final boolean useTankDrive = false;
+    private final double deadzone = .3;
+    private final double trainingSpeedMax = 1;
 
     public DriveTrain() {
         super();
@@ -43,9 +45,22 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
 
     public void drive(Joystick joystick) {
     	if (useTankDrive) {
-    		drive(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS), -joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS));
-    	} else {
-    		driveA(-joystick.getRawAxis(5), -joystick.getRawAxis(4));
+    		int sign = -1;
+    		if (-joystick.getRawAxis(1)>=0) sign = 1;
+    		if (Math.abs(joystick.getRawAxis(1))>=trainingSpeedMax)drive(trainingSpeedMax*sign, -joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS));
+    		else drive(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS), -joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS));
+    	} 
+    	else {
+    		int sign = -1;
+    		if (-joystick.getRawAxis(1)>=0) sign = 1;
+    		if(Math.abs(joystick.getRawAxis(0))<=deadzone) {
+    			if (Math.abs(joystick.getRawAxis(1))>=trainingSpeedMax)driveA(trainingSpeedMax*sign, 0.0);
+    			else driveA(-joystick.getRawAxis(1), 0.0);
+    		}
+    		else {
+    			if (Math.abs(joystick.getRawAxis(1))>=trainingSpeedMax)driveA(trainingSpeedMax*sign, -joystick.getRawAxis(0));
+    			else driveA(-joystick.getRawAxis(1), -joystick.getRawAxis(0));
+    		}
     	}
     }
 

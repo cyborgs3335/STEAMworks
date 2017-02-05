@@ -39,6 +39,7 @@ public class Robot extends IterativeRobot {
 	public static Gate gate;
 	public static Climber climber;
 	public static DoubleUltrasonic ultrasonics;
+	public static NavX navx;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -69,6 +70,8 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(climber);
 		ultrasonics = new DoubleUltrasonic();
 		subsystemsList.add(ultrasonics);
+		navx = new NavX();
+		subsystemsList.add(navx);
 
 		//Instantiate after all subsystems and preferences - or the world will die
 		//We don't want that, do we?
