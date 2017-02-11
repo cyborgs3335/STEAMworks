@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team3335.robot.commands.AutoNone;
-import org.usfirst.frc.team3335.robot.commands.AutoPlaceGear;
+import org.usfirst.frc.team3335.robot.commands.autonomous.AutoNone;
+import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceGear;
 import org.usfirst.frc.team3335.robot.subsystems.*;
 
 /**
