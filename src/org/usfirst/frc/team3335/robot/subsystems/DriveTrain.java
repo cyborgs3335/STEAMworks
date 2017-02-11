@@ -34,8 +34,17 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
         frontRight.set(0);
         backLeft.set(0);
         backRight.set(0);
+        
+        setBrake(false);
 
         drive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
+    }
+    
+    public void setBrake(boolean brake) {
+    	frontLeft.enableBrakeMode(brake);
+        frontRight.enableBrakeMode(brake);
+        backLeft.enableBrakeMode(brake);
+        backRight.enableBrakeMode(brake);
     }
 
     @Override
@@ -67,9 +76,13 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     public void drive(double left, double right) {
         drive.tankDrive(left, right, true);
     }
+    
+    public void driveA(double move, double rotate, boolean squared) {
+    	drive.arcadeDrive(move, rotate, squared);
+    }
 
     public void driveA(double move, double rotate) {
-    	drive.arcadeDrive(move, rotate, true);
+    	driveA(move, rotate, true);
     }
     
     @Override

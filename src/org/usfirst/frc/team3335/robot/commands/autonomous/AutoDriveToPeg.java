@@ -19,6 +19,7 @@ public class AutoDriveToPeg extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+    	Robot.driveTrain.setBrake(true);
     	Robot.navx.zeroYaw();
     	timeFinished = System.currentTimeMillis() + timeMax;
     }
@@ -34,6 +35,7 @@ public class AutoDriveToPeg extends Command {
     @Override
     protected boolean isFinished() {
     	if (System.currentTimeMillis() > timeFinished) {
+    		Robot.driveTrain.setBrake(false);
     		return true;
     	}
     	//if (!Robot.visionTest.isTargetDetected()) {

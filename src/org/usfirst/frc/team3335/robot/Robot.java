@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoNone;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceGear;
+import org.usfirst.frc.team3335.robot.commands.autonomous.AutoSteerDriveToPeg;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPeg;
 import org.usfirst.frc.team3335.robot.subsystems.*;
 
@@ -78,7 +79,7 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(navx);
 		
 		//autonomous
-		chooser.addObject("AutoTurnToPeg", new AutoTurnToPeg());
+		chooser.addObject("AutoSteerDriveToPeg", new AutoSteerDriveToPeg(45, .7));
 		chooser.addObject(AUTO_PLACE_GEAR, new AutoPlaceGear());
 		chooser.addDefault(AUTO_NONE, new AutoNone());
 		SmartDashboard.putData(AUTO_MODE, chooser);

@@ -12,10 +12,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import sun.security.krb5.internal.tools.Ktab;
 
-public class AutoTurnToPeg extends Command {
+public class AutoSteerDriveToPeg extends Command {
 
 	private long timeFinished = 0;
-	private final long timeMax = 10000; // millisec
+	private final long timeMax = 3000; // millisec
 
 	////////////////////////////////////////////////////////////////////////
 //	// distance in inches the robot wants to stay from an object
@@ -41,17 +41,23 @@ public class AutoTurnToPeg extends Command {
 	
 	private double rotateRate;
 	
+	private double setpoint = 0; 
+	private final double maxAbsSetpoint = 90;
+	
+	private double speed = 0;
+	private final double maxAbsSpeed = 1;
+	
 	private PIDController turnController;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-    public AutoTurnToPeg() {
+    public AutoSteerDriveToPeg() {
         requires(Robot.driveTrain);
         //requires(Robot.ultrasonics);
         //requires(Robot.visionTest);
         requires(Robot.navx);
         
         turnController = new PIDController(kP, kI, kD, Robot.navx.getAHRS(), new MyPidOutput());
-        turnController.setInputRange(-180, 180);
+        turnController.setInputRange(-maxAbsSetpoint, maxAbsSetpoint);
         turnController.setOutputRange(-.7, .7);
         turnController.setAbsoluteTolerance(kToleranceDegrees);
         turnController.setContinuous(true);
@@ -61,6 +67,12 @@ public class AutoTurnToPeg extends Command {
         /* Typically, only the P value needs to be modified.                   */
         LiveWindow.addSensor("DriveSystem", "RotateController", turnController);
     }
+    
+    public AutoSteerDriveToPeg(double setpointAngle, double speedSteer) {
+    	this();
+    	setpoint = Math.abs(setpointAngle) < maxAbsSetpoint ? setpointAngle : maxAbsSetpoint * Math.signum(setpointAngle);
+    	speed = Math.abs(speedSteer) < maxAbsSpeed ? speedSteer : maxAbsSpeed * Math.signum(speedSteer);
+    }
 
     // Called just before this Command runs the first time
     @Override
@@ -68,17 +80,16 @@ public class AutoTurnToPeg extends Command {
     	Robot.driveTrain.setBrake(true);
     	Robot.navx.zeroYaw();
     	timeFinished = System.currentTimeMillis() + timeMax;
-    	turnController.setSetpoint(90);
+    	turnController.setSetpoint(setpoint);
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
     	turnController.enable();
-    	double speed = rotateRate;
-//    	speed /= 2.0;
+    	double rotate = -rotateRate;
         //Robot.driveTrain.drive(speed, -speed);
-    	Robot.driveTrain.driveA(0, -speed, false);
+    	Robot.driveTrain.driveA(speed, rotate, false);
     }
 
     // Make this return true when this Command no longer needs to run execute()

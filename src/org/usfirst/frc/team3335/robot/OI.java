@@ -9,6 +9,8 @@ import org.usfirst.frc.team3335.robot.commands.BallShiftLow;
 import org.usfirst.frc.team3335.robot.commands.Climb;
 import org.usfirst.frc.team3335.robot.commands.DumpFuel;
 import org.usfirst.frc.team3335.robot.commands.GateControl;
+import org.usfirst.frc.team3335.robot.commands.autonomous.AutoSteerDriveToPeg;
+import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPeg;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -35,6 +37,10 @@ public class OI {
         climbUp.whenReleased(new Climb(true, 0));
         climbDown.whenPressed(new Climb(false, -1));
         climbDown.whenReleased(new Climb(true, 0));
+        
+        // Additional commands to add to dashboard
+		SmartDashboard.putData("AutoTurnToPeg", new AutoTurnToPeg());
+		SmartDashboard.putData("AutoSteerDriveToPeg", new AutoSteerDriveToPeg(45, 0.7));
     }
 
     private JoystickButton addButton(Joystick joystick, int buttonNumber, String key) {
