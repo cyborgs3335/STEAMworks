@@ -9,5 +9,6 @@ public class AutoPlaceGear extends CommandGroup {
 	public AutoPlaceGear() {
 		addSequential(new BallShiftLow());
 		addSequential(new AutoDriveToPeg());
+		addSequential(new AutoSteerDriveToPeg(45, .7));
 	}
 }
