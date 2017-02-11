@@ -40,6 +40,10 @@ public class NavX extends Subsystem implements LoggableSubsystem {
     protected void initDefaultCommand() {
 
     }
+    
+    public AHRS getAHRS() {
+    	return ahrs;
+    }
 
     public double getYaw() {
         return ahrs.getYaw();
