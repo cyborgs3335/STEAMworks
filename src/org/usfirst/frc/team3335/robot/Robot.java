@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team3335.robot.commands.AutoNone;
+import org.usfirst.frc.team3335.robot.commands.AutoPlaceGear;
 import org.usfirst.frc.team3335.robot.subsystems.*;
 
 /**
@@ -41,16 +43,17 @@ public class Robot extends IterativeRobot {
 	public static DoubleUltrasonic ultrasonics;
 	public static NavX navx;
 
+	public static final String AUTO_MODE = "Auto Mode";
+	public static final String AUTO_PLACE_GEAR = "Auto Place Gear";
+	public static final String AUTO_DEFAULT = "Default Auto";
+	public static final String AUTO_NONE = "None";
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
-		// chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
-
 		// Instantiate subsystems and add to subsystem list (e.g., for logging to dashboard)
 		compressor = new Compressor();
 		subsystemsList.add(compressor);
@@ -72,6 +75,12 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(ultrasonics);
 		navx = new NavX();
 		subsystemsList.add(navx);
+		
+		//autonomous
+		chooser.addObject(AUTO_PLACE_GEAR, new AutoPlaceGear());
+		chooser.addDefault(AUTO_NONE, new AutoNone());
+		SmartDashboard.putData(AUTO_MODE, chooser);
+
 
 		//Instantiate after all subsystems and preferences - or the world will die
 		//We don't want that, do we?
@@ -110,12 +119,17 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
+//		String autoSelected = SmartDashboard.getString(AUTO_MODE, AUTO_DEFAULT);
+//		switch(autoSelected) {
+//		case AUTO_PLACE_GEAR:
+//			autonomousCommand = new AutoPlaceGear();
+//			break;
+//		case AUTO_NONE:
+//		case AUTO_DEFAULT:
+//		default:
+//			autonomousCommand = new AutoNone();
+//			break;
+//		}
 
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)

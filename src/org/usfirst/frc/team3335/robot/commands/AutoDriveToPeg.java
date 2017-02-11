@@ -12,21 +12,22 @@ public class AutoDriveToPeg extends Command {
     public AutoDriveToPeg() {
         requires(Robot.driveTrain);
         requires(Robot.ultrasonics);
-        requires(Robot.visionTest);
-        //requires(Robot.navx);
+        //requires(Robot.visionTest);
+        requires(Robot.navx);
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-    	// TODO zero yaw
+    	Robot.navx.zeroYaw();
     	timeFinished = System.currentTimeMillis() + timeMax;
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.driveTrain.drive(0.3, 0.3);
+    	double speed = .7;
+        Robot.driveTrain.drive(speed, speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -35,9 +36,9 @@ public class AutoDriveToPeg extends Command {
     	if (System.currentTimeMillis() > timeFinished) {
     		return true;
     	}
-    	if (!Robot.visionTest.isTargetDetected()) {
-    		return true;
-    	}
+    	//if (!Robot.visionTest.isTargetDetected()) {
+    	//	return true;
+    	//}
         return false; // Runs until interrupted
     }
 
