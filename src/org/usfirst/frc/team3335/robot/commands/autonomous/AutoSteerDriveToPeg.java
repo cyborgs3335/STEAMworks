@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class AutoSteerDriveToPeg extends Command {
 
 	private long timeFinished = 0;
-	private final long timeMax = 3000; // millisec
+	//private final long timeMax = 3000; // millisec
 
 	////////////////////////////////////////////////////////////////////////
 //	// distance in inches the robot wants to stay from an object
@@ -43,13 +43,18 @@ public class AutoSteerDriveToPeg extends Command {
 	private double setpoint = 0; 
 	private final double maxAbsSetpoint = 90;
 	
+	private final double feetPerSecond = 4.5; //Mark 1 at .7 voltage
+	private double distance;
+	private long driveTime;
+	private final long TIME_MAX = 2000; // millisecs
+	
 	private double speed = 0;
 	private final double maxAbsSpeed = 1;
 	
 	private PIDController turnController;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-    public AutoSteerDriveToPeg() {
+    private AutoSteerDriveToPeg() {
         requires(Robot.driveTrain);
         //requires(Robot.ultrasonics);
         //requires(Robot.visionTest);
@@ -67,10 +72,14 @@ public class AutoSteerDriveToPeg extends Command {
         LiveWindow.addSensor("DriveSystem", "RotateController", turnController);
     }
     
-    public AutoSteerDriveToPeg(double setpointAngle, double speedSteer) {
+    public AutoSteerDriveToPeg(double setpointAngle, double speedSteer, double distance) {
     	this();
     	setpoint = Math.abs(setpointAngle) < maxAbsSetpoint ? setpointAngle : maxAbsSetpoint * Math.signum(setpointAngle);
     	speed = Math.abs(speedSteer) < maxAbsSpeed ? speedSteer : maxAbsSpeed * Math.signum(speedSteer);
+    	this.distance = distance;
+    	// TODO: 4.5 feet/sec is valid for speed = 0.7 (percent voltage); need to scale if "speed" changes
+        driveTime = (long)(distance / feetPerSecond * 1000);
+        if (driveTime > TIME_MAX) driveTime = TIME_MAX;
     }
 
     // Called just before this Command runs the first time
@@ -78,7 +87,7 @@ public class AutoSteerDriveToPeg extends Command {
     protected void initialize() {
     	Robot.driveTrain.setBrake(true);
     	Robot.navx.zeroYaw();
-    	timeFinished = System.currentTimeMillis() + timeMax;
+    	timeFinished = System.currentTimeMillis() + driveTime;
     	turnController.setSetpoint(setpoint);
     }
 

@@ -40,7 +40,7 @@ public class OI {
         
         // Additional commands to add to dashboard
 		SmartDashboard.putData("AutoTurnToPeg", new AutoTurnToPeg());
-		SmartDashboard.putData("AutoSteerDriveToPeg", new AutoSteerDriveToPeg(45, 0.7));
+		SmartDashboard.putData("AutoSteerDriveToPeg", new AutoSteerDriveToPeg(60, 0.7, 9));
     }
 
     private JoystickButton addButton(Joystick joystick, int buttonNumber, String key) {

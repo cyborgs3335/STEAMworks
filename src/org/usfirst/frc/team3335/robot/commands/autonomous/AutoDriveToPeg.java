@@ -6,14 +6,21 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class AutoDriveToPeg extends Command {
 
+	private final double feetPerSecond = 4.5; //Mark 1 at .7 voltage
+	private double distance;
 	private long timeFinished = 0;
-	private long timeMax = 2000; // millisec
-
-    public AutoDriveToPeg() {
+	private long driveTime;
+	private final long TIME_MAX = 2000; // millisecs
+	
+    public AutoDriveToPeg(double distance) {
         requires(Robot.driveTrain);
         requires(Robot.ultrasonics);
         //requires(Robot.visionTest);
         requires(Robot.navx);
+        
+        this.distance = distance;
+        driveTime = (long)(distance / feetPerSecond * 1000);
+        if (driveTime > TIME_MAX) driveTime = TIME_MAX;
     }
 
     // Called just before this Command runs the first time
@@ -21,7 +28,7 @@ public class AutoDriveToPeg extends Command {
     protected void initialize() {
     	Robot.driveTrain.setBrake(true);
     	Robot.navx.zeroYaw();
-    	timeFinished = System.currentTimeMillis() + timeMax;
+    	timeFinished = System.currentTimeMillis() + TIME_MAX;
     }
 
     // Called repeatedly when this Command is scheduled to run
