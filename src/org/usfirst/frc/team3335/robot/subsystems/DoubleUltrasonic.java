@@ -12,7 +12,11 @@ public class DoubleUltrasonic extends Subsystem implements LoggableSubsystem {
 	//private static final double kHoldDistance = 12.0;
 
 	// factor to convert sensor values to a distance in inches
-	private static final double kValueToInches = 0.125;
+	//private static final double kValueToInches = 0.125;
+
+	// factor to convert voltage values to a distance in inches
+	// kVoltageToInches = (value V) * (1000mV/V) * (1mm/0.977mV) * (1cm/10mm) * (1in/2.54cm)
+	private static final double kVoltageToInches = 40.2969;
 
 	private AnalogInput ultrasonicLeft = new AnalogInput(RobotMap.ANALOG_ULTRASONIC_LEFT);
 	private AnalogInput ultrasonicRight = new AnalogInput(RobotMap.ANALOG_ULTRASONIC_RIGHT);
@@ -26,7 +30,8 @@ public class DoubleUltrasonic extends Subsystem implements LoggableSubsystem {
 	}
 
 	private double getDistance(AnalogInput ultrasonic) {
-		return ultrasonic.getValue() * kValueToInches;
+		//return ultrasonic.getValue() * kValueToInches;
+		return ultrasonic.getAverageVoltage()*kVoltageToInches;
 	}
 
 	@Override
@@ -37,8 +42,10 @@ public class DoubleUltrasonic extends Subsystem implements LoggableSubsystem {
 
 	@Override
 	public void log() {
-		SmartDashboard.putNumber("Ultrasonic: Left", getDistanceLeft());
-		SmartDashboard.putNumber("Ultrasonic: Right", getDistanceRight());
+		SmartDashboard.putNumber("Ultrasonic: Left Avg Volt", ultrasonicLeft.getAverageVoltage());
+		SmartDashboard.putNumber("Ultrasonic: Right Avg Volt", ultrasonicRight.getAverageVoltage());
+		SmartDashboard.putNumber("Ultrasonic: Left Distance", getDistanceLeft());
+		SmartDashboard.putNumber("Ultrasonic: Right Distance", getDistanceRight());
 	}
 
 }
