@@ -13,13 +13,15 @@ import org.opencv.imgproc.Imgproc;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Direction;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.VisionThread;
 
-public class VisionTest extends Subsystem implements LoggableSubsystem{
+public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSource {
 
 	private static final int IMG_WIDTH = 320;
 	private static final int IMG_HEIGHT = 240;
@@ -29,6 +31,7 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 	private double targetDistance;
 	private double targetAzimuth;
 	private boolean targetDetected = false;
+	private PIDSourceType pidSourceType = PIDSourceType.kDisplacement;
 
 	private final Object imgLock = new Object();
 
@@ -120,6 +123,21 @@ public class VisionTest extends Subsystem implements LoggableSubsystem{
 		SmartDashboard.putNumber("Vision: Target Distance", targetDistance);
 		SmartDashboard.putNumber("Vision: Target Azimuth", targetAzimuth);
 		SmartDashboard.putBoolean("Vision: Target Detected", targetDetected);
+	}
+
+	@Override
+	public void setPIDSourceType(PIDSourceType pidSource) {
+		pidSourceType = pidSource;
+	}
+
+	@Override
+	public PIDSourceType getPIDSourceType() {
+		return pidSourceType;
+	}
+
+	@Override
+	public double pidGet() {
+		return centerX;
 	}
 
 }
