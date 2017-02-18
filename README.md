@@ -24,6 +24,10 @@ Imaging is complete if you see this:
 
 ### RoboRio firmware
 
+like the imaging process connect the computer to the RoboRio via usb/(do not use an ethernet)
+
+also ensure you have downloaded the updateSuite
+
 to get to the web dashboard you must first download silverlight/(refer to instructons below)
 
 open internet explorer and in the search window enter 172.22.11.2 and click enter
