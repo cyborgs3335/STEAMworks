@@ -19,6 +19,7 @@ After launching, the roboRIO Imaging Tool will scan for available roboRIOs and i
 Choose to `Format Target` and select the latest image, then click reformat.
 
 Imaging is complete if you see this:
+
 ![](https://s3.amazonaws.com/screensteps_live/image_assets/assets/000/309/341/original/c77ae106-441d-4811-b518-c72825ae5597.png?1484677907)
 
 ### RoboRio firmware
