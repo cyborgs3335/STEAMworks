@@ -70,3 +70,17 @@ Not only do the Talons need to update firmware
 ![Imgur](http://i.imgur.com/TehRlM4.png)
 
 After giving it a new number, save the config, and you have finished updating that talon controller.
+
+### Calibrating the NavX-MXP for OmniMount
+Instructions found at: (http://www.pdocs.kauailabs.com/navx-mxp/installation/omnimount/)
+
+To configure OmniMount, follow these simple steps:
+ * Install the navX-MXP onto your robot. ENSURE that one of the navX-MXP axes (as shown on the navX-MXP circuit board) is perpendicular to the earth’s surface.  This axis will become the yaw (Z) axis.  Note that this axis can either be pointing away from the earth’s surface, or  towards the earth’s surface.
+ * Press the ‘CAL’ button on the navX-MXP Circuit board AND HOLD THE BUTTON DOWN FOR AT LEAST 5 SECONDS.
+ * Release the ‘CAL’ button, and verify that the orange ‘CAL’ light flashes for 1 second and then turns off.
+ * Press the ‘RESET’ button on the navX-MXP circuit board, causing it to restart.
+ * The navX-MXP circuit board will now begin OmniMount auto-calibration. During this auto-calibration period, the orange ‘CAL’ LED will flash repeatedly.  This process takes approximately 15 seconds, and requires two things:
+  * 1.  During auto-calibration, one of the navX-MXP axes MUST be perpendicular to the earth’s surface.
+  * 2.  During auto-calibration, navX-MXP must be held still.
+  * If either of the above conditions is not true, the ‘CAL’ LED will be flashing quickly, indicating an error.  To resolve this error, you must ensure that conditions 1 and 2 are met, at which point the ‘CAL’ LED will begin flashing slowly, indicating calibration is underway.
+ * Once navX-MXP auto-calibration is complete, the Board Frame to Body Frame Transform will be stored persistently into navX-MXP flash memory and used until auto-calibration is run once again.
