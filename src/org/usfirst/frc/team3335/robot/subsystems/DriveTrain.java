@@ -1,9 +1,14 @@
 package org.usfirst.frc.team3335.robot.subsystems;
 
 import com.ctre.CANTalon;
+
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team3335.robot.Robot;
 import org.usfirst.frc.team3335.robot.RobotMap;
 import org.usfirst.frc.team3335.robot.RobotPreferences;
@@ -19,6 +24,8 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     //http://www.ctr-electronics.com//downloads/lib/CTRE_FRCLibs_NON-WINDOWS_v4.4.1.9.zip for other
     private CANTalon frontLeft, frontRight, backLeft, backRight;
     private RobotDrive drive;
+    private Encoder leftEncoder;
+    private Encoder rightEncoder;
     private final boolean useTankDrive = false;
     private final double deadzone = .3;
     private final double trainingSpeedMax = 1;
@@ -34,12 +41,17 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
         frontRight.set(0);
         backLeft.set(0);
         backRight.set(0);
-        
+
         setBrake(false);
 
         drive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
+
+        leftEncoder = new Encoder(0, 1, false, EncodingType.k4X);
+        leftEncoder.reset();
+        rightEncoder = new Encoder(2, 3, false, EncodingType.k4X);
+        rightEncoder.reset();
     }
-    
+
     public void setBrake(boolean brake) {
     	frontLeft.enableBrakeMode(brake);
         frontRight.enableBrakeMode(brake);
@@ -87,6 +99,9 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     
     @Override
     public void log() {
-
+    	SmartDashboard.putNumber("DriveTrain: left distance", leftEncoder.getDistance());
+    	SmartDashboard.putNumber("DriveTrain: left velocity", leftEncoder.getRate());
+    	SmartDashboard.putNumber("DriveTrain: right distance", rightEncoder.getDistance());
+    	SmartDashboard.putNumber("DriveTrain: right velocity", rightEncoder.getRate());
     }
 }
