@@ -20,3 +20,34 @@ Choose to `Format Target` and select the latest image, then click reformat.
 
 Imaging is complete if you see this:
 ![](https://s3.amazonaws.com/screensteps_live/image_assets/assets/000/309/341/original/c77ae106-441d-4811-b518-c72825ae5597.png?1484677907)
+
+### RoboRio firmware
+
+to get to the web dashboard you must first download silverlight/(refer to instructons below)
+
+open internet explorer and in the search window enter 172.22.11.2 and click enter 
+
+Click Login. Enter "admin" in the Username field and leave the Password field blank. Then click update firmware.
+
+go to **c:\Program Files (x86)\National Instruments\Shared\Firmware\cRIO\76F2\ ** select the latest firmware and click open
+
+after confirming that the firmware is correct click begin update
+
+do not close the browser or power of the robot until the message appears "The firmware update completed successfully".
+
+#### Downloading Silverlight
+go to silver light home page
+
+![Imgur](http://imgur.com/OJji8JB)
+
+[link to silverlight website](https://www.microsoft.com/silverlight/)
+
+download silverlight
+
+enjoy silverlight
+
+
+
+
+
+
