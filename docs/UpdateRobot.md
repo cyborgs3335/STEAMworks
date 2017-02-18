@@ -66,3 +66,7 @@ Click on `Update Firmware`, which will load your file browser, and navigate to D
 ### Updating the Talon SRX's
 Not only do the Talons need to update firmware
 \(which follows identical steps to the PDP and PCM firmware update process\), they need to be correctly numbered.
+
+![Imgur](http://i.imgur.com/TehRlM4.png)
+
+After giving it a new number, save the config, and you have finished updating that talon controller.
