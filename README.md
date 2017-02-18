@@ -26,7 +26,7 @@ Imaging is complete if you see this:
 
 to get to the web dashboard you must first download silverlight/(refer to instructons below)
 
-open internet explorer and in the search window enter 172.22.11.2 and click enter 
+open internet explorer and in the search window enter 172.22.11.2 and click enter
 
 Click Login. Enter "admin" in the Username field and leave the Password field blank. Then click update firmware.
 
@@ -39,16 +39,10 @@ do not close the browser or power of the robot until the message appears "The fi
 #### Downloading Silverlight
 go to silver light home page
 
-![Imgur](http://imgur.com/OJji8JB)
+![Imgur](http://i.imgur.com/OJji8JBm.png)
 
 [link to silverlight website](https://www.microsoft.com/silverlight/)
 
 download silverlight
 
 enjoy silverlight
-
-
-
-
-
-
