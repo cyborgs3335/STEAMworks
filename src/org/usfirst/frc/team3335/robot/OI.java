@@ -27,10 +27,15 @@ public class OI {
         //dumpFuel.whenPressed(new DumpFuel());
         JoystickButton gateControl = addButton(getJoystick(), 3, "Gate Control");
         gateControl.whenPressed(new GateControl());
+
+        JoystickButton shooterShiftHigh = addButton(getJoystick(), 6, "Shooter Shift High");
+        JoystickButton shooterShiftLow = addButton(getJoystick(), 7, "Shooter Shift Low");
+
         JoystickButton ballShiftHigh = addButton(getJoystick(), 5, "Ball Shifter High");
         ballShiftHigh.whenPressed(new BallShiftHigh());
         JoystickButton ballShiftLow = addButton(getJoystick(), 4, "Ball Shifter Low");
         ballShiftLow.whenPressed(new BallShiftLow());
+
         JoystickButton climbUp = addButton(getJoystick(), 2, "Rope Climber");
         JoystickButton climbDown = addButton(getJoystick(), 8, "Rope Climber");
         climbUp.whenPressed(new Climb(false, 1));
