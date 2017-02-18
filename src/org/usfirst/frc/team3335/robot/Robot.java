@@ -40,7 +40,7 @@ public class Robot extends IterativeRobot {
 	public static VisionTest visionTest;
 	public static BallShifter ballShifter;
 	public static BallShooter ballShooter;
-	public static Dumper dumper;
+	//public static Dumper dumper;
 	public static Gate gate;
 	public static Climber climber;
 	public static DoubleUltrasonic ultrasonics;
@@ -64,8 +64,8 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(driveTrain);
 		//visionTest = new VisionTest();
 		//subsystemsList.add(visionTest);
-		dumper = new Dumper();
-		subsystemsList.add(dumper);
+		//dumper = new Dumper();
+		//subsystemsList.add(dumper);
 		gate = new Gate();
 		subsystemsList.add(gate);
 		ballShifter = new BallShifter();

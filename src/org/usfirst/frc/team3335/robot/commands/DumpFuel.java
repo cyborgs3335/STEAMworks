@@ -9,12 +9,12 @@ import org.usfirst.frc.team3335.robot.Robot;
 public class DumpFuel extends Command{
 
     public DumpFuel() {
-        requires(Robot.dumper);
+        //requires(Robot.dumper);
     }
 
     @Override
     protected void initialize() {
-        Robot.dumper.switchPos();
+        //Robot.dumper.switchPos();
     }
 
     @Override
