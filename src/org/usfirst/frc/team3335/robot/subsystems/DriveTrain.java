@@ -30,6 +30,25 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     private final double deadzone = .3;
     private final double trainingSpeedMax = 1;
 
+    /*
+     * Encoder Ratios
+     * 
+     * Vex Planetary #217-2615
+     * 
+     * 36:12 ENCODER:SHAFT (encoder spins 3X faster)
+     * 
+     * 2.27x spread between high and low gear [60:24 / 44:40 = 2.5/1.1 = 2.2727]
+     * 
+     * 1st stage:             40:12 [3.3333x]
+     * 2nd stage (low gear):  60:24 [2.5000x]
+     * 2nd stage (high gear): 44:40 [1.1000x]
+     * 3rd stage:             50:34 [1.4706x]
+     * 
+     * Motor to encoder (low gear):  2.4434wrong    12.255 / 3 = 4.085
+     *                  (high gear): 1.0764wrong     5.392 / 3 = 1.7974
+     */
+    
+    
     public DriveTrain() {
         super();
         frontLeft = new CANTalon(RobotMap.DRIVE_TRAIN_FRONT_LEFT);
@@ -46,10 +65,13 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
 
         drive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
 
+        double distancePerPulse = Math.PI * 4.0 / (3 * 256); // 4in wheels, 3x gear reduction, 256 pulse/revolution
         leftEncoder = new Encoder(0, 1, false, EncodingType.k4X);
         leftEncoder.reset();
+        leftEncoder.setDistancePerPulse(distancePerPulse);
         rightEncoder = new Encoder(2, 3, false, EncodingType.k4X);
         rightEncoder.reset();
+        rightEncoder.setDistancePerPulse(distancePerPulse);
     }
 
     public void setBrake(boolean brake) {
@@ -57,6 +79,11 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
         frontRight.enableBrakeMode(brake);
         backLeft.enableBrakeMode(brake);
         backRight.enableBrakeMode(brake);
+    }
+
+    public void zeroEncoders() {
+    	leftEncoder.reset();
+    	rightEncoder.reset();
     }
 
     @Override
