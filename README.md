@@ -66,3 +66,6 @@ Using the webdashboard, go to to its home page, and you will find PCM and PDP pa
 Click on `Update Firmware`, which will load your file browser, and navigate to Documents\\FRC\\. There will be CRF files for both the PDP and PCM, respectively. Update them with this firmware.
 
 
+### Updating the Talon SRX's
+Not only do the Talons need to update firmware
+\(which follows identical steps to the PDP and PCM firmware update process\), they need to be correctly numbered.
