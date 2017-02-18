@@ -1,12 +1,13 @@
 # STEAMworks
 The Programming project for Team 3335's 2017 robot.
 ## Updating software
-### Imaging the RoboRio
-ALL robots reguire an up to date roboRio
-
+### Getting the National Instruments Update Suite
 Go to Update Suite in order to image roboRio
 
 [Download update suite](https://wpilib.screenstepslive.com/s/4485/m/13503/l/599670-installing-the-frc-2017-update-suite-all-languages)
+
+### Imaging the RoboRio
+ALL robots reguire an up to date roboRio
 
 After the update suite installation, connect a USB into the roborio USB port and connect it to the computer\(do not use an ethernet cable)
 
@@ -22,7 +23,20 @@ Imaging is complete if you see this:
 
 ![](https://s3.amazonaws.com/screensteps_live/image_assets/assets/000/309/341/original/c77ae106-441d-4811-b518-c72825ae5597.png?1484677907)
 
-### RoboRio firmware
+#### Downloading Silverlight
+Before these next steps, we will need to get Microsoft Silverlight to run something called the Webdashboard.
+
+Go to the silverlight home page
+
+![Imgur](http://i.imgur.com/OJji8JBm.png)
+
+[link to silverlight website](https://www.microsoft.com/silverlight/)
+
+download silverlight
+
+enjoy silverlight :smile:
+
+### Updating RoboRio firmware
 
 like the imaging process connect the computer to the RoboRio via usb/(do not use an ethernet)
 
@@ -42,13 +56,11 @@ After confirming that the firmware is correct click `Update Firmware`
 
 Do not close the browser or power off the robot until the message, "The firmware update completed successfully," appears.
 
-#### Downloading Silverlight
-go to silver light home page
 
-![Imgur](http://i.imgur.com/OJji8JBm.png)
 
-[link to silverlight website](https://www.microsoft.com/silverlight/)
+### Updating PDP and PCM firmware
+Using the webdashboard, go to to its home page, and you will find PCM and PDP parts:
 
-download silverlight
+![](https://s3.amazonaws.com/screensteps_live/image_assets/assets/000/312/190/medium/5962edf2-38cc-407e-9759-05040fb7ac57.png?1484777674)
 
-enjoy silverlight
+Click on `Update Firmware`, which will load your file browser, and navigate to Documents\\FRC\\. There will be CRF files for both the PDP and PCM, respectively. Update them with this firmware.
