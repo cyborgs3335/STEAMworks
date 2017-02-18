@@ -44,8 +44,8 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
      * 2nd stage (high gear): 44:40 [1.1000x]
      * 3rd stage:             50:34 [1.4706x]
      * 
-     * Motor to encoder (low gear):  2.4434wrong    12.255 / 3 = 4.085
-     *                  (high gear): 1.0764wrong     5.392 / 3 = 1.7974
+     * Motor to shaft (low gear): 12.255
+     *               (high gear):  5.392
      */
     
     
@@ -66,6 +66,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
         drive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
 
         double distancePerPulse = Math.PI * 4.0 / (3 * 256); // 4in wheels, 3x gear reduction, 256 pulse/revolution
+        //distancePerPulse /= 50.0 / 34.0; // 3rd stage?
         leftEncoder = new Encoder(0, 1, false, EncodingType.k4X);
         leftEncoder.reset();
         leftEncoder.setDistancePerPulse(distancePerPulse);
