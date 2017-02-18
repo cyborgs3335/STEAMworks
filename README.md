@@ -64,3 +64,5 @@ Using the webdashboard, go to to its home page, and you will find PCM and PDP pa
 ![](https://s3.amazonaws.com/screensteps_live/image_assets/assets/000/312/190/medium/5962edf2-38cc-407e-9759-05040fb7ac57.png?1484777674)
 
 Click on `Update Firmware`, which will load your file browser, and navigate to Documents\\FRC\\. There will be CRF files for both the PDP and PCM, respectively. Update them with this firmware.
+
+
