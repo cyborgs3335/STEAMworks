@@ -8,7 +8,8 @@ Button Number | Action
 3 | Gear Drop
 4 | Ball shift down
 5 | Ball shift up
-7/10 | (Right/Left) Switch shooter
+6/11 | right/left hand high goal
+7/10 | right/left hand low goal
 
 ## PS3
 
