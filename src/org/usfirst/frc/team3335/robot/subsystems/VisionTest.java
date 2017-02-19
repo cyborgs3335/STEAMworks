@@ -36,7 +36,7 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	private final Object imgLock = new Object();
 
 	public VisionTest() {
-		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(); // cam0 by default
 		camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
 
 //		CvSource cs= CameraServer.getInstance().putVideo("name", IMG_WIDTH, IMG_HEIGHT);

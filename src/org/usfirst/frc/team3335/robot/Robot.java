@@ -62,8 +62,8 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(compressor);
 		driveTrain = new DriveTrain();
 		subsystemsList.add(driveTrain);
-		//visionTest = new VisionTest();
-		//subsystemsList.add(visionTest);
+		visionTest = new VisionTest();
+		subsystemsList.add(visionTest);
 		//dumper = new Dumper();
 		//subsystemsList.add(dumper);
 		gate = new Gate();
