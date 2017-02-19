@@ -9,6 +9,7 @@ import org.usfirst.frc.team3335.robot.commands.BallShiftLow;
 import org.usfirst.frc.team3335.robot.commands.Climb;
 import org.usfirst.frc.team3335.robot.commands.DumpFuel;
 import org.usfirst.frc.team3335.robot.commands.GateControl;
+import org.usfirst.frc.team3335.robot.commands.ShootBalls;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoSteerDriveToPeg;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPeg;
 
@@ -42,6 +43,10 @@ public class OI {
         climbUp.whenReleased(new Climb(true, 0));
         climbDown.whenPressed(new Climb(false, -1));
         climbDown.whenReleased(new Climb(true, 0));
+
+        JoystickButton shootBalls = addButton(getJoystick(), 1, "Shoot Balls");
+        shootBalls.whenPressed(new ShootBalls(false, 1));
+        shootBalls.whenReleased(new ShootBalls(true, 0));
         
         // Additional commands to add to dashboard
 		SmartDashboard.putData("AutoTurnToPeg", new AutoTurnToPeg());

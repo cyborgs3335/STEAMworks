@@ -18,6 +18,7 @@ public class BallShooter extends Subsystem implements LoggableSubsystem {
 	
 	public BallShooter() {
 		motor = new CANTalon(RobotMap.BALL_SHOOTER_MOTOR);
+		motor.set(0);
 		//motor.setControlMode();
 	}
 	public void switchPos(DoubleSolenoid.Value value){
