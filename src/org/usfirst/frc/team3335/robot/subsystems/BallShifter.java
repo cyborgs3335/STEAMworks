@@ -2,6 +2,8 @@ package org.usfirst.frc.team3335.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+
+import org.usfirst.frc.team3335.robot.RobotMap;
 import org.usfirst.frc.team3335.robot.commands.BallShiftHigh;
 
 public class BallShifter extends Subsystem implements LoggableSubsystem{
@@ -9,7 +11,7 @@ public class BallShifter extends Subsystem implements LoggableSubsystem{
 	private DoubleSolenoid solenoid;
 
 	public BallShifter() {
-		solenoid = new DoubleSolenoid(4, 5);
+		solenoid = new DoubleSolenoid(RobotMap.BALL_SHIFTER_FORWARD_CHANNEL, RobotMap.BALL_SHIFTER_REVERSE_CHANNEL);
 		setSolenoidValue(DoubleSolenoid.Value.kOff);
 	}
 

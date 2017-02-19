@@ -65,12 +65,20 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
 
         drive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
 
-        double distancePerPulse = Math.PI * 4.0 / (3 * 256); // 4in wheels, 3x gear reduction, 256 pulse/revolution
-        //distancePerPulse /= 50.0 / 34.0; // 3rd stage?
-        leftEncoder = new Encoder(0, 1, false, EncodingType.k4X);
+        // Scale encoder pulses to distance in inches
+        double wheelDiameter = 4.0; // inches
+        double encoderToShaftRatio = 3; // 3X gear reduction
+        double pulsesPerRevolution = 256;
+        double stage3Ratio = 50.0 / 34.0;
+        double distancePerPulse = Math.PI * wheelDiameter / (encoderToShaftRatio * pulsesPerRevolution);
+        distancePerPulse /= stage3Ratio;
+
+        leftEncoder = new Encoder(RobotMap.DRIVE_TRAIN_ENCODER_LEFT_A, RobotMap.DRIVE_TRAIN_ENCODER_LEFT_B,
+        		false, EncodingType.k4X);
         leftEncoder.reset();
         leftEncoder.setDistancePerPulse(distancePerPulse);
-        rightEncoder = new Encoder(2, 3, false, EncodingType.k4X);
+        rightEncoder = new Encoder(RobotMap.DRIVE_TRAIN_ENCODER_RIGHT_A, RobotMap.DRIVE_TRAIN_ENCODER_RIGHT_B,
+        		false, EncodingType.k4X);
         rightEncoder.reset();
         rightEncoder.setDistancePerPulse(distancePerPulse);
     }
