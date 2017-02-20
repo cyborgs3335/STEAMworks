@@ -3,7 +3,7 @@ Go to Update Suite in order to image roboRio
 
 [Download update suite](https://wpilib.screenstepslive.com/s/4485/m/13503/l/599670-installing-the-frc-2017-update-suite-all-languages)
 
-### Imaging the RoboRio
+### Imaging the roboRio
 ALL robots reguire an up to date roboRio
 
 After the update suite installation, connect a USB into the roborio USB port and connect it to the computer\(do not use an ethernet cable)
@@ -20,7 +20,9 @@ Imaging is complete if you see this:
 
 ![](https://s3.amazonaws.com/screensteps_live/image_assets/assets/000/309/341/original/c77ae106-441d-4811-b518-c72825ae5597.png?1484677907)
 
-#### Downloading Silverlight
+#### [Installing Java on the roboRIO](http://wpilib.screenstepslive.com/s/4485/m/13503/l/599747-installing-java-8-on-the-roborio-using-the-frc-roborio-java-installer-java-only)
+
+### Downloading Silverlight
 Before these next steps, we will need to get Microsoft Silverlight to run something called the Webdashboard.
 
 Go to the silverlight home page
@@ -75,12 +77,12 @@ After giving it a new number, save the config, and you have finished updating th
 Instructions found at: (http://www.pdocs.kauailabs.com/navx-mxp/installation/omnimount/)
 
 To configure OmniMount, follow these simple steps:
- * Install the navX-MXP onto your robot. ENSURE that one of the navX-MXP axes (as shown on the navX-MXP circuit board) is perpendicular to the earth’s surface.  This axis will become the yaw (Z) axis.  Note that this axis can either be pointing away from the earth’s surface, or  towards the earth’s surface.
- * Press the ‘CAL’ button on the navX-MXP Circuit board AND HOLD THE BUTTON DOWN FOR AT LEAST 5 SECONDS.
- * Release the ‘CAL’ button, and verify that the orange ‘CAL’ light flashes for 1 second and then turns off.
- * Press the ‘RESET’ button on the navX-MXP circuit board, causing it to restart.
- * The navX-MXP circuit board will now begin OmniMount auto-calibration. During this auto-calibration period, the orange ‘CAL’ LED will flash repeatedly.  This process takes approximately 15 seconds, and requires two things:
-  * 1.  During auto-calibration, one of the navX-MXP axes MUST be perpendicular to the earth’s surface.
+ * Install the navX-MXP onto your robot. ENSURE that one of the navX-MXP axes (as shown on the navX-MXP circuit board) is perpendicular to the earthâ€™s surface.  This axis will become the yaw (Z) axis.  Note that this axis can either be pointing away from the earthâ€™s surface, or  towards the earthâ€™s surface.
+ * Press the â€˜CALâ€™ button on the navX-MXP Circuit board AND HOLD THE BUTTON DOWN FOR AT LEAST 5 SECONDS.
+ * Release the â€˜CALâ€™ button, and verify that the orange â€˜CALâ€™ light flashes for 1 second and then turns off.
+ * Press the â€˜RESETâ€™ button on the navX-MXP circuit board, causing it to restart.
+ * The navX-MXP circuit board will now begin OmniMount auto-calibration. During this auto-calibration period, the orange â€˜CALâ€™ LED will flash repeatedly.  This process takes approximately 15 seconds, and requires two things:
+  * 1.  During auto-calibration, one of the navX-MXP axes MUST be perpendicular to the earthâ€™s surface.
   * 2.  During auto-calibration, navX-MXP must be held still.
-  * If either of the above conditions is not true, the ‘CAL’ LED will be flashing quickly, indicating an error.  To resolve this error, you must ensure that conditions 1 and 2 are met, at which point the ‘CAL’ LED will begin flashing slowly, indicating calibration is underway.
+  * If either of the above conditions is not true, the â€˜CALâ€™ LED will be flashing quickly, indicating an error.  To resolve this error, you must ensure that conditions 1 and 2 are met, at which point the â€˜CALâ€™ LED will begin flashing slowly, indicating calibration is underway.
  * Once navX-MXP auto-calibration is complete, the Board Frame to Body Frame Transform will be stored persistently into navX-MXP flash memory and used until auto-calibration is run once again.
