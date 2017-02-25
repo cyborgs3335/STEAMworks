@@ -74,7 +74,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
         distancePerPulse /= stage3Ratio;
 
         leftEncoder = new Encoder(RobotMap.DRIVE_TRAIN_ENCODER_LEFT_A, RobotMap.DRIVE_TRAIN_ENCODER_LEFT_B,
-        		false, EncodingType.k4X);
+        		true, EncodingType.k4X);
         leftEncoder.reset();
         leftEncoder.setDistancePerPulse(distancePerPulse);
         rightEncoder = new Encoder(RobotMap.DRIVE_TRAIN_ENCODER_RIGHT_A, RobotMap.DRIVE_TRAIN_ENCODER_RIGHT_B,

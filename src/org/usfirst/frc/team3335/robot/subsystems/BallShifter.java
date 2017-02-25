@@ -26,7 +26,7 @@ public class BallShifter extends Subsystem implements LoggableSubsystem{
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		setDefaultCommand(new BallShiftHigh());
+		//setDefaultCommand(new BallShiftHigh());
 	}
 
 	@Override
