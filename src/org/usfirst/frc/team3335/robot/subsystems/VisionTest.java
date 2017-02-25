@@ -26,10 +26,13 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	private static final int IMG_WIDTH = 320;
 	private static final int IMG_HEIGHT = 240;
 
+	private final double cameraOffset = 12.5; // inches
+
 	private VisionThread visionThread;
 	private double centerX = 0.0;
 	private double targetDistance;
 	private double targetAzimuth;
+	private double targetOffsetX;
 	private boolean targetDetected = false;
 	private PIDSourceType pidSourceType = PIDSourceType.kDisplacement;
 
@@ -70,6 +73,12 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	    relay.set(Relay.Value.kOn);
 	    //this.processImage();
 	}
+
+	@Override
+	protected void initDefaultCommand() {
+		// TODO Auto-generated method stub
+
+	}
 	
 	/*public void processImage() {
 		cs.putFrame()
@@ -91,12 +100,6 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 		return null;
 	}
 
-	@Override
-	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-
-	}
-
 	private void computeCoords(Rect rec) {
 		double pixelFOV = IMG_WIDTH;
 		//double targetFeet = 20.0 / 12.0; // Stronghold target width / 12 in
@@ -110,6 +113,7 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 		double azimuth = Math.toDegrees(Math.atan2(width,  distance));
 		targetDistance = distance;
 		targetAzimuth =  azimuth;
+		targetOffsetX = width;
 	}
 
 	public boolean isTargetDetected() {
@@ -122,6 +126,7 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 		SmartDashboard.putNumber("Vision: Center Value", cx);
 		SmartDashboard.putNumber("Vision: Target Distance", targetDistance);
 		SmartDashboard.putNumber("Vision: Target Azimuth", targetAzimuth);
+		SmartDashboard.putNumber("Vision: Target X Offset", targetOffsetX);
 		SmartDashboard.putBoolean("Vision: Target Detected", targetDetected);
 	}
 
@@ -137,7 +142,8 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 
 	@Override
 	public double pidGet() {
-		return centerX;
+		//return centerX;
+		return targetOffsetX;
 	}
 
 }

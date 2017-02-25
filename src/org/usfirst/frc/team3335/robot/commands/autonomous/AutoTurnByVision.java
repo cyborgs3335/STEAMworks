@@ -67,7 +67,7 @@ public class AutoTurnByVision extends Command {
     	Robot.driveTrain.setBrake(true);
     	//Robot.navx.zeroYaw();
     	timeFinished = System.currentTimeMillis() + timeMax;
-    	turnController.setSetpoint(90);
+    	turnController.setSetpoint(0);
     }
 
     // Called repeatedly when this Command is scheduled to run
