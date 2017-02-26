@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3335.robot.subsystems;
 
+import org.usfirst.frc.team3335.robot.Robot;
 import org.usfirst.frc.team3335.robot.RobotMap;
+import org.usfirst.frc.team3335.robot.commands.ClimbWithJoystick;
 
 import com.ctre.CANTalon;
 
@@ -14,7 +16,7 @@ public class Climber extends Subsystem implements LoggableSubsystem {
 	
 	public Climber() {
 		bagMotor = new CANTalon(RobotMap.CLIMBING_MOTOR);
-		bagMotor.enableBrakeMode(true);
+		bagMotor.enableBrakeMode(false);
 		//while(true)if (joystick.getRawButton(4))manualClimb(joystick);
 	}
 	
@@ -33,7 +35,7 @@ public class Climber extends Subsystem implements LoggableSubsystem {
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		
+		//new ClimbWithJoystick(Robot.oi.getJoystick2(), 3); // Right Trigger on PS3
 	}
 
 	@Override

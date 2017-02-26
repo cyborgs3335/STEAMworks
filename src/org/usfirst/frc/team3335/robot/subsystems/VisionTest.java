@@ -9,6 +9,7 @@ import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
+import org.usfirst.frc.team3335.robot.RobotMap;
 
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
@@ -69,7 +70,7 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	    });
 
 	    visionThread.start();
-	    Relay relay = new Relay(0,Direction.kForward);
+	    Relay relay = new Relay(RobotMap.RELAY_CHANNEL, Direction.kForward);
 	    relay.set(Relay.Value.kOn);
 	    //this.processImage();
 	}

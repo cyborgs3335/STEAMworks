@@ -97,7 +97,7 @@ public class AutoSteerDriveToPeg extends Command {
     	turnController.enable();
     	double rotate = -rotateRate;
         //Robot.driveTrain.drive(speed, -speed);
-    	Robot.driveTrain.driveA(speed, rotate, false);
+    	Robot.driveTrain.driveArcade(speed, rotate, false);
     }
 
     // Make this return true when this Command no longer needs to run execute()

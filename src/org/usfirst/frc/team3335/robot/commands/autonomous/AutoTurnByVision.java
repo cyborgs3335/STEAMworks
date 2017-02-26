@@ -77,7 +77,7 @@ public class AutoTurnByVision extends Command {
     	double speed = rotateRate;
 //    	speed /= 2.0;
         //Robot.driveTrain.drive(speed, -speed);
-    	Robot.driveTrain.driveA(0, -speed, false);
+    	Robot.driveTrain.driveArcade(0, -speed, false);
     }
 
     // Make this return true when this Command no longer needs to run execute()

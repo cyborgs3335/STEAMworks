@@ -40,16 +40,12 @@ public class Robot extends IterativeRobot {
 	public static VisionTest visionTest;
 	public static BallShifter ballShifter;
 	public static BallShooter ballShooter;
+	public static Intake intake;
 	//public static Dumper dumper;
 	public static Gate gate;
 	public static Climber climber;
 	public static DoubleUltrasonic ultrasonics;
 	public static NavX navx;
-
-	public static final String AUTO_MODE = "Auto Mode";
-	public static final String AUTO_PLACE_GEAR = "Auto Place Gear";
-	public static final String AUTO_DEFAULT = "Default Auto";
-	public static final String AUTO_NONE = "None";
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -62,8 +58,8 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(compressor);
 		driveTrain = new DriveTrain();
 		subsystemsList.add(driveTrain);
-		visionTest = null;
-		//visionTest = new VisionTest();
+		//visionTest = null;
+		visionTest = new VisionTest();
 		subsystemsList.add(visionTest);
 		//dumper = new Dumper();
 		//subsystemsList.add(dumper);
@@ -73,6 +69,8 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(ballShifter);
 		ballShooter = new BallShooter();
 		subsystemsList.add(ballShooter);
+		intake = new Intake();
+		subsystemsList.add(intake);
 		climber = new Climber();
 		subsystemsList.add(climber);
 		ultrasonics = new DoubleUltrasonic();
@@ -82,9 +80,9 @@ public class Robot extends IterativeRobot {
 		
 		//autonomous
 		chooser.addObject("AutoDriveToPeg", new AutoDriveToPeg(9));
-		chooser.addObject(AUTO_PLACE_GEAR, new AutoPlaceGear());
-		chooser.addDefault(AUTO_NONE, new AutoNone());
-		SmartDashboard.putData(AUTO_MODE, chooser);
+		chooser.addObject("Auto Place Gear", new AutoPlaceGear());
+		chooser.addDefault("None", new AutoNone());
+		SmartDashboard.putData("Auto Mode", chooser);
 
 
 		//Instantiate after all subsystems and preferences - or the world will die
