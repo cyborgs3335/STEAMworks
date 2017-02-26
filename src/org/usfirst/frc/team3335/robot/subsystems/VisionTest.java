@@ -3,8 +3,11 @@ package org.usfirst.frc.team3335.robot.subsystems;
 import java.util.ArrayList;
 
 import org.opencv.core.Core;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfInt;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
@@ -42,8 +45,9 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	public VisionTest() {
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(); // cam0 by default
 		camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
+		camera.setBrightness(50);
 
-//		CvSource cs= CameraServer.getInstance().putVideo("name", IMG_WIDTH, IMG_HEIGHT);
+		CvSource cs= CameraServer.getInstance().putVideo("name", IMG_WIDTH, IMG_HEIGHT);
 
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
 			Mat IMG_MOD = pipeline.hslThresholdOutput();
@@ -66,7 +70,7 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	        	targetDetected = false;
 	        }
            
-//	        cs.putFrame(IMG_MOD);
+	        cs.putFrame(IMG_MOD);
 	    });
 
 	    visionThread.start();
@@ -86,19 +90,98 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	}*/
 
 	private Rect computeBoundingRectangle(ArrayList<MatOfPoint> contours) {
-		if(contours.size() == 2){
-			MatOfPoint mop1 = contours.get(0);
-			Rect rec1 = Imgproc.boundingRect(mop1);
-			MatOfPoint mop2 = contours.get(1);
-			Rect rec2 = Imgproc.boundingRect(mop2);
-			int x = Math.min(rec1.x, rec2.x);
-			int y = Math.min(rec1.y, rec2.y);
-			int width = Math.max(rec1.x + rec1.width, rec2.x + rec2.width)-x;
-			int height = Math.max(rec1.y + rec1.height, rec2.y + rec2.height)-y;
-			Rect recCombine = new Rect(x, y, width, height);
-			return recCombine;
+		if (contours.size() == 2) {
+			return computeBoundingRectangle(contours.get(0), contours.get(1));
+		} else if (contours.size() > 2) {
+			MatOfPoint[] topTwoContours = findTopTwoContours(contours);
+			if (topTwoContours == null)
+				return null;
+			return computeBoundingRectangle(topTwoContours[0], topTwoContours[1]);
 		}
 		return null;
+	}
+
+	private Rect computeBoundingRectangle(MatOfPoint mop1, MatOfPoint mop2) {
+		Rect rec1 = Imgproc.boundingRect(mop1);
+		Rect rec2 = Imgproc.boundingRect(mop2);
+		int x = Math.min(rec1.x, rec2.x);
+		int y = Math.min(rec1.y, rec2.y);
+		int width = Math.max(rec1.x + rec1.width, rec2.x + rec2.width)-x;
+		int height = Math.max(rec1.y + rec1.height, rec2.y + rec2.height)-y;
+		Rect recCombine = new Rect(x, y, width, height);
+		return recCombine;
+	}
+
+	/**
+	 * Score all contours in the contour list, and return the top two.
+	 * @param contours list of contours found by vision pipeline
+	 * @return two contours with the top scores, or null if two contours not available
+	 */
+	private MatOfPoint[] findTopTwoContours(ArrayList<MatOfPoint> contours) {
+		double score1 = 0;
+		double score2 = 0;
+		MatOfPoint mop1 = null;
+		MatOfPoint mop2 = null;
+		for (MatOfPoint mop : contours) {
+			double score = scoreContour(mop);
+			if (score > score1) {
+				score2 = score1;
+				mop2 = mop1;
+				score1 = score;
+				mop1 = mop;
+			} else if (score > score2) {
+				score2 = score;
+				mop2 = mop;
+			}
+		}
+		// Only return contours if we have 2
+		if (mop1 != null && mop2 != null) {
+			return new MatOfPoint[] { mop1, mop2 };
+		}
+		return null;
+	}
+
+	/**
+	 * Score contour based on a variety of factors
+	 * @param mop contour to score
+	 * @return contour score (range from 0 to infinity?)
+	 */
+	private double scoreContour(MatOfPoint mop) {
+		// Score on solidity -- ideally find 100% solid rectangle
+		final MatOfInt hull = new MatOfInt(); // is this expensive?
+		final double area = Imgproc.contourArea(mop);
+		Imgproc.convexHull(mop, hull);
+		MatOfPoint mopHull = new MatOfPoint();
+		mopHull.create((int) hull.size().height, 1, CvType.CV_32SC2);
+		for (int j = 0; j < hull.size().height; j++) {
+			int index = (int)hull.get(j, 0)[0];
+			double[] point = new double[] { mop.get(index, 0)[0], mop.get(index, 0)[1]};
+			mopHull.put(j, 0, point);
+		}
+		final double solid = 100 * area / Imgproc.contourArea(mopHull);
+		double scoreSolidity = solid;
+
+		// Score aspect ratio -- exact ratio is 0.4
+		final Rect bb = Imgproc.boundingRect(mop);
+		final double ratio = bb.width / (double)bb.height;
+		final double targetRatio = 0.4;
+		final double minRatio = 0.0;
+		final double maxRatio = 1.0;
+		double scoreAspectRatio = 0;
+		if (ratio < minRatio || ratio > maxRatio) {
+			scoreAspectRatio = 0;
+		} else {
+			if (ratio > targetRatio) {
+				scoreAspectRatio = 1 - (ratio - targetRatio) / (maxRatio - targetRatio);
+			} else {
+				scoreAspectRatio = 1 - (targetRatio - ratio) / (targetRatio - minRatio);
+			}
+			scoreAspectRatio *= 100;
+		}
+
+		// Compute final score
+		double score = scoreSolidity + scoreAspectRatio;
+		return score;
 	}
 
 	private void computeCoords(Rect rec) {

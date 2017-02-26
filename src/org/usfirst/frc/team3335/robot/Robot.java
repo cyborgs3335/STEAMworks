@@ -15,6 +15,7 @@ import org.usfirst.frc.team3335.robot.commands.autonomous.AutoDriveToPeg;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoNone;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceGear;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoSteerDriveToPeg;
+import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnByVision;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPeg;
 import org.usfirst.frc.team3335.robot.subsystems.*;
 
@@ -77,10 +78,11 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(ultrasonics);
 		navx = new NavX();
 		subsystemsList.add(navx);
-		
+
 		//autonomous
 		chooser.addObject("AutoDriveToPeg", new AutoDriveToPeg(9));
 		chooser.addObject("Auto Place Gear", new AutoPlaceGear());
+		chooser.addObject("Auto Turn using Vision", new AutoTurnByVision());
 		chooser.addDefault("None", new AutoNone());
 		SmartDashboard.putData("Auto Mode", chooser);
 

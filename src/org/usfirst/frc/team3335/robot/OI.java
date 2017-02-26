@@ -21,11 +21,11 @@ import org.usfirst.frc.team3335.robot.subsystems.Intake;
  */
 public class OI {
     private Joystick joystick;
-    private Joystick joystick2;
+//    private Joystick joystick2;
 
     public OI() {
         joystick = new Joystick(0);
-        joystick2 = new Joystick(1);
+//        joystick2 = new Joystick(1);
 
         //JoystickButton dumpFuel = addButton(getJoystick(), 1, "Dump Fuel");
         //dumpFuel.whenPressed(new DumpFuel());
@@ -77,7 +77,7 @@ public class OI {
         return joystick;
     }
 
-    public Joystick getJoystick2() {
-        return joystick2;
-    }
+//    public Joystick getJoystick2() {
+//        return joystick2;
+//    }
 }

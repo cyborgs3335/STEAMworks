@@ -27,7 +27,7 @@ public class AutoTurnByVision extends Command {
 //	private static final double kValueToInches = 0.125;
 
 	// proportional speed constant
-	private static final double kP = 0.04;//0.03 too small?; 0.06 too big; 0.04 just right for mark 1
+	private static final double kP = 0.01;//0.03 too small?; 0.06 too big; 0.04 just right for mark 1
 
 	// integral speed constant
 	private static final double kI = 0; //0.018;
