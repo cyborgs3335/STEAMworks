@@ -17,15 +17,8 @@ public class Flapper extends Subsystem implements LoggableSubsystem {
 		solenoid.set(Value.kForward);
 	}
 	
-	public void switchPos() {
-        switch (solenoid.get()) {
-            case kOff: case kReverse:
-                solenoid.set(Value.kForward);
-                break;
-            case kForward:
-                solenoid.set(Value.kReverse);
-                break;
-        }
+	public void switchPos(DoubleSolenoid.Value val) {
+        solenoid.set(val);
     }
 	
 	@Override

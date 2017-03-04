@@ -30,7 +30,7 @@ public class OI {
         //JoystickButton dumpFuel = addButton(getJoystick(), 1, "Dump Fuel");
         //dumpFuel.whenPressed(new DumpFuel());
         JoystickButton gateControl = addButton(getJoystick(), 3, "Gate Control");
-        gateControl.whenPressed(new GateControl());
+        gateControl.whenPressed(new GateControl(true));
 
         JoystickButton shooterShiftHigh = addButton(getJoystick(), 6, "Shooter Shift High");
         JoystickButton shooterShiftLow = addButton(getJoystick(), 7, "Shooter Shift Low");
