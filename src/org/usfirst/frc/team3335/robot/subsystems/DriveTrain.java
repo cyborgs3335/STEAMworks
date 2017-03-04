@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team3335.robot.Robot;
 import org.usfirst.frc.team3335.robot.RobotMap;
 import org.usfirst.frc.team3335.robot.RobotPreferences;
 import org.usfirst.frc.team3335.robot.commands.TankDrive;
@@ -29,6 +28,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     private final boolean useTankDrive = false;
     private double deadzone = .1;
     private final double trainingSpeedMax = 1;
+	private int direction = 1; // Mark2 = 1; Mark3 = -1?
     //private final double joystickScalar = 1/(1-deadzone);
 
     /*
@@ -144,25 +144,32 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     	}
     	else return 0;
     }
+
+	/**
+	 *
+	 * @param direction : 1 for forward, -1 for backward
+	 */
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
     
     public void driveNew(Joystick joystick) {
-		final int forward = 1; // Mark2 = 1; Mark3 = -1?
     	if (useTankDrive) {
-    		int sign = forward;
-    		if (joystick.getRawAxis(1) <= 0) sign = -forward;
+    		int sign = direction;
+    		if (joystick.getRawAxis(1) <= 0) sign = -direction;
     		if (Math.abs(joystick.getRawAxis(1))>trainingSpeedMax)
     			drive(trainingSpeedMax*sign, map(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
     		else
-    			drive(map(forward*joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS)), 
-    					map(forward*joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
+    			drive(map(direction *joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS)),
+    					map(direction *joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
     	} 
     	else {
-    		int sign = forward;
-    		if (joystick.getRawAxis(1) <= 0) sign = -forward;
+    		int sign = direction;
+    		if (joystick.getRawAxis(1) <= 0) sign = -direction;
     		if (Math.abs(joystick.getRawAxis(1))>trainingSpeedMax)
-    			driveArcade(sign*trainingSpeedMax, map(forward*joystick.getRawAxis(0)));
+    			driveArcade(sign*trainingSpeedMax, map(direction *joystick.getRawAxis(0)));
     		else
-    			driveArcade(map(forward*joystick.getRawAxis(1)), map(forward*joystick.getRawAxis(0)));
+    			driveArcade(map(direction *joystick.getRawAxis(1)), map(direction *joystick.getRawAxis(0)));
     	}
     }
 
