@@ -14,7 +14,7 @@ public class Intake extends Subsystem implements LoggableSubsystem {
 
 	private CANTalon motor;
 	
-	private double motorValue = 0.5;
+	private double motorValue = 1.0; //0.5;
 	
 	public Intake() {
 		motor = new CANTalon(RobotMap.INTAKE_MOTOR);
