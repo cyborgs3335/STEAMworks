@@ -8,10 +8,14 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class GateControl extends Command{
 	private DoubleSolenoid.Value val;
-	
+
+	/**
+	 * Constructor.
+	 * @param f true=gate up, false=gate down
+	 */
 	public GateControl(boolean f) {
         requires(Robot.gate);
-        val = f ? Value.kForward : Value.kReverse;
+        val = f ? Value.kReverse : Value.kForward;
     }
 
     @Override
