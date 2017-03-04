@@ -30,7 +30,7 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	private static final int IMG_WIDTH = 320;
 	private static final int IMG_HEIGHT = 240;
 
-	private final double cameraOffset = 12.5; // inches
+	private final double cameraOffset = 12; // inches - Mark 2
 
 	private VisionThread visionThread;
 	private double centerX = 0.0;
@@ -45,7 +45,9 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	public VisionTest() {
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(); // cam0 by default
 		camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
-		camera.setBrightness(50);
+		camera.setBrightness(0);
+//		camera.setExposureManual(100);
+		camera.setExposureAuto();
 
 		CvSource cs= CameraServer.getInstance().putVideo("name", IMG_WIDTH, IMG_HEIGHT);
 
