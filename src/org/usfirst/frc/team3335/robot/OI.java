@@ -8,6 +8,7 @@ import org.usfirst.frc.team3335.robot.commands.BallShiftHigh;
 import org.usfirst.frc.team3335.robot.commands.BallShiftLow;
 import org.usfirst.frc.team3335.robot.commands.Climb;
 import org.usfirst.frc.team3335.robot.commands.DumpFuel;
+import org.usfirst.frc.team3335.robot.commands.FlapperControl;
 import org.usfirst.frc.team3335.robot.commands.GateControl;
 import org.usfirst.frc.team3335.robot.commands.IntakeBalls;
 import org.usfirst.frc.team3335.robot.commands.ShootBalls;
@@ -21,16 +22,18 @@ import org.usfirst.frc.team3335.robot.subsystems.Intake;
  */
 public class OI {
     private Joystick joystick;
-//    private Joystick joystick2;
+    private Joystick joystick2;
 
     public OI() {
         joystick = new Joystick(0);
-//        joystick2 = new Joystick(1);
+        joystick2 = new Joystick(1);
 
         //JoystickButton dumpFuel = addButton(getJoystick(), 1, "Dump Fuel");
         //dumpFuel.whenPressed(new DumpFuel());
-        JoystickButton gateControl = addButton(getJoystick(), 3, "Gate Control");
-        gateControl.whenPressed(new GateControl(true));
+        JoystickButton gateControlUp = addButton(getJoystick(), 3, "Gate Control Up");
+        gateControlUp.whenPressed(new GateControl(true));
+        JoystickButton gateControlDown = addButton(getJoystick(), 2, "Gate Control Down");
+        gateControlDown.whenPressed(new GateControl(false));
 
         JoystickButton shooterShiftHigh = addButton(getJoystick(), 6, "Shooter Shift High");
         JoystickButton shooterShiftLow = addButton(getJoystick(), 7, "Shooter Shift Low");
@@ -40,8 +43,9 @@ public class OI {
         JoystickButton ballShiftLow = addButton(getJoystick(), 4, "Ball Shifter Low");
         ballShiftLow.whenPressed(new BallShiftLow());
 
-        JoystickButton climbUp = addButton(getJoystick(), 2, "Rope Climber");
-        //JoystickButton climbUp = addButton(getJoystick2(), 2, "Rope Climber");
+        // Rope climber
+        //JoystickButton climbUp = addButton(getJoystick(), 2, "Rope Climber");
+        JoystickButton climbUp = addButton(getJoystick2(), 2, "Rope Climber");
         JoystickButton climbDown = addButton(getJoystick(), 8, "Rope Climber");
         climbUp.whenPressed(new Climb(false, 0.5));
         climbUp.whenReleased(new Climb(true, 0));
@@ -55,12 +59,18 @@ public class OI {
         JoystickButton shootBalls = addButton(getJoystick(), 1, "Shoot Balls");
         shootBalls.whenPressed(new ShootBalls(false, 1));
         shootBalls.whenReleased(new ShootBalls(true, 0));
-        
+
+        // Intake
         JoystickButton intakeOn = addButton(getJoystick(), 10, "Intake On");
         intakeOn.whenPressed(new IntakeBalls(false, -0.5));
-        
         JoystickButton intakeOff = addButton(getJoystick(), 11, "Intake Off");
         intakeOff.whenPressed(new IntakeBalls(true, 0));
+        
+        // Flapper
+        JoystickButton flapperUp = addButton(getJoystick2(), 7, "Flapper Up");
+        flapperUp.whenPressed(new FlapperControl(false));
+        JoystickButton flapperDown = addButton(getJoystick2(), 8, "Flapper Down");
+        flapperDown.whenPressed(new FlapperControl(true));
         
         // Additional commands to add to dashboard
 		SmartDashboard.putData("AutoTurnToPeg", new AutoTurnToPeg());
@@ -77,7 +87,7 @@ public class OI {
         return joystick;
     }
 
-//    public Joystick getJoystick2() {
-//        return joystick2;
-//    }
+    public Joystick getJoystick2() {
+      return joystick2;
+    }
 }
