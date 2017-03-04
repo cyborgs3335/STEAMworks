@@ -28,9 +28,9 @@ public class OI {
         JoystickButton gateControlDown = addButton(getJoystick(), 2, "Gate Control Down");
         gateControlDown.whenPressed(new GateControl(false));
 
-        JoystickButton driveForward = addButton(getJoystick(), 6, "Shooter Shift High");
+        JoystickButton driveForward = addButton(getJoystick(), 6, "Drive Forward");
         driveForward.whenPressed(new SetDirection(true));
-        JoystickButton driveBackward = addButton(getJoystick(), 7, "Shooter Shift Low");
+        JoystickButton driveBackward = addButton(getJoystick(), 7, "Drive Backward");
         driveBackward.whenPressed(new SetDirection(false));
 
         JoystickButton ballShiftHigh = addButton(getJoystick(), 5, "Ball Shifter High");
