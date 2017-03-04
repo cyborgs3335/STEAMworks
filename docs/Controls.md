@@ -10,6 +10,8 @@ Button Number | Action
 5 | Ball Shift High
 6 | Drive Forward
 7 | Drive Backward
+8 | Climber Down
+9 | Climber Fast
 10 | Intake On
 11 | Intake Off
 
