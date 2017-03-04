@@ -52,7 +52,7 @@ public class OI {
         climbUp2.whenReleased(new Climb(true, 0));
 
         JoystickButton shootBalls = addButton(getJoystick(), 1, "Shoot Balls");
-        shootBalls.whenPressed(new ShootBalls(false, 1));
+        shootBalls.whenPressed(new ShootBalls(false, -1));
         shootBalls.whenReleased(new ShootBalls(true, 0));
 
         // Intake
