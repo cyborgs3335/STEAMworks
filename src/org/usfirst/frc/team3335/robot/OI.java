@@ -4,14 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team3335.robot.commands.BallShiftHigh;
-import org.usfirst.frc.team3335.robot.commands.BallShiftLow;
-import org.usfirst.frc.team3335.robot.commands.Climb;
-import org.usfirst.frc.team3335.robot.commands.DumpFuel;
-import org.usfirst.frc.team3335.robot.commands.FlapperControl;
-import org.usfirst.frc.team3335.robot.commands.GateControl;
-import org.usfirst.frc.team3335.robot.commands.IntakeBalls;
-import org.usfirst.frc.team3335.robot.commands.ShootBalls;
+import org.usfirst.frc.team3335.robot.commands.*;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoSteerDriveToPeg;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPeg;
 import org.usfirst.frc.team3335.robot.subsystems.Intake;
@@ -35,8 +28,10 @@ public class OI {
         JoystickButton gateControlDown = addButton(getJoystick(), 2, "Gate Control Down");
         gateControlDown.whenPressed(new GateControl(false));
 
-        JoystickButton shooterShiftHigh = addButton(getJoystick(), 6, "Shooter Shift High");
-        JoystickButton shooterShiftLow = addButton(getJoystick(), 7, "Shooter Shift Low");
+        JoystickButton driveForward = addButton(getJoystick(), 6, "Shooter Shift High");
+        driveForward.whenPressed(new SetDirection(true));
+        JoystickButton driveBackward = addButton(getJoystick(), 7, "Shooter Shift Low");
+        driveBackward.whenPressed(new SetDirection(false));
 
         JoystickButton ballShiftHigh = addButton(getJoystick(), 5, "Ball Shifter High");
         ballShiftHigh.whenPressed(new BallShiftHigh());
