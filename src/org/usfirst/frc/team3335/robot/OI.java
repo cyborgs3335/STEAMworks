@@ -45,14 +45,14 @@ public class OI {
 
         // Rope climber
         //JoystickButton climbUp = addButton(getJoystick(), 2, "Rope Climber");
-        JoystickButton climbUp = addButton(getJoystick2(), 2, "Rope Climber");
+        JoystickButton climbUp = addButton(getJoystick2(), 2, "Rope Climber Slow");
         JoystickButton climbDown = addButton(getJoystick(), 8, "Rope Climber");
         climbUp.whenPressed(new Climb(false, 0.5));
         climbUp.whenReleased(new Climb(true, 0));
         climbDown.whenPressed(new Climb(false, -1));
         climbDown.whenReleased(new Climb(true, 0));
 //        JoystickButton climbUp = addButton(getJoystick2(), 2, "Rope Climber");
-        JoystickButton climbUp2 = addButton(getJoystick(), 9, "Rope Climber2");
+        JoystickButton climbUp2 = addButton(getJoystick(), 9, "Rope Climber Fast");
         climbUp2.whenPressed(new Climb(false, 1));
         climbUp2.whenReleased(new Climb(true, 0));
 
