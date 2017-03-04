@@ -54,8 +54,8 @@ public class RobotMap {
 	public static final int ANALOG_ULTRASONIC_RIGHT = 1;
 	public static final int FLAPPER_FORWARD_CHANNEL = 0;
 	public static final int FLAPPER_REVERSE_CHANNEL = 1;
-	public static final int BALL_SHIFTER_FORWARD_CHANNEL = 2;
-	public static final int BALL_SHIFTER_REVERSE_CHANNEL = 3;
+	public static final int BALL_SHIFTER_FORWARD_CHANNEL = 3;
+	public static final int BALL_SHIFTER_REVERSE_CHANNEL = 2;
 	public static final int GATE_FORWARD_CHANNEL = 4;
 	public static final int GATE_REVERSE_CHANNEL = 5;
 	public static final int RELAY_CHANNEL = 0;
