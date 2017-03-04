@@ -27,8 +27,9 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     private Encoder leftEncoder;
     private Encoder rightEncoder;
     private final boolean useTankDrive = false;
-    private final double deadzone = .3;
+    private double deadzone = .3;
     private final double trainingSpeedMax = 1;
+    //private final double joystickScalar = 1/(1-deadzone);
 
     /*
      * Encoder Ratios
@@ -110,9 +111,9 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     		int sign = -1;
     		if (-joystick.getRawAxis(1)>=0) sign = 1;
     		if (Math.abs(joystick.getRawAxis(1))>=trainingSpeedMax)
-    			drive(trainingSpeedMax*sign, -joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS));
+    			drive(trainingSpeedMax*sign, map(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
     		else
-    			drive(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS), -joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS));
+    			drive(map(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS)), map(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
     	} 
     	else {
     		int sign = -1;
@@ -121,27 +122,37 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     			if (Math.abs(joystick.getRawAxis(1))>=trainingSpeedMax)
     				driveArcade(trainingSpeedMax*sign, 0.0);
     			else
-    				driveArcade(-joystick.getRawAxis(1), 0.0);
+    				driveArcade(map(-joystick.getRawAxis(1)), 0.0);
     		}
     		else {
     			if (Math.abs(joystick.getRawAxis(1))>=trainingSpeedMax)
-    				driveArcade(trainingSpeedMax*sign, -joystick.getRawAxis(0));
+    				driveArcade(trainingSpeedMax*sign, map(-joystick.getRawAxis(0)));
     			else
-    				driveArcade(-joystick.getRawAxis(1), -joystick.getRawAxis(0));
+    				driveArcade(map(-joystick.getRawAxis(1)), map(-joystick.getRawAxis(0)));
     		}
     	}
     }
-
+    
+    public double map(double input ) {
+    	if(input>0) {
+    		return (input - deadzone)/(1 - deadzone);
+    	}
+    	else if(input<0) {
+    		return (input + deadzone)/(1 - deadzone);
+    	}
+    	else return 0;
+    }
+    
     public void driveNew(Joystick joystick) {
 		final int forward = 1; // Mark2 = 1; Mark3 = -1?
     	if (useTankDrive) {
     		int sign = forward;
     		if (joystick.getRawAxis(1) <= 0) sign = -forward;
     		if (Math.abs(joystick.getRawAxis(1))>trainingSpeedMax)
-    			drive(trainingSpeedMax*sign, -joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS));
+    			drive(trainingSpeedMax*sign, map(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
     		else
-    			drive(forward*joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS), 
-    					forward*joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS));
+    			drive(map(forward*joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS)), 
+    					map(forward*joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
     	} 
     	else {
     		int sign = forward;
@@ -150,13 +161,13 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     			if (Math.abs(joystick.getRawAxis(1))>trainingSpeedMax)
     				driveArcade(sign*trainingSpeedMax, 0.0);
     			else
-    				driveArcade(forward*joystick.getRawAxis(1), 0.0);
+    				driveArcade(map(forward*joystick.getRawAxis(1)), 0.0);
     		}
     		else {
     			if (Math.abs(joystick.getRawAxis(1))>trainingSpeedMax)
-    				driveArcade(sign*trainingSpeedMax, forward*joystick.getRawAxis(0));
+    				driveArcade(sign*trainingSpeedMax, map(forward*joystick.getRawAxis(0)));
     			else
-    				driveArcade(forward*joystick.getRawAxis(1), forward*joystick.getRawAxis(0));
+    				driveArcade(map(forward*joystick.getRawAxis(1)), map(forward*joystick.getRawAxis(0)));
     		}
     	}
     }
