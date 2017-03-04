@@ -44,6 +44,7 @@ public class Robot extends IterativeRobot {
 	public static Intake intake;
 	//public static Dumper dumper;
 	public static Gate gate;
+	public static Flapper flapper;
 	public static Climber climber;
 	public static DoubleUltrasonic ultrasonics;
 	public static NavX navx;
@@ -66,6 +67,8 @@ public class Robot extends IterativeRobot {
 		//subsystemsList.add(dumper);
 		gate = new Gate();
 		subsystemsList.add(gate);
+		flapper = new Flapper();
+		subsystemsList.add(flapper);
 		ballShifter = new BallShifter();
 		subsystemsList.add(ballShifter);
 		ballShooter = new BallShooter();
