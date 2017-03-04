@@ -29,8 +29,8 @@ public class NavX extends Subsystem implements LoggableSubsystem {
 			 * 
 			 * Multiple navX-model devices on a single robot are supported.
 			 ************************************************************************/
-            //ahrs = new AHRS(SPI.Port.kMXP);
-            ahrs = new AHRS(I2C.Port.kMXP);
+            ahrs = new AHRS(SPI.Port.kMXP); // Use SPI!!!
+            //ahrs = new AHRS(I2C.Port.kMXP);
         } catch (RuntimeException ex ) {
             DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
         }
@@ -118,7 +118,7 @@ public class NavX extends Subsystem implements LoggableSubsystem {
     	SmartDashboard.putNumber(   "NavX: YawAxis",              yaw_axis.board_axis.getValue() );
 
     	/* Sensor Board Information                                                 */
-    	//SmartDashboard.putString(   "NavX: FirmwareVersion",      ahrs.getFirmwareVersion());
+    	SmartDashboard.putString(   "NavX: FirmwareVersion",      ahrs.getFirmwareVersion());
 
     	/* Quaternion Data                                                          */
     	/* Quaternions are fascinating, and are the most compact representation of  */
