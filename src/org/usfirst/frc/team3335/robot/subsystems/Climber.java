@@ -7,8 +7,10 @@ import org.usfirst.frc.team3335.robot.commands.ClimbWithJoystick;
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Climber extends Subsystem implements LoggableSubsystem {
 
@@ -40,8 +42,8 @@ public class Climber extends Subsystem implements LoggableSubsystem {
 
 	@Override
 	public void log() {
-		// TODO Auto-generated method stub
-		
+		SmartDashboard.putNumber("Climber: talon current", bagMotor.getOutputCurrent());
+		SmartDashboard.putNumber("Climber: pdp   current", Robot.pdp.getCurrent(15));
 	}
 
 }

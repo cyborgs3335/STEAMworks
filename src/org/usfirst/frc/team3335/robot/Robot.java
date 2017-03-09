@@ -2,6 +2,7 @@
 package org.usfirst.frc.team3335.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -48,6 +49,7 @@ public class Robot extends IterativeRobot {
 	public static Climber climber;
 	public static DoubleUltrasonic ultrasonics;
 	public static NavX navx;
+	public static PowerDistributionPanel pdp;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -56,6 +58,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		// Instantiate subsystems and add to subsystem list (e.g., for logging to dashboard)
+		pdp = new PowerDistributionPanel();
 		compressor = new Compressor();
 		subsystemsList.add(compressor);
 		driveTrain = new DriveTrain();

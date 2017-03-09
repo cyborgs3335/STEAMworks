@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team3335.robot.Robot;
 import org.usfirst.frc.team3335.robot.RobotMap;
 import org.usfirst.frc.team3335.robot.RobotPreferences;
 import org.usfirst.frc.team3335.robot.commands.TankDrive;
@@ -61,6 +62,14 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
         frontRight.set(0);
         backLeft.set(0);
         backRight.set(0);
+        
+        double voltageRampRate = 150;//20;
+        frontLeft.setVoltageRampRate(voltageRampRate);
+        frontRight.setVoltageRampRate(voltageRampRate);
+        backLeft.setVoltageRampRate(voltageRampRate);
+        backRight.setVoltageRampRate(voltageRampRate);
+        
+        //backRight.setCurrentLimit(0);
 
         setBrake(false);
 
@@ -192,5 +201,13 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     	SmartDashboard.putNumber("DriveTrain: left velocity", leftEncoder.getRate());
     	SmartDashboard.putNumber("DriveTrain: right distance", rightEncoder.getDistance());
     	SmartDashboard.putNumber("DriveTrain: right velocity", rightEncoder.getRate());
+    	SmartDashboard.putNumber("DriveTrain: front right current", frontRight.getOutputCurrent());
+    	SmartDashboard.putNumber("DriveTrain: front right current pdp", Robot.pdp.getCurrent(12));
+    	SmartDashboard.putNumber("DriveTrain: front left  current", frontLeft.getOutputCurrent());
+    	SmartDashboard.putNumber("DriveTrain: front left  current pdp", Robot.pdp.getCurrent(10));
+    	SmartDashboard.putNumber("DriveTrain: back  right current", backRight.getOutputCurrent());
+    	SmartDashboard.putNumber("DriveTrain: back  right current pdp", Robot.pdp.getCurrent(13));
+    	SmartDashboard.putNumber("DriveTrain: back  left  current", backLeft.getOutputCurrent());
+    	SmartDashboard.putNumber("DriveTrain: back  left  current pdp", Robot.pdp.getCurrent(11));
     }
 }
