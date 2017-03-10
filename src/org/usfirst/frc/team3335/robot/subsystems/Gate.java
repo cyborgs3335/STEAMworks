@@ -14,7 +14,7 @@ public class Gate extends Subsystem implements LoggableSubsystem {
 	
 	public Gate() {
 		solenoid = new DoubleSolenoid(RobotMap.GATE_FORWARD_CHANNEL, RobotMap.GATE_REVERSE_CHANNEL);
-		solenoid.set(Value.kForward);
+		solenoid.set(Value.kReverse);
 	}
 	
 	public void switchPos(DoubleSolenoid.Value val) {
