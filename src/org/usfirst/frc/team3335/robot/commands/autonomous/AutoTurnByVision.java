@@ -47,13 +47,13 @@ public class AutoTurnByVision extends Command {
         requires(Robot.driveTrain);
         //requires(Robot.ultrasonics);
         requires(Robot.visionTest);
-        //requires(Robot.navx);
+        requires(Robot.navx);
 
-        turnController = new PIDController(kP, kI, kD, Robot.visionTest, new MyPidOutput());
+        turnController = new PIDController(kP, kI, kD, Robot.navx.getAHRS()/*Robot.visionTest*/, new MyPidOutput());
         turnController.setInputRange(-180, 180);
         turnController.setOutputRange(-.7, .7);
         turnController.setAbsoluteTolerance(kToleranceDegrees);
-        turnController.setContinuous(true);
+        turnController.setContinuous(true); // TODO is this what we want???
         
         /* Add the PID Controller to the Test-mode dashboard, allowing manual  */
         /* tuning of the Turn Controller's P, I and D coefficients.            */
@@ -73,6 +73,7 @@ public class AutoTurnByVision extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+    	turnController.setSetpoint(Robot.visionTest.pidGet());
     	turnController.enable();
     	double speed = rotateRate;
 //    	speed /= 2.0;
@@ -86,7 +87,8 @@ public class AutoTurnByVision extends Command {
     	//if (turnController.onTarget())
     	//	return true;
     	if (System.currentTimeMillis() > timeFinished) {
-    		Robot.driveTrain.setBrake(false);
+    		//turn off brake in end
+    		//Robot.driveTrain.setBrake(false);
     		return true;
     	}
     	//if (!Robot.visionTest.isTargetDetected()) {
@@ -99,6 +101,7 @@ public class AutoTurnByVision extends Command {
     @Override
     protected void end() {
         Robot.driveTrain.drive(0, 0);
+        Robot.driveTrain.setBrake(false);
     }
 
     // Called when another command which requires one or more of the same

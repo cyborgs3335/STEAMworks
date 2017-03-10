@@ -21,11 +21,9 @@ public class OI {
         joystick = new Joystick(0);
         joystick2 = new Joystick(1);
 
-        //JoystickButton dumpFuel = addButton(getJoystick(), 1, "Dump Fuel");
-        //dumpFuel.whenPressed(new DumpFuel());
-        JoystickButton gateControlUp = addButton(getJoystick(), 3, "Gate Control Up");
+        JoystickButton gateControlUp = addButton(getJoystick(), 3, "Gate Up");
         gateControlUp.whenPressed(new GateControl(true));
-        JoystickButton gateControlDown = addButton(getJoystick(), 2, "Gate Control Down");
+        JoystickButton gateControlDown = addButton(getJoystick(), 2, "Gate Down");
         gateControlDown.whenPressed(new GateControl(false));
 
         JoystickButton driveForward = addButton(getJoystick(), 6, "Drive Forward");
