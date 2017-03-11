@@ -1,0 +1,276 @@
+<xml version="1.0">
+<dashboard>
+	<widget field="Ultrasonic: Right Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.ProgressBar">
+		<location x="1279" y="441"/>
+		<width>256</width>
+		<height>55</height>
+		<property name="Minimum" value="12.0"/>
+	</widget>
+	<widget field="Ultrasonic: Left Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.ProgressBar">
+		<location x="1279" y="385"/>
+		<width>259</width>
+		<height>53</height>
+		<property name="Minimum" value="12.0"/>
+	</widget>
+	<widget field="Prefs: Vision Update Delay" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="578" y="176"/>
+	</widget>
+	<widget field="Prefs: Drive Kd" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1083" y="484"/>
+	</widget>
+	<widget field="Prefs: Drive Ki" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1083" y="309"/>
+	</widget>
+	<widget field="Prefs: Drive Kp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="520" y="476"/>
+	</widget>
+	<widget field="DriveTrain: distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="294" y="394"/>
+	</widget>
+	<widget field="Prefs: Vision Time Limit" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="588" y="202"/>
+	</widget>
+	<widget field="Prefs: Turn To Peg Angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="565" y="330"/>
+	</widget>
+	<widget field="Prefs: Vision Kd" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="611" y="304"/>
+	</widget>
+	<widget field="Prefs: Vision Ki" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="613" y="278"/>
+	</widget>
+	<widget field="Prefs: Vision Kp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="609" y="253"/>
+	</widget>
+	<widget field="Prefs: Drive Mode" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="606" y="225"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
+		<location x="782" y="295"/>
+	</static-widget>
+	<widget field="Rope Climber Down" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="259" y="370"/>
+	</widget>
+	<widget field="Gate Down" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="173" y="379"/>
+	</widget>
+	<widget field="Gate Up" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="170" y="355"/>
+	</widget>
+	<widget field="Climber: pdp   current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="881" y="39"/>
+	</widget>
+	<widget field="Climber: talon current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="879" y="11"/>
+	</widget>
+	<widget field="DriveTrain: back  left  current pdp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="832" y="263"/>
+	</widget>
+	<widget field="DriveTrain: back  left  current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="850" y="234"/>
+	</widget>
+	<widget field="DriveTrain: back  right current pdp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="829" y="204"/>
+	</widget>
+	<widget field="DriveTrain: back  right current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="848" y="180"/>
+	</widget>
+	<widget field="DriveTrain: front left  current pdp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="830" y="153"/>
+	</widget>
+	<widget field="DriveTrain: front left  current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="850" y="125"/>
+	</widget>
+	<widget field="DriveTrain: front right current pdp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="825" y="98"/>
+	</widget>
+	<widget field="DriveTrain: front right current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="844" y="69"/>
+	</widget>
+	<widget field="NavX: FirmwareVersion" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="320" y="22"/>
+	</widget>
+	<widget field="Intake Value" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="291" y="419"/>
+	</widget>
+	<widget field="Vision: Target X Offset" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="295" y="337"/>
+	</widget>
+	<widget field="Flapper Down" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="170" y="331"/>
+	</widget>
+	<widget field="Intake Off" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="122" y="270"/>
+	</widget>
+	<widget field="Gate Control Up" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="170" y="307"/>
+	</widget>
+	<widget field="Flapper" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="136" y="249"/>
+	</widget>
+	<widget field="Rope Climber Slow" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="170" y="186"/>
+	</widget>
+	<widget field="Drive Forward" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="170" y="162"/>
+	</widget>
+	<widget field="Intake On" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="144" y="138"/>
+	</widget>
+	<widget field="Drive Backward" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="170" y="114"/>
+	</widget>
+	<widget field="Gate Control Down" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="170" y="90"/>
+	</widget>
+	<widget field="Rope Climber Fast" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="170" y="66"/>
+	</widget>
+	<widget field="Flapper Up" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="170" y="42"/>
+	</widget>
+	<widget field="Intake" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="170" y="21"/>
+	</widget>
+	<widget field="Shoot Balls" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="84" y="21"/>
+	</widget>
+	<widget field="Vision: Target Detected" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="290" y="311"/>
+	</widget>
+	<widget field="Vision: Target Azimuth" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="293" y="282"/>
+	</widget>
+	<widget field="Vision: Target Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="284" y="259"/>
+	</widget>
+	<widget field="Vision: Center Value" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="298" y="234"/>
+	</widget>
+	<widget field="VisionTest" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="136" y="0"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="570" y="355"/>
+		<property name="Camera Choice" value="name"/>
+	</static-widget>
+	<widget field="DriveTrain: right velocity" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="8" y="472"/>
+	</widget>
+	<widget field="DriveTrain: right distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="4" y="427"/>
+	</widget>
+	<widget field="DriveTrain: left velocity" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="15" y="449"/>
+	</widget>
+	<widget field="DriveTrain: left distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="10" y="404"/>
+	</widget>
+	<widget field="Shooter Shift Low" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="0" y="180"/>
+	</widget>
+	<widget field="Shooter Shift High" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="0" y="156"/>
+	</widget>
+	<widget field="NavX: IMU_TotalYaw" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+		<location x="1131" y="8"/>
+	</widget>
+	<widget field="Ultrasonic: Right Avg Volt" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="232" y="472"/>
+	</widget>
+	<widget field="Ultrasonic: Left Avg Volt" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="230" y="447"/>
+	</widget>
+	<widget field="NavX: IMU_Yaw" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="611" y="0"/>
+		<property name="Upper Limit" value="180.0"/>
+		<property name="Lower Limit" value="-180.0"/>
+	</widget>
+	<widget field="NavX: YawAxis" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="297" y="147"/>
+	</widget>
+	<widget field="NavX: YawAxisDirection" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="297" y="126"/>
+	</widget>
+	<widget field="NavX: Displacement_Y" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="297" y="105"/>
+	</widget>
+	<widget field="NavX: Displacement_X" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="297" y="84"/>
+	</widget>
+	<widget field="NavX: Velocity_Y" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="297" y="63"/>
+	</widget>
+	<widget field="NavX: Velocity_X" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="297" y="42"/>
+	</widget>
+	<widget field="NavX: IMU_CompassHeading" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="294" y="2"/>
+	</widget>
+	<widget field="NavX: IMU_Roll" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="294" y="202"/>
+	</widget>
+	<widget field="NavX: IMU_Pitch" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="290" y="172"/>
+	</widget>
+	<widget field="Ball Shooter Value" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="380"/>
+	</widget>
+	<widget field="Compressor: On" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="2" y="357"/>
+	</widget>
+	<widget field="AutoTurnToPeg" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="463" y="181"/>
+	</widget>
+	<widget field="Gate" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="0" y="322"/>
+	</widget>
+	<widget field="DoubleUltrasonic" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="0" y="301"/>
+	</widget>
+	<widget field="Rope Climber" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="0" y="277"/>
+	</widget>
+	<widget field="Gate Control" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="0" y="253"/>
+	</widget>
+	<widget field="Climber" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="0" y="232"/>
+	</widget>
+	<widget field="NavX" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="0" y="211"/>
+	</widget>
+	<widget field="AutoSteerDriveToPeg" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="487" y="149"/>
+	</widget>
+	<widget field="Dumper" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="160" y="228"/>
+	</widget>
+	<widget field="Compressor" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="0" y="135"/>
+	</widget>
+	<widget field="Ball Shifter Low" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="0" y="111"/>
+	</widget>
+	<widget field="BallShooter" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="21" y="90"/>
+	</widget>
+	<widget field="Auto Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="493" y="20"/>
+	</widget>
+	<widget field="Ball Shifter High" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="0" y="66"/>
+	</widget>
+	<widget field="BallShifter" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="0" y="45"/>
+	</widget>
+	<widget field="Dump Fuel" type="Button" class="edu.wpi.first.smartdashboard.gui.elements.Button">
+		<location x="0" y="21"/>
+	</widget>
+	<widget field="DriveTrain" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="0" y="0"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>
