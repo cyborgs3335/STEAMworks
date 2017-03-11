@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class AutoTurnByVision extends Command {
 
 	private long timeFinished = 0;
-	private final long timeMax = prefs.getLong("Auto Vision Time Limit", RobotPreferences.VISION_TIME_DEFAULT); // millisec
+	private final long timeMax = (long)(prefs.getDouble("Auto Vision Time Limit", RobotPreferences.VISION_TIME_DEFAULT) * 1000); // millisec
 
 	////////////////////////////////////////////////////////////////////////
 //	// distance in inches the robot wants to stay from an object
