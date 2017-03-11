@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team3335.robot.commands.autonomous.AutoDriveDistance;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoDriveToPeg;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoNone;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceGear;
@@ -87,10 +88,11 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(navx);
 
 		// Autonomous
-		chooser.addObject("AutoDriveToPeg", new AutoDriveToPeg(9));
+		chooser.addObject("AutoDriveToPeg", new AutoDriveToPeg(108));
 		chooser.addObject("Auto Place Gear", new AutoPlaceGear());
-		chooser.addObject("Auto Turn using Vision", new AutoTurnByVision());
+		chooser.addObject("Auto Turn using Vision", new AutoTurnByVision(0));
 		chooser.addObject("Auto Turn To Peg", new AutoTurnToPeg());
+		chooser.addObject("Auto Drive Distance", new AutoDriveDistance(108, 10000));
 		chooser.addDefault("None", new AutoNone());
 		SmartDashboard.putData("Auto Mode", chooser);
 
@@ -98,12 +100,16 @@ public class Robot extends IterativeRobot {
 		Preferences prefs = Preferences.getInstance();
 		boolean driveMode = prefs.getBoolean("Drive Mode", RobotPreferences.DRIVE_MODE_DEFAULT);
 		SmartDashboard.putBoolean("Prefs: Drive Mode", driveMode);
+		SmartDashboard.putNumber("Prefs: Drive Kp", prefs.getDouble("Drive Kp", RobotPreferences.DRIVE_KP_DEFAULT));
+		SmartDashboard.putNumber("Prefs: Drive Ki", prefs.getDouble("Drive Ki", RobotPreferences.DRIVE_KI_DEFAULT));
+		SmartDashboard.putNumber("Prefs: Drive Kd", prefs.getDouble("Drive Kd", RobotPreferences.DRIVE_KD_DEFAULT));
 		SmartDashboard.putNumber("Prefs: Vision Kp", prefs.getDouble("Vision Kp", RobotPreferences.VISION_KP_DEFAULT));
 		SmartDashboard.putNumber("Prefs: Vision Ki", prefs.getDouble("Vision Ki", RobotPreferences.VISION_KI_DEFAULT));
 		SmartDashboard.putNumber("Prefs: Vision Kd", prefs.getDouble("Vision Kd", RobotPreferences.VISION_KD_DEFAULT));
+		SmartDashboard.putNumber("Prefs: Vision Update Delay", prefs.getLong("Vision Update Delay", RobotPreferences.VISION_UPDATE_DELAY_DEFAULT));
 		SmartDashboard.putNumber("Prefs: Turn To Peg Angle", prefs.getDouble("Turn To Peg Angle", RobotPreferences.TURN_TO_PEG_ANGLE_DEFAULT));
 		SmartDashboard.putNumber("Prefs: Vision Time Limit", prefs.getDouble("Auto Vision Time Limit", RobotPreferences.VISION_TIME_DEFAULT));
-		
+
 		//Instantiate after all subsystems and preferences - or the world will die
 		//We don't want that, do we?
 		oi = new OI(driveMode);

@@ -42,16 +42,28 @@ public class AutoTurnByVision extends Command {
 	private static final double kToleranceDegrees = 1.0;
 	
 	private double rotateRate;
-	
+
+	//private final long pidUpdateDelay = 500; // milliseconds
+	private final long pidUpdateDelay = prefs.getLong("Vision Update Delay", RobotPreferences.VISION_UPDATE_DELAY_DEFAULT); // 500 milliseconds
+
+	private final double forwardSpeed;
+
+	private long pidTimeSinceUpdate = 0;
+
 	private PIDController turnController;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-    public AutoTurnByVision() {
+
+	/**
+	 * 
+	 * @param speed forward speed is positive volts
+	 */
+    public AutoTurnByVision(double speed) {
         requires(Robot.driveTrain);
         //requires(Robot.ultrasonics);
         requires(Robot.visionTest);
         requires(Robot.navx);
 
+        forwardSpeed = -speed;
         turnController = new PIDController(kP, kI, kD, Robot.navx.getAHRS()/*Robot.visionTest*/, new MyPidOutput());
         turnController.setInputRange(-180, 180);
         turnController.setOutputRange(-.7, .7);
@@ -76,12 +88,19 @@ public class AutoTurnByVision extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    	turnController.setSetpoint(Robot.visionTest.pidGet());
+    	if (System.currentTimeMillis() - pidTimeSinceUpdate > pidUpdateDelay) {
+    		double pidVal = Robot.visionTest.pidGet();
+    		pidVal *= 0.333;
+        	turnController.setSetpoint(pidVal);
+        	Robot.navx.zeroYaw();
+    		pidTimeSinceUpdate = System.currentTimeMillis();
+    	}
     	turnController.enable();
     	double speed = rotateRate;
 //    	speed /= 2.0;
         //Robot.driveTrain.drive(speed, -speed);
-    	Robot.driveTrain.driveArcade(0, speed, false);
+    	//Robot.driveTrain.driveArcade(0, speed, false);
+    	Robot.driveTrain.driveArcade(forwardSpeed, speed, false);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -113,16 +132,7 @@ public class AutoTurnByVision extends Command {
     protected void interrupted() {
         end();
     }
-    
-    private void test() {
-		// Set expected range to 0-24 inches; e.g. at 24 inches from object go
-		// full forward, at 0 inches from object go full backward.
-		//pidController.setInputRange(0, kMaxDistance * kValueToInches);
-		// Set setpoint of the pidController
-		//pidController.setSetpoint(kHoldDistance * kValueToInches);
-		turnController.enable(); // begin PID control
-	}
-    
+
     private class MyPidOutput implements PIDOutput {
 		@Override
 		public void pidWrite(double output) {

@@ -13,10 +13,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class AutoSteerDriveToPeg extends Command {
+public class AutoDriveDistance extends Command {
 
 	private long timeFinished = 0;
-	//private final long timeMax = 3000; // millisec
 
 	////////////////////////////////////////////////////////////////////////
 //	// distance in inches the robot wants to stay from an object
@@ -33,46 +32,44 @@ public class AutoSteerDriveToPeg extends Command {
 	//proportional speed constant
 	//private static final double kP = 0.04;//0.03 too small?; 0.06 too big; 0.04 just right for mark 1
 	// 0.015
-	private static final double kP = prefs.getDouble("Vision Kp", RobotPreferences.VISION_KP_DEFAULT);//0.03 too small?; 0.06 too big; 0.04 just right for mark 1
+	private static final double kP = prefs.getDouble("Drive Kp", RobotPreferences.DRIVE_KP_DEFAULT);//0.03 too small?; 0.06 too big; 0.04 just right for mark 1
 
 	// integral speed constant
 	//private static final double kI = 0; //0.018;\
 	// 0.001
-	private static final double kI = prefs.getDouble("Vision Ki", RobotPreferences.VISION_KI_DEFAULT); //0.018;
+	private static final double kI = prefs.getDouble("Drive Ki", RobotPreferences.DRIVE_KI_DEFAULT); //0.018;
 
 	// derivative speed constant
 	//private static final double kD = 0; //1.5;
-	private static final double kD = prefs.getDouble("Vision Kd", RobotPreferences.VISION_KD_DEFAULT); //1.5;
+	private static final double kD = prefs.getDouble("Drive Kd", RobotPreferences.DRIVE_KD_DEFAULT); //1.5;
 
 	// tolerance in degrees
-	private static final double kToleranceDegrees = 1.0;
-	
-	private double rotateRate;
-	
-	private double setpoint = 0; 
-	private final double maxAbsSetpoint = 90;
-	
-	private final double feetPerSecond = 4.5; //Mark 1 at .7 voltage
-	private double distance;
-	private long driveTime;
-	private final long TIME_MAX = 2000; // millisecs
-	
-	private double speed = 0;
-	private final double maxAbsSpeed = 1;
-	
+	private static final double kToleranceDistance = 5.0;
+
+	private final double targetDistance; // inches
+	private final long timeMax; // milliseconds
+	private double rate;
+
 	private PIDController turnController;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-    private AutoSteerDriveToPeg() {
+
+	/**
+	 * 
+	 * @param distance target distance in inches
+	 * @param timeOut time out in milliseconds
+	 */
+    public AutoDriveDistance(double distance, long timeOut) {
         requires(Robot.driveTrain);
         //requires(Robot.ultrasonics);
-        //requires(Robot.visionTest);
         requires(Robot.navx);
-        
-        turnController = new PIDController(kP, kI, kD, Robot.navx.getAHRS(), new MyPidOutput());
-        turnController.setInputRange(-maxAbsSetpoint, maxAbsSetpoint);
+
+        targetDistance = distance;
+        timeMax = timeOut;
+
+        turnController = new PIDController(kP, kI, kD, Robot.driveTrain, new MyPidOutput());
+        //turnController.setInputRange(-180, 180);
         turnController.setOutputRange(-.7, .7);
-        turnController.setAbsoluteTolerance(kToleranceDegrees);
+        turnController.setAbsoluteTolerance(kToleranceDistance);
         turnController.setContinuous(true);
         
         /* Add the PID Controller to the Test-mode dashboard, allowing manual  */
@@ -80,40 +77,33 @@ public class AutoSteerDriveToPeg extends Command {
         /* Typically, only the P value needs to be modified.                   */
         LiveWindow.addSensor("DriveSystem", "RotateController", turnController);
     }
-    
-    public AutoSteerDriveToPeg(double setpointAngle, double speedSteer, double distance) {
-    	this();
-    	setpoint = Math.abs(setpointAngle) < maxAbsSetpoint ? setpointAngle : maxAbsSetpoint * Math.signum(setpointAngle);
-    	speed = Math.abs(speedSteer) < maxAbsSpeed ? speedSteer : maxAbsSpeed * Math.signum(speedSteer);
-    	this.distance = distance;
-    	// TODO: 4.5 feet/sec is valid for speed = 0.7 (percent voltage); need to scale if "speed" changes
-        driveTime = (long)(distance / feetPerSecond * 1000);
-        if (driveTime > TIME_MAX) driveTime = TIME_MAX;
-    }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
     	Robot.driveTrain.setBrake(true);
+    	Robot.driveTrain.zeroEncoders();
     	Robot.navx.zeroYaw();
-    	timeFinished = System.currentTimeMillis() + driveTime;
-    	turnController.setSetpoint(setpoint);
+    	timeFinished = System.currentTimeMillis() + timeMax;
+    	turnController.setSetpoint(targetDistance);
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
     	turnController.enable();
-    	double rotate = -rotateRate;
-        //Robot.driveTrain.drive(speed, -speed);
-    	Robot.driveTrain.driveArcade(speed, rotate, false);
+    	double speed = rate;
+//    	speed /= 2.0;
+        //Robot.driveTrain.drive(speed, -speed);  //Mark 1
+    	Robot.driveTrain.driveArcade(rate, 0, false); //Mark 2
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-    	//if (turnController.onTarget())
-    	//	return true;
+    	if (turnController.onTarget()) {
+    		return true;
+    	}
     	if (System.currentTimeMillis() > timeFinished) {
     		Robot.driveTrain.setBrake(false);
     		return true;
@@ -145,13 +135,13 @@ public class AutoSteerDriveToPeg extends Command {
 		//pidController.setSetpoint(kHoldDistance * kValueToInches);
 		turnController.enable(); // begin PID control
 	}
-    
+
     private class MyPidOutput implements PIDOutput {
 		@Override
 		public void pidWrite(double output) {
 			//myRobot.drive(output, 0);
 			//Robot.driveTrain.drive(output, 0);
-			rotateRate = output;
+			rate = output;
 		}
 	}
 

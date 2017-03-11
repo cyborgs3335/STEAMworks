@@ -5,6 +5,8 @@ import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,7 +20,7 @@ import org.usfirst.frc.team3335.robot.commands.TankDrive;
  * Created by jacob on 1/14/17.
  * A subsystem for a west coast drive train.
  */
-public class DriveTrain extends Subsystem implements LoggableSubsystem{
+public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSource {
 
     //get the cantalons at http://www.ctr-electronics.com/downloads/installers/CTRE%20Toolsuite%20v4.4.1.9-nonadmin.zip for windows,
     //http://www.ctr-electronics.com//downloads/lib/CTRE_FRCLibs_NON-WINDOWS_v4.4.1.9.zip for other
@@ -31,6 +33,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     private final double trainingSpeedMax = 1;
 	private int direction = 1; // Mark2 = 1; Mark3 = -1?
     //private final double joystickScalar = 1/(1-deadzone);
+	private PIDSourceType pidSourceType = PIDSourceType.kDisplacement;
 
     /*
      * Encoder Ratios
@@ -49,8 +52,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
      * Motor to shaft (low gear): 12.255
      *               (high gear):  5.392
      */
-    
-    
+
     public DriveTrain() {
         super();
         frontLeft = new CANTalon(RobotMap.DRIVE_TRAIN_FRONT_LEFT);
@@ -195,8 +197,21 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     	driveArcade(move, rotate, true);
     }
     
+    public double getDistance() {
+    	if (!leftEncoder.getStopped() && !rightEncoder.getStopped()) {
+    		return (leftEncoder.getDistance() + rightEncoder.getDistance())/2;
+    	} else if (!leftEncoder.getStopped()) {
+    		return leftEncoder.getDistance();
+    	} else if (!rightEncoder.getStopped()) {
+    		return rightEncoder.getDistance();
+    	} else {
+    		return 0;
+    	}
+    }
+
     @Override
     public void log() {
+    	SmartDashboard.putNumber("DriveTrain: distance", getDistance());
     	SmartDashboard.putNumber("DriveTrain: left distance", leftEncoder.getDistance());
     	SmartDashboard.putNumber("DriveTrain: left velocity", leftEncoder.getRate());
     	SmartDashboard.putNumber("DriveTrain: right distance", rightEncoder.getDistance());
@@ -210,4 +225,19 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     	SmartDashboard.putNumber("DriveTrain: back  left  current", backLeft.getOutputCurrent());
     	SmartDashboard.putNumber("DriveTrain: back  left  current pdp", Robot.pdp.getCurrent(11));
     }
+
+	@Override
+	public void setPIDSourceType(PIDSourceType pidSource) {
+		pidSourceType = pidSource;
+	}
+
+	@Override
+	public PIDSourceType getPIDSourceType() {
+		return pidSourceType;
+	}
+
+	@Override
+	public double pidGet() {
+		return getDistance();
+	}
 }
