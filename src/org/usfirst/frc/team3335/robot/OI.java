@@ -16,12 +16,16 @@ public class OI {
     private Joystick joystick2;
 
     public OI() {
+    	this(true);
+    }
+
+    public OI(boolean driveMode) {
         joystick = new Joystick(0);
         joystick2 = new Joystick(1);
 
         // Joystick 1
-        boolean kevinMode = true; // Kevin
-        //boolean kevinMode = false; // Duncan
+        //boolean driveMode = true; // Kevin
+        //boolean driveMode = false; // Duncan
         int bDefault = -1;
         int bGateUp = bDefault;
         int bGateDown = bDefault;
@@ -39,7 +43,7 @@ public class OI {
         int bShooter = 3; // X
         int bIntake = 1; // A
 
-        if (kevinMode) {
+        if (driveMode) {
         	// Joystick 1
         	bGateUp = 3;
         	bGateDown = 2;

@@ -3,6 +3,7 @@ package org.usfirst.frc.team3335.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -85,17 +86,26 @@ public class Robot extends IterativeRobot {
 		navx = new NavX();
 		subsystemsList.add(navx);
 
-		//autonomous
+		// Autonomous
 		chooser.addObject("AutoDriveToPeg", new AutoDriveToPeg(9));
 		chooser.addObject("Auto Place Gear", new AutoPlaceGear());
 		chooser.addObject("Auto Turn using Vision", new AutoTurnByVision());
+		chooser.addObject("Auto Turn To Peg", new AutoTurnToPeg());
 		chooser.addDefault("None", new AutoNone());
 		SmartDashboard.putData("Auto Mode", chooser);
 
+		// Preferences
+		Preferences prefs = Preferences.getInstance();
+		boolean driveMode = prefs.getBoolean("Drive Mode", RobotPreferences.DRIVE_MODE_DEFAULT);
+		SmartDashboard.putBoolean("Prefs: Drive Mode", driveMode);
+		SmartDashboard.putNumber("Prefs: Vision Kp", prefs.getDouble("Vision Kp", RobotPreferences.VISION_KP_DEFAULT));
+		SmartDashboard.putNumber("Prefs: Vision Ki", prefs.getDouble("Vision Ki", RobotPreferences.VISION_KI_DEFAULT));
+		SmartDashboard.putNumber("Prefs: Vision Kd", prefs.getDouble("Vision Kd", RobotPreferences.VISION_KD_DEFAULT));
+		SmartDashboard.putNumber("Prefs: Turn To Peg Angle", prefs.getDouble("Turn To Peg Angle", RobotPreferences.TURN_TO_PEG_ANGLE_DEFAULT));
 
 		//Instantiate after all subsystems and preferences - or the world will die
 		//We don't want that, do we?
-		oi = new OI();
+		oi = new OI(driveMode);
 
 		addSubsystemsToDashboard(subsystemsList);
 	}
