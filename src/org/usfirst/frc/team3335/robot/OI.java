@@ -19,6 +19,7 @@ public class OI {
         joystick = new Joystick(0);
         joystick2 = new Joystick(1);
 
+        // Joystick 1
         boolean kevinMode = true; // Kevin
         //boolean kevinMode = false; // Duncan
         int bDefault = -1;
@@ -30,12 +31,13 @@ public class OI {
         int bShiftHigh = bDefault;
         int bDriveForward = bDefault;
         int bDriveBackward = bDefault;
+
+        // Joystick 2
         int bClimberUpSlow = 5; // Left Button
         int bClimberUpFast = 6; // Right Button
         int bClimberDown = 7; // "Back"
-        int bShooter = 3; // Right Trigger
-        int bIntakeOn = 1; // A
-        int bIntakeOff = 2; // B
+        int bShooter = 3; // X
+        int bIntake = 1; // A
 
         if (kevinMode) {
         	// Joystick 1
@@ -100,10 +102,9 @@ public class OI {
         shootBalls.whenReleased(new ShootBalls(true, 0));
 
         // Intake
-        JoystickButton intakeOn = addButton(getJoystick2(), bIntakeOn, "Intake On");
-        intakeOn.whenPressed(new IntakeBalls(false, -0.5));
-        JoystickButton intakeOff = addButton(getJoystick2(), bIntakeOff, "Intake Off");
-        intakeOff.whenPressed(new IntakeBalls(true, 0));
+        JoystickButton intake = addButton(getJoystick2(), bIntake, "Intake On");
+        intake.whenPressed(new IntakeBalls(false, -0.5));
+        intake.whenReleased(new IntakeBalls(true, 0));
 
         // Additional commands to add to dashboard
 		SmartDashboard.putData("AutoTurnToPeg", new AutoTurnToPeg());
