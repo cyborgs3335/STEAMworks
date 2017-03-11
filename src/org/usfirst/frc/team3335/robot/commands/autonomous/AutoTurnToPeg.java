@@ -70,7 +70,7 @@ public class AutoTurnToPeg extends Command {
         /* Add the PID Controller to the Test-mode dashboard, allowing manual  */
         /* tuning of the Turn Controller's P, I and D coefficients.            */
         /* Typically, only the P value needs to be modified.                   */
-        LiveWindow.addSensor("DriveSystem", "RotateController", turnController);
+        //LiveWindow.addSensor("DriveSystem", "RotateController", turnController);
     }
 
     // Called just before this Command runs the first time

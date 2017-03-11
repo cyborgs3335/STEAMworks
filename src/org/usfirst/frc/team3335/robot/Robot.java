@@ -114,7 +114,11 @@ public class Robot extends IterativeRobot {
 		//We don't want that, do we?
 		oi = new OI(driveMode);
 
-		addSubsystemsToDashboard(subsystemsList);
+		//TODO uncomment to see subsystems on dashboard
+		//addSubsystemsToDashboard(subsystemsList);
+		ArrayList<LoggableSubsystem> tempList = new ArrayList<LoggableSubsystem>();
+		tempList.add(driveTrain);
+		addSubsystemsToDashboard(tempList);
 	}
 
 	/**

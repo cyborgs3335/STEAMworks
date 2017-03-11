@@ -111,13 +111,16 @@ public class OI {
         intake.whenReleased(new IntakeBalls(true, 0));
 
         // Additional commands to add to dashboard
+        /*
 		SmartDashboard.putData("AutoTurnToPeg", new AutoTurnToPeg());
 		SmartDashboard.putData("AutoSteerDriveToPeg", new AutoSteerDriveToPeg(60, 0.7, 9));
+		*/
     }
 
     private JoystickButton addButton(Joystick joystick, int buttonNumber, String key) {
         JoystickButton button = new JoystickButton(joystick, buttonNumber);
-        SmartDashboard.putData(key, button);
+        //TODO uncomment to see commands on dashboard
+        //SmartDashboard.putData(key, button);
         return button;
     }
 

@@ -205,7 +205,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
     	} else if (!rightEncoder.getStopped()) {
     		return rightEncoder.getDistance();
     	} else {
-    		return 0;
+    		return (leftEncoder.getDistance() + rightEncoder.getDistance())/2;
     	}
     }
 
