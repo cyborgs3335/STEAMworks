@@ -229,7 +229,8 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	@Override
 	public double pidGet() {
 		//return centerX;
-		return targetOffsetX;
+		//return targetOffsetX;
+		return targetAzimuth;
 	}
 
 }
