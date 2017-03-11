@@ -2,10 +2,12 @@ package org.usfirst.frc.team3335.robot.commands.autonomous;
 
 import org.usfirst.frc.team3335.robot.Robot;
 import org.usfirst.frc.team3335.robot.RobotMap;
+import org.usfirst.frc.team3335.robot.RobotPreferences;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -26,15 +28,25 @@ public class AutoTurnToPeg extends Command {
 //	// factor to convert sensor values to a distance in inches
 //	private static final double kValueToInches = 0.125;
 
-	// proportional speed constant
-	private static final double kP = 0.04;//0.03 too small?; 0.06 too big; 0.04 just right for mark 1
+	private static Preferences prefs = Preferences.getInstance();
+	
+	//proportional speed constant
+	//private static final double kP = 0.04;//0.03 too small?; 0.06 too big; 0.04 just right for mark 1
+	// 0.015
+	private static final double kP = prefs.getDouble("Vision Kp", RobotPreferences.VISION_KP_DEFAULT);//0.03 too small?; 0.06 too big; 0.04 just right for mark 1
 
 	// integral speed constant
-	private static final double kI = 0; //0.018;
+	//private static final double kI = 0; //0.018;\
+	// 0.001
+	private static final double kI = prefs.getDouble("Vision Ki", RobotPreferences.VISION_KI_DEFAULT); //0.018;
 
 	// derivative speed constant
-	private static final double kD = 0; //1.5;
-	
+	//private static final double kD = 0; //1.5;
+	private static final double kD = prefs.getDouble("Vision Kd", RobotPreferences.VISION_KD_DEFAULT); //1.5;
+
+	// Setpoint angle
+	private static final double setPointAngle = prefs.getDouble("Turn To Peg Angle", RobotPreferences.TURN_TO_PEG_ANGLE_DEFAULT);
+
 	// tolerance in degrees
 	private static final double kToleranceDegrees = 1.0;
 	
@@ -67,7 +79,7 @@ public class AutoTurnToPeg extends Command {
     	Robot.driveTrain.setBrake(true);
     	Robot.navx.zeroYaw();
     	timeFinished = System.currentTimeMillis() + timeMax;
-    	turnController.setSetpoint(90);
+    	turnController.setSetpoint(setPointAngle);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -76,8 +88,8 @@ public class AutoTurnToPeg extends Command {
     	turnController.enable();
     	double speed = rotateRate;
 //    	speed /= 2.0;
-        //Robot.driveTrain.drive(speed, -speed);
-    	Robot.driveTrain.driveArcade(0, -speed, false);
+        //Robot.driveTrain.drive(speed, -speed);  //Mark 1
+    	Robot.driveTrain.driveArcade(0, speed, false); //Mark 2
     }
 
     // Make this return true when this Command no longer needs to run execute()
