@@ -143,16 +143,16 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     }
     
     public double map(double input ) {
-    	if (Math.abs(input) < deadzone)
+    	if (Math.abs(input) < deadzone) {
     		return 0;
-    	if(input>0) {
+    	}
+    	if (input>0) {
     		return (input - deadzone)/(1 - deadzone);
-    	}
-    	else if(input<0) {
+    	} else if(input<0) {
     		return (input + deadzone)/(1 - deadzone);
-    	}
-    	else 
+    	} else {
     		return 0;
+    	}
     }
 
 	/**
@@ -177,9 +177,9 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem{
     		int sign = direction;
     		if (joystick.getRawAxis(1) <= 0) sign = -direction;
     		if (Math.abs(joystick.getRawAxis(1))>trainingSpeedMax)
-    			driveArcade(sign*trainingSpeedMax, map(direction *joystick.getRawAxis(0)));
+    			driveArcade(sign*trainingSpeedMax, map(/*direction * */ joystick.getRawAxis(0)));
     		else
-    			driveArcade(map(direction *joystick.getRawAxis(1)), map(direction *joystick.getRawAxis(0)));
+    			driveArcade(map(direction *joystick.getRawAxis(1)), map(/*direction * */ joystick.getRawAxis(0)));
     	}
     }
 
