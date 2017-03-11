@@ -17,5 +17,5 @@ public class RobotPreferences {
     public static final int DRIVE_TRAIN_LEFT_AXIS = 1;
     public static final int DRIVE_TRAIN_RIGHT_AXIS = 5;
 
-	public static final long VISION_TIME_DEFAULT = 10000;
+	public static final double VISION_TIME_DEFAULT = 10;
 }
