@@ -45,7 +45,7 @@ public class AutoTurnToPeg extends Command {
 	private static final double kD = prefs.getDouble("Vision Kd", RobotPreferences.VISION_KD_DEFAULT); //1.5;
 
 	// Setpoint angle
-	private static final double setPointAngle = prefs.getDouble("Turn To Peg Angle", RobotPreferences.TURN_TO_PEG_ANGLE_DEFAULT);
+	private final double setPointAngle;
 
 	// tolerance in degrees
 	private static final double kToleranceDegrees = 1.0;
@@ -55,12 +55,25 @@ public class AutoTurnToPeg extends Command {
 	private PIDController turnController;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+	/**
+	 * Constructor using default setpoint angle, specified by robot preferences.
+	 */
     public AutoTurnToPeg() {
+    	 this(prefs.getDouble("Turn To Peg Angle", RobotPreferences.TURN_TO_PEG_ANGLE_DEFAULT));
+    }
+
+    /**
+     * Constructor specifying setpoint angle.
+     * @param setPointAngle
+     */
+    public AutoTurnToPeg(double setPointAngle) {
         requires(Robot.driveTrain);
         //requires(Robot.ultrasonics);
         //requires(Robot.visionTest);
         requires(Robot.navx);
-        
+
+        this.setPointAngle = setPointAngle;
+
         turnController = new PIDController(kP, kI, kD, Robot.navx.getAHRS(), new MyPidOutput());
         turnController.setInputRange(-180, 180);
         turnController.setOutputRange(-.7, .7);

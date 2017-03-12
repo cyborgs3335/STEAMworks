@@ -85,7 +85,9 @@ public class Robot extends IterativeRobot {
 
 		// Autonomous
 		chooser.addObject("AutoDriveToPeg", new AutoDriveToPeg(108));
-		chooser.addObject("Auto Place Gear", new AutoPlaceGear());
+		chooser.addObject("Auto Place Gear Turn Right", new AutoPlaceGear(108, 60));
+		chooser.addObject("Auto Place Gear Straight", new AutoPlaceGear(108, 0));
+		chooser.addObject("Auto Place Gear Turn Left", new AutoPlaceGear(108, -60));
 		chooser.addObject("Auto Turn using Vision", new AutoTurnByVision(0));
 		chooser.addObject("Auto Turn To Peg", new AutoTurnToPeg());
 		chooser.addObject("Auto Drive Distance", new AutoDriveDistance(108, 10000));
