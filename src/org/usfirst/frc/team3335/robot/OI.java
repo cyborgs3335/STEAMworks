@@ -2,10 +2,10 @@ package org.usfirst.frc.team3335.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team3335.robot.commands.*;
-import org.usfirst.frc.team3335.robot.commands.autonomous.*;
+//import org.usfirst.frc.team3335.robot.commands.autonomous.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -14,10 +14,6 @@ import org.usfirst.frc.team3335.robot.commands.autonomous.*;
 public class OI {
     private Joystick joystick;
     private Joystick joystick2;
-
-    public OI() {
-    	this(true);
-    }
 
     public OI(boolean driveMode) {
         joystick = new Joystick(0);
