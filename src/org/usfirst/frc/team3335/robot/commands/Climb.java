@@ -25,7 +25,9 @@ public class Climb extends Command {
 	
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
+		if (!finished && Robot.climber.isCurrentExceeded()) {
+			return true;
+		}
 		return finished;
 	}
 

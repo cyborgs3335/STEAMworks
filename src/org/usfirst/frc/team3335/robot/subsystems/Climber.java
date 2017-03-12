@@ -15,25 +15,42 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Climber extends Subsystem implements LoggableSubsystem {
 
 	private CANTalon bagMotor;
-	
+
+	private final double currentLimit = 45.0; // amps; 45 may be too much
+	//private final double currentLimit = 25.0; // amps, for testing only
+	private final double timeOut = 1000; // milliseconds
+	private double timeCurrentExceeded = 0;
+
 	public Climber() {
 		bagMotor = new CANTalon(RobotMap.CLIMBING_MOTOR);
 		bagMotor.enableBrakeMode(false);
 		//while(true)if (joystick.getRawButton(4))manualClimb(joystick);
 	}
-	
+
 	protected void climb(double rotations) {
 		double firstNum = bagMotor.getAnalogInPosition();
 		bagMotor.set(-1);
 		while(bagMotor.getAnalogInPosition()<firstNum+(rotations*1024)){;}
 		bagMotor.set(0);
 	}
-	
+
 	public void manualClimb(double speed) {
+		if (isCurrentExceeded()) {
+			bagMotor.set(0);
+			timeCurrentExceeded = System.currentTimeMillis();
+			return;
+		}
+		if (System.currentTimeMillis() - timeCurrentExceeded < timeOut) {
+			bagMotor.set(0);
+			return;
+		}
 		bagMotor.set(speed);
-		
 	}
-	
+
+	public boolean isCurrentExceeded() {
+		return bagMotor.getOutputCurrent() >= currentLimit;
+	}
+
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
