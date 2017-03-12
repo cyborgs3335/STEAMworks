@@ -17,7 +17,6 @@ import org.usfirst.frc.team3335.robot.commands.autonomous.AutoDriveDistance;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoDriveToPeg;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoNone;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceGear;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoSteerDriveToPeg;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnByVision;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPeg;
 import org.usfirst.frc.team3335.robot.subsystems.*;
@@ -45,7 +44,6 @@ public class Robot extends IterativeRobot {
 	public static BallShifter ballShifter;
 	public static BallShooter ballShooter;
 	public static Intake intake;
-	//public static Dumper dumper;
 	public static Gate gate;
 	public static Flapper flapper;
 	public static Climber climber;
@@ -68,8 +66,6 @@ public class Robot extends IterativeRobot {
 		//visionTest = null;
 		visionTest = new VisionTest();
 		subsystemsList.add(visionTest);
-		//dumper = new Dumper();
-		//subsystemsList.add(dumper);
 		gate = new Gate();
 		subsystemsList.add(gate);
 		flapper = new Flapper();
@@ -151,18 +147,6 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
 
-//		String autoSelected = SmartDashboard.getString(AUTO_MODE, AUTO_DEFAULT);
-//		switch(autoSelected) {
-//		case AUTO_PLACE_GEAR:
-//			autonomousCommand = new AutoPlaceGear();
-//			break;
-//		case AUTO_NONE:
-//		case AUTO_DEFAULT:
-//		default:
-//			autonomousCommand = new AutoNone();
-//			break;
-//		}
-
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
 			autonomousCommand.start();
@@ -215,6 +199,10 @@ public class Robot extends IterativeRobot {
 		}
 	}
 
+	/**
+	 * Log subsystems on the SmartDashboard
+	 * @param subsystems list of subsystems
+	 */
 	private void addSubsystemsToDashboard(ArrayList<LoggableSubsystem> subsystems) {
 		for (LoggableSubsystem subsystem : subsystems) {
 			if (subsystem != null && subsystem instanceof Subsystem) {
