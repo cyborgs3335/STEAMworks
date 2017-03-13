@@ -9,6 +9,7 @@ public class Climb extends Command {
 	double speed;
 	public Climb(boolean isFinished, double speed) {
 		requires(Robot.climber);
+		requires(Robot.compressor);
 		finished=isFinished;
 		this.speed = speed;
 	}
@@ -16,11 +17,13 @@ public class Climb extends Command {
 	@Override
     protected void initialize() {
         Robot.climber.manualClimb(speed);
+        Robot.compressor.setClosedLoop(false);
     }
 	
 	@Override
 	protected void end() {
 		Robot.climber.manualClimb(0);
+		Robot.compressor.setClosedLoop(true);
 	}
 	
 	@Override
