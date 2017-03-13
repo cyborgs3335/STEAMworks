@@ -16,6 +16,10 @@ public class Compressor extends Subsystem implements LoggableSubsystem {
         //compressor.setClosedLoopControl(false); //off
     }
 
+    public void setClosedLoop(boolean on) {
+        compressor.setClosedLoopControl(on);
+    }
+
     @Override
     protected void initDefaultCommand() {
     	// Nothing to do here
