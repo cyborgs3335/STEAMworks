@@ -93,7 +93,7 @@ public class AutoTurnByVision extends Command {
     protected void execute() {
     	if (System.currentTimeMillis() - pidTimeSinceUpdate > pidUpdateDelay) {
     		double pidVal = Robot.visionTest.pidGet();
-    		pidVal *= 0.333;
+    		//pidVal *= 0.333;
         	turnController.setSetpoint(pidVal);
         	Robot.navx.zeroYaw();
     		pidTimeSinceUpdate = System.currentTimeMillis();
