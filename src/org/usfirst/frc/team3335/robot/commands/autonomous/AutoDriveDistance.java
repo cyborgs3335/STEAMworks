@@ -46,6 +46,9 @@ public class AutoDriveDistance extends Command {
 	// tolerance in degrees
 	private static final double kToleranceDistance = 5.0;
 
+	// maximum output range
+	private final double maxOutputRange = 0.7;
+
 	private final double targetDistance; // inches
 	private final long timeMax; // milliseconds
 	private double rate;
@@ -68,7 +71,7 @@ public class AutoDriveDistance extends Command {
 
         turnController = new PIDController(kP, kI, kD, Robot.driveTrain, new MyPidOutput());
         //turnController.setInputRange(-180, 180);
-        turnController.setOutputRange(-.7, .7);
+        turnController.setOutputRange(-maxOutputRange, maxOutputRange);
         turnController.setAbsoluteTolerance(kToleranceDistance);
         turnController.setContinuous(true);
         

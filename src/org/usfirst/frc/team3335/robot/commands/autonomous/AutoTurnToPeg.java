@@ -49,7 +49,10 @@ public class AutoTurnToPeg extends Command {
 
 	// tolerance in degrees
 	private static final double kToleranceDegrees = 1.0;
-	
+
+	// maximum output range
+	private final double maxOutputRange = 0.4;
+
 	private double rotateRate;
 	
 	private PIDController turnController;
@@ -76,7 +79,7 @@ public class AutoTurnToPeg extends Command {
 
         turnController = new PIDController(kP, kI, kD, Robot.navx.getAHRS(), new MyPidOutput());
         turnController.setInputRange(-180, 180);
-        turnController.setOutputRange(-.7, .7);
+        turnController.setOutputRange(-maxOutputRange, maxOutputRange);
         turnController.setAbsoluteTolerance(kToleranceDegrees);
         turnController.setContinuous(true);
         

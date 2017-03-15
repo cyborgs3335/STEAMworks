@@ -41,6 +41,9 @@ public class AutoTurnByVision extends Command {
 	// tolerance in degrees
 	private static final double kToleranceDegrees = 1.0;
 	
+	// maximum output range
+	private final double maxOutputRange = 0.4;
+
 	private double rotateRate;
 
 	//private final long pidUpdateDelay = 500; // milliseconds
@@ -66,7 +69,7 @@ public class AutoTurnByVision extends Command {
         forwardSpeed = -speed;
         turnController = new PIDController(kP, kI, kD, Robot.navx.getAHRS()/*Robot.visionTest*/, new MyPidOutput());
         turnController.setInputRange(-180, 180);
-        turnController.setOutputRange(-.7, .7);
+        turnController.setOutputRange(-maxOutputRange, maxOutputRange);
         turnController.setAbsoluteTolerance(kToleranceDegrees);
         turnController.setContinuous(true); // TODO is this what we want???
         
