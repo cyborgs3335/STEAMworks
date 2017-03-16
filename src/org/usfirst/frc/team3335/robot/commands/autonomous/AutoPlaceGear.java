@@ -17,6 +17,6 @@ public class AutoPlaceGear extends CommandGroup {
 		addSequential(new AutoDriveToPeg(distStraight));
 		addSequential(new AutoTurnToPeg(turnAngle));
 		//addSequential(new AutoSteerDriveToPeg(60, .7, 9));
-		addSequential(new AutoTurnByVision(0.4));
+		//addSequential(new AutoTurnByVision(0.4));
 	}
 }
