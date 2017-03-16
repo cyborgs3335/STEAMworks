@@ -21,7 +21,7 @@ public class AutoDriveToPeg extends Command {
         this.distance = distance;
         driveTime = (long)(distance / feetPerSecond / 12.0 * 1000);
         // TODO remove after testing
-        driveTime *= 1.5;
+        // driveTime *= 1.5;
         // end TODO
         if (driveTime > TIME_MAX) driveTime = TIME_MAX;
     }
