@@ -38,7 +38,7 @@ public class AutoDriveToPeg extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    	double speed = -0.7;
+    	double speed = 0.7;
         Robot.driveTrain.drive(speed, speed);
     }
 

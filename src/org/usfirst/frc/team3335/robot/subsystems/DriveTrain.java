@@ -31,7 +31,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
     private final boolean useTankDrive = false;
     private double deadzone = .1;
     private final double trainingSpeedMax = 1;
-	private int direction = 1; // Mark2 = 1; Mark3 = -1?
+	private int direction = -1; // Mark2 = 1; Mark3 = -1?
     //private final double joystickScalar = 1/(1-deadzone);
 	private PIDSourceType pidSourceType = PIDSourceType.kDisplacement;
 
@@ -162,7 +162,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
 	 * @param direction : 1 for forward, -1 for backward
 	 */
 	public void setDirection(int direction) {
-		this.direction = direction;
+		this.direction = -direction;
 	}
     
     public void driveNew(Joystick joystick) {
