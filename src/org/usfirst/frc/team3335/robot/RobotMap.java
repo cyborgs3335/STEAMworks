@@ -71,8 +71,8 @@ public class RobotMap {
 	public static final int DRIVE_TRAIN_ENCODER_LEFT_B = 0;
 	public static final int DRIVE_TRAIN_ENCODER_RIGHT_A = 2;
 	public static final int DRIVE_TRAIN_ENCODER_RIGHT_B = 3;
-    public static final int CLIMBING_MOTOR = 5;
-	public static final int INTAKE_MOTOR = 7;
+    public static final int CLIMBING_MOTOR = 7;
+	public static final int INTAKE_MOTOR = 5;
 	public static final int BALL_SHOOTER_MOTOR = 6;
 	public static final int ANALOG_ULTRASONIC_LEFT = 0;
 	public static final int ANALOG_ULTRASONIC_RIGHT = 1;
