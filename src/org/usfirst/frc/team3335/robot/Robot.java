@@ -84,13 +84,14 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(navx);
 
 		// Autonomous
-		chooser.addObject("AutoDriveToPeg", new AutoDriveToPeg(108));
-		chooser.addObject("Auto Place Gear Turn Right", new AutoPlaceGear(108, 60));
-		chooser.addObject("Auto Place Gear Straight", new AutoPlaceGear(108, 0));
-		chooser.addObject("Auto Place Gear Turn Left", new AutoPlaceGear(108, -60));
-		chooser.addObject("Auto Turn using Vision", new AutoTurnByVision(0));
+		//chooser.addObject("AutoDriveToPeg", new AutoDriveToPeg(60));
+		chooser.addObject("Auto Drive Straight 9ft", new AutoPlaceGear(108, 0));
+		chooser.addObject("Auto Place Gear Turn Right", new AutoPlaceGear(60, 60));
+		chooser.addObject("Auto Place Gear Straight", new AutoPlaceGear(84, 0));
+		chooser.addObject("Auto Place Gear Turn Left", new AutoPlaceGear(60, -60));
+		//chooser.addObject("Auto Turn using Vision", new AutoTurnByVision(0));
 		chooser.addObject("Auto Turn To Peg", new AutoTurnToPeg());
-		chooser.addObject("Auto Drive Distance", new AutoDriveDistance(108, 10000));
+		//chooser.addObject("Auto Drive Distance", new AutoDriveDistance(108, 10000));
 		chooser.addDefault("None", new AutoNone());
 		SmartDashboard.putData("Auto Mode", chooser);
 
