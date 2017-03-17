@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoDriveDistance;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoDriveToPeg;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoNone;
+import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceDropGear;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceGear;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnByVision;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPeg;
@@ -87,8 +88,10 @@ public class Robot extends IterativeRobot {
 		//chooser.addObject("AutoDriveToPeg", new AutoDriveToPeg(60));
 		chooser.addObject("Auto Drive Straight 9ft", new AutoPlaceGear(120, 0, 0));
 		chooser.addObject("Auto Place Gear Turn Right", new AutoPlaceGear(90, 60, 60));
-		chooser.addObject("Auto Place Gear Straight", new AutoPlaceGear(102, 0, 0));
+		chooser.addObject("Auto Drive Straight 6ft", new AutoPlaceGear(80, 0, 0));
 		chooser.addObject("Auto Place Gear Turn Left", new AutoPlaceGear(90, -60, 60));
+		chooser.addObject("Auto Place and Drop Gear Straight", 
+				new AutoPlaceDropGear(108, 0, 0, -36));
 		//chooser.addObject("Auto Turn using Vision", new AutoTurnByVision(0));
 		chooser.addObject("Auto Turn To Peg", new AutoTurnToPeg());
 		//chooser.addObject("Auto Drive Distance", new AutoDriveDistance(108, 10000));
