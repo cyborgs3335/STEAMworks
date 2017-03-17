@@ -15,6 +15,7 @@ public class Flapper extends Subsystem implements LoggableSubsystem {
 	public Flapper() {
 		solenoid = new DoubleSolenoid(RobotMap.FLAPPER_FORWARD_CHANNEL, RobotMap.FLAPPER_REVERSE_CHANNEL);
 		solenoid.set(Value.kReverse);
+		//solenoid.set(Value.kForward);
 	}
 	
 	public void switchPos(DoubleSolenoid.Value val) {

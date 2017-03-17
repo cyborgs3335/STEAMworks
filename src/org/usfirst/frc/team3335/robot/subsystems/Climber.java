@@ -16,7 +16,8 @@ public class Climber extends Subsystem implements LoggableSubsystem {
 
 	private CANTalon bagMotor;
 
-	private final double currentLimit = 45.0; // amps; 45 may be too much
+	private final double currentLimit = 100.0; // amps; 100 may be too much
+	//private final double currentLimit = 45.0; // amps; 45 may be too much
 	//private final double currentLimit = 25.0; // amps, for testing only
 	private final double timeOut = 1000; // milliseconds
 	private double timeCurrentExceeded = 0;
@@ -60,7 +61,7 @@ public class Climber extends Subsystem implements LoggableSubsystem {
 	@Override
 	public void log() {
 		SmartDashboard.putNumber("Climber: talon current", bagMotor.getOutputCurrent());
-		SmartDashboard.putNumber("Climber: pdp   current", Robot.pdp.getCurrent(15));
+		SmartDashboard.putNumber("Climber: pdp   current", Robot.pdp.getCurrent(12));
 	}
 
 }
