@@ -31,7 +31,7 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	private static final int IMG_HEIGHT = 240;
 
 	// Camera offset: positive=camera to right of center, negative=camera to left of center
-	private final double cameraOffset = -12; // inches - Mark 2
+	private final double cameraOffset = -12.5; // inches - Mark 2
 
 	private VisionThread visionThread;
 	private double centerX = 0.0;
@@ -207,6 +207,10 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 
 	public boolean isTargetDetected() {
 		return targetDetected;
+	}
+
+	public double getTargetDistance() {
+		return targetDistance;
 	}
 
 	@Override
