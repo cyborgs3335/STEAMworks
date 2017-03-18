@@ -30,7 +30,8 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	private static final int IMG_WIDTH = 320;
 	private static final int IMG_HEIGHT = 240;
 
-	private final double cameraOffset = 12; // inches - Mark 2
+	// Camera offset: positive=camera to right of center, negative=camera to left of center
+	private final double cameraOffset = -12; // inches - Mark 2
 
 	private VisionThread visionThread;
 	private double centerX = 0.0;
@@ -196,6 +197,8 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 		distance *= 1.47; // Fudge factor [equal to 1/tan(68.5/2)]
 		double targetCx = rec.x + rec.width / 2;
 		double width = (targetCx - pixelFOV / 2) * targetFeet / rec.width;
+		// Correct for camera offset
+		width += cameraOffset;
 		double azimuth = Math.toDegrees(Math.atan2(width,  distance));
 		targetDistance = distance;
 		targetAzimuth =  azimuth;
