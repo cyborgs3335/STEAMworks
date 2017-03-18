@@ -20,6 +20,7 @@ public class AutoPlaceDropGear extends CommandGroup {
 		addSequential(new AutoDriveToPeg(-12, speed));
 		addSequential(new GateControl(true)); // close
 		addSequential(new AutoDriveToPeg(10, speed));
+		addSequential(new AutoDelay(500));
 		addSequential(new AutoDriveToPeg(distFinal, speed));
 	}
 }
