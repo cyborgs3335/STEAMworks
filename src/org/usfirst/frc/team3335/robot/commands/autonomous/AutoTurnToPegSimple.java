@@ -30,7 +30,7 @@ public class AutoTurnToPegSimple extends Command {
      * @param setPointAngle setpoint angle in degrees
      */
     public AutoTurnToPegSimple(double setPointAngle) {
-    	this(setPointAngle, 0.5);
+    	this(setPointAngle, 0.3);
     }
 
     /**

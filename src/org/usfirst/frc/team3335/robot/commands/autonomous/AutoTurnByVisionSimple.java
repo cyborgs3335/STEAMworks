@@ -27,7 +27,7 @@ public class AutoTurnByVisionSimple extends Command {
 	 * Constructor using default of zero forward speed and rotational speed of 0.5.
 	 */
 	public AutoTurnByVisionSimple() {
-		this(0, 0.5);
+		this(0, 0.3);
 	}
 
 	/**
