@@ -10,7 +10,7 @@ public class AutoDriveToPeg extends Command {
 	private double distance;
 	private long timeFinished = 0;
 	private long driveTime;
-	private final long TIME_MAX = 2000; // millisecs
+	private final long TIME_MAX = 5000; // millisecs
 	
     public AutoDriveToPeg(double distance) {
         requires(Robot.driveTrain);
@@ -19,9 +19,9 @@ public class AutoDriveToPeg extends Command {
         requires(Robot.navx);
         
         this.distance = distance;
-        driveTime = (long)(distance / feetPerSecond / 12.0 * 1000);
+        driveTime = (long)(Math.abs(distance) / feetPerSecond / 12.0 * 1000);
         // TODO remove after testing
-        // driveTime *= 1.5;
+        driveTime *= 1.5;
         // end TODO
         if (driveTime > TIME_MAX) driveTime = TIME_MAX;
     }
@@ -38,14 +38,14 @@ public class AutoDriveToPeg extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    	double speed = Math.signum(distance) * 0.7;
+    	double speed = Math.signum(distance) * 0.5;
         Robot.driveTrain.drive(speed, speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-    	if (Robot.driveTrain.getDistance() > distance) {
+    	if (Math.abs(Robot.driveTrain.getDistance()) > Math.abs(distance)) {
     		return true;
     	}
     	if (System.currentTimeMillis() > timeFinished) {
