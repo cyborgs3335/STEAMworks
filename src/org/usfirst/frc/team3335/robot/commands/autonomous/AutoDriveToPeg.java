@@ -8,16 +8,27 @@ public class AutoDriveToPeg extends Command {
 
 	private final double feetPerSecond = 4.5; //Mark 1 at .7 voltage
 	private double distance;
+	private double speedForward;
 	private long timeFinished = 0;
 	private long driveTime;
 	private final long TIME_MAX = 5000; // millisecs
-	
+
     public AutoDriveToPeg(double distance) {
+    	this(distance, 0.7);
+    }
+
+    /**
+     * Move specified distance with specified speed.
+     * @param distance distance to move, can be positive or negative
+     * @param speed speed (percent voltage), should be between 0 and 1 inclusive
+     */
+    public AutoDriveToPeg(double distance, double speed) {
         requires(Robot.driveTrain);
         requires(Robot.ultrasonics);
         //requires(Robot.visionTest);
         requires(Robot.navx);
-        
+
+        this.speedForward = Math.abs(speed);
         this.distance = distance;
         driveTime = (long)(Math.abs(distance) / feetPerSecond / 12.0 * 1000);
         // TODO remove after testing
@@ -38,7 +49,7 @@ public class AutoDriveToPeg extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    	double speed = Math.signum(distance) * 0.5;
+    	double speed = Math.signum(distance) * speedForward;
         Robot.driveTrain.drive(speed, speed);
     }
 

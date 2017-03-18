@@ -91,7 +91,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Auto Drive Straight 6ft", new AutoPlaceGear(80, 0, 0));
 		chooser.addObject("Auto Place Gear Turn Left", new AutoPlaceGear(90, -60, 60));
 		chooser.addObject("Auto Place and Drop Gear Straight", 
-				new AutoPlaceDropGear(80, 0, 0, -20));
+				new AutoPlaceDropGear(80, 0, 0, -20, 0.5));
 		chooser.addObject("Auto Turn using Vision", new AutoTurnByVision(0));
 		chooser.addObject("Auto Turn To Peg", new AutoTurnToPeg());
 		//chooser.addObject("Auto Drive Distance", new AutoDriveDistance(108, 10000));
