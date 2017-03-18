@@ -16,7 +16,7 @@ public class AutoPlaceDropGear extends CommandGroup {
 
 		// Open gate, pause, backup 12 in, close gate, move forward 10 in, then backup distFinal
 		addSequential(new GateControl(false)); // open
-		addSequential(new AutoDelay(1000));
+		addSequential(new AutoDelay(1500));
 		addSequential(new AutoDriveToPeg(-12, speed));
 		addSequential(new GateControl(true)); // close
 		addSequential(new AutoDriveToPeg(10, speed));

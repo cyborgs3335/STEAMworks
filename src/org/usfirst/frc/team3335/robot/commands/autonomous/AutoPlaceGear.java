@@ -13,7 +13,7 @@ public class AutoPlaceGear extends CommandGroup {
 	 *                  positive for cw, negative for ccw
 	 */
 	public AutoPlaceGear(double distInitial, double turnAngle, double distPost) {
-		addSequential(new AutoDelay(5000));
+		addSequential(new AutoDelay(2500));
 		addSequential(new BallShiftLow());
 		addSequential(new AutoDriveToPeg(distInitial));
 		addSequential(new AutoTurnToPeg(turnAngle));
