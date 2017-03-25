@@ -64,6 +64,13 @@ public class AutoDriveToPeg extends Command {
     	return speedIn;
     }
 
+    private double limitSpeedByDistanceUltrasonic(double speedIn, double limitDistance) {
+    	if (Robot.ultrasonics.getDistance() < Math.abs(limitDistance)) {
+    		return speedIn * 0.5;
+    	}
+    	return speedIn;
+    }
+
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
