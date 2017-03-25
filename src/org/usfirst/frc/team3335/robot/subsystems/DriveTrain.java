@@ -186,15 +186,28 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
     }
 
     public void drive(double left, double right) {
-        drive.tankDrive(left, right, true);
+    	int sign = RobotMap.DRIVE_TRAIN_FORWARD_DIRECTION == 1 ? -1 : 1;
+    	drive.tankDrive(sign * left, sign * right, true);
     }
-    
+
+    /**
+     * Arcade drive.  Takes into account whether DRIVE_TRAIN_FORWARD_DIRECTION is 1 or -1.
+     * @param move value to move forward/backward
+     * @param rotate value to rotate right/left
+     * @param squared if true, square inputs to decrease sensitivity at low speeds
+     */
     public void driveArcade(double move, double rotate, boolean squared) {
+    	int sign = RobotMap.DRIVE_TRAIN_FORWARD_DIRECTION == 1 ? -1 : 1;
+    	drive.arcadeDrive(sign * move, rotate, squared);
+    	//drive.arcadeDrive(move, rotate, squared);
+    }
+
+    private void driveArcadePrivate(double move, double rotate, boolean squared) {
     	drive.arcadeDrive(move, rotate, squared);
     }
 
-    public void driveArcade(double move, double rotate) {
-    	driveArcade(move, rotate, true);
+    private void driveArcade(double move, double rotate) {
+    	driveArcadePrivate(move, rotate, true);
     }
     
     public double getDistance() {
