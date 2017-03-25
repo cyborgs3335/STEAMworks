@@ -12,6 +12,7 @@ public class AutoDriveToPeg extends Command {
 	private long timeFinished = 0;
 	private long driveTime;
 	private final long TIME_MAX = 5000; // millisecs
+	private final boolean limitSpeedByDistance = false;
 
     public AutoDriveToPeg(double distance) {
     	this(distance, 0.7);
@@ -50,7 +51,17 @@ public class AutoDriveToPeg extends Command {
     @Override
     protected void execute() {
     	double speed = Math.signum(distance) * speedForward;
+    	if (limitSpeedByDistance) {
+    		speed = limitSpeedByDistance(speed, distance, 12);
+    	}
         Robot.driveTrain.drive(speed, speed);
+    }
+
+    private double limitSpeedByDistance(double speedIn, double maxDistance, double limitDistance) {
+    	if (Math.abs(Robot.driveTrain.getDistance()) > Math.abs(maxDistance) - Math.abs(limitDistance)) {
+    		return speedIn * 0.5;
+    	}
+    	return speedIn;
     }
 
     // Make this return true when this Command no longer needs to run execute()
