@@ -131,15 +131,15 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
     		if (-joystick.getRawAxis(1)>=0) sign = 1;
     		if(Math.abs(joystick.getRawAxis(0))<=deadzone) {
     			if (Math.abs(joystick.getRawAxis(1))>=trainingSpeedMax)
-    				driveArcade(trainingSpeedMax*sign, 0.0);
+    				driveArcadePrivate(trainingSpeedMax*sign, 0.0);
     			else
-    				driveArcade(map(-joystick.getRawAxis(1)), 0.0);
+    				driveArcadePrivate(map(-joystick.getRawAxis(1)), 0.0);
     		}
     		else {
     			if (Math.abs(joystick.getRawAxis(1))>=trainingSpeedMax)
-    				driveArcade(trainingSpeedMax*sign, map(-joystick.getRawAxis(0)));
+    				driveArcadePrivate(trainingSpeedMax*sign, map(-joystick.getRawAxis(0)));
     			else
-    				driveArcade(map(-joystick.getRawAxis(1)), map(-joystick.getRawAxis(0)));
+    				driveArcadePrivate(map(-joystick.getRawAxis(1)), map(-joystick.getRawAxis(0)));
     		}
     	}
     }
@@ -170,24 +170,32 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
     		int sign = direction;
     		if (joystick.getRawAxis(1) <= 0) sign = -direction;
     		if (Math.abs(joystick.getRawAxis(1))>trainingSpeedMax)
-    			drive(trainingSpeedMax*sign, map(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
+    			drivePrivate(trainingSpeedMax*sign, map(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
     		else
-    			drive(map(direction *joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS)),
+    			drivePrivate(map(direction *joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS)),
     					map(direction *joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
     	} 
     	else {
     		int sign = direction;
     		if (joystick.getRawAxis(1) <= 0) sign = -direction;
     		if (Math.abs(joystick.getRawAxis(1))>trainingSpeedMax)
-    			driveArcade(sign*trainingSpeedMax, map(/*direction * */ joystick.getRawAxis(0)));
+    			driveArcadePrivate(sign*trainingSpeedMax, map(/*direction * */ joystick.getRawAxis(0)));
     		else
-    			driveArcade(map(direction *joystick.getRawAxis(1)), map(/*direction * */ joystick.getRawAxis(0)));
+    			driveArcadePrivate(map(direction *joystick.getRawAxis(1)), map(/*direction * */ joystick.getRawAxis(0)));
     	}
     }
 
     public void drive(double left, double right) {
     	int sign = RobotMap.DRIVE_TRAIN_FORWARD_DIRECTION == 1 ? -1 : 1;
-    	drive.tankDrive(sign * left, sign * right, true);
+    	drivePrivate(sign * left, sign * right, false/*true*/);
+    }
+
+    private void drivePrivate(double left, double right, boolean squareInputs) {
+    	drive.tankDrive(left, right, squareInputs);
+    }
+
+    private void drivePrivate(double left, double right) {
+    	drive.tankDrive(left, right, true);
     }
 
     /**
@@ -206,7 +214,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
     	drive.arcadeDrive(move, rotate, squared);
     }
 
-    private void driveArcade(double move, double rotate) {
+    private void driveArcadePrivate(double move, double rotate) {
     	driveArcadePrivate(move, rotate, true);
     }
     
