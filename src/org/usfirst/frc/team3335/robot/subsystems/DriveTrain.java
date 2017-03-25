@@ -117,33 +117,6 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
     	driveNew(joystick);
     }
 
-    public void driveOrig(Joystick joystick) {
-    	if (useTankDrive) {
-    		int sign = -1;
-    		if (-joystick.getRawAxis(1)>=0) sign = 1;
-    		if (Math.abs(joystick.getRawAxis(1))>=trainingSpeedMax)
-    			drive(trainingSpeedMax*sign, map(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
-    		else
-    			drive(map(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS)), map(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
-    	} 
-    	else {
-    		int sign = -1;
-    		if (-joystick.getRawAxis(1)>=0) sign = 1;
-    		if(Math.abs(joystick.getRawAxis(0))<=deadzone) {
-    			if (Math.abs(joystick.getRawAxis(1))>=trainingSpeedMax)
-    				driveArcadePrivate(trainingSpeedMax*sign, 0.0);
-    			else
-    				driveArcadePrivate(map(-joystick.getRawAxis(1)), 0.0);
-    		}
-    		else {
-    			if (Math.abs(joystick.getRawAxis(1))>=trainingSpeedMax)
-    				driveArcadePrivate(trainingSpeedMax*sign, map(-joystick.getRawAxis(0)));
-    			else
-    				driveArcadePrivate(map(-joystick.getRawAxis(1)), map(-joystick.getRawAxis(0)));
-    		}
-    	}
-    }
-    
     public double map(double input ) {
     	if (Math.abs(input) < deadzone) {
     		return 0;
