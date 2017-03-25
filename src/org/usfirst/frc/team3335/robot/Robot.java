@@ -94,11 +94,12 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Auto Drive Straight 6ft", new AutoPlaceGear(80, 0, 0));
 		chooser.addObject("Auto Place Gear Turn Left", new AutoPlaceGear(90, -60, 60));
 		chooser.addObject("Auto Place and Drop Gear Straight", 
-				new AutoPlaceDropGear(83/*110*/, 0, 0, -20, 0.5));
+				new AutoPlaceDropGear(80/*110*/, 0, 0, -20, 0.5)); // ~108in dist minus ~29in robot length
 		chooser.addObject("Auto Turn using Vision", new AutoTurnByVision(0));
 		chooser.addObject("Auto Turn using Vision Simple", new AutoTurnByVisionSimple());
-		chooser.addObject("Auto Place Gear using Vision Simple Turn Right", new AutoPlaceDropGearVision(80, 60, 0, -20, 0.6));
-		chooser.addObject("Auto Place Gear using Vision Simple Turn Left", new AutoPlaceDropGearVision(80, -60, 0, -20, 0.6));
+		chooser.addObject("Auto Place Gear using Vision Simple Turn Right", new AutoPlaceDropGearVision(80, 60, 66, -20, 0.5));
+		chooser.addObject("Auto Place Gear using Vision Simple Straight", new AutoPlaceDropGearVision(0, 0, 80, -20, 0.5));
+		chooser.addObject("Auto Place Gear using Vision Simple Turn Left", new AutoPlaceDropGearVision(80, -60, 66, -20, 0.5));
 		//chooser.addObject("Auto Place Gear using Vision Simple", new AutoPlaceDropGearVision(1, 60, 0, -20, 0.5));
 		chooser.addObject("Auto Turn To Peg", new AutoTurnToPeg());
 		chooser.addObject("Auto Turn To Peg Simple", new AutoTurnToPegSimple());
