@@ -22,6 +22,7 @@ import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceGear;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnByVision;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnByVisionSimple;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPeg;
+import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPeg2;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPegSimple;
 import org.usfirst.frc.team3335.robot.subsystems.*;
 
@@ -95,13 +96,14 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Auto Place Gear Turn Left", new AutoPlaceGear(90, -60, 60));
 		chooser.addObject("Auto Place and Drop Gear Straight", 
 				new AutoPlaceDropGear(80/*110*/, 0, 0, -20, 0.5)); // ~108in dist minus ~29in robot length
-		chooser.addObject("Auto Turn using Vision", new AutoTurnByVision(0));
+		chooser.addObject("Auto Turn using Vision", new AutoTurnByVision());
 		chooser.addObject("Auto Turn using Vision Simple", new AutoTurnByVisionSimple());
 		chooser.addObject("Auto Place Gear using Vision Simple Turn Right", new AutoPlaceDropGearVision(80, 60, 66, -20, 0.5));
 		chooser.addObject("Auto Place Gear using Vision Simple Straight", new AutoPlaceDropGearVision(0, 0, 80, -20, 0.5));
 		chooser.addObject("Auto Place Gear using Vision Simple Turn Left", new AutoPlaceDropGearVision(80, -60, 66, -20, 0.5));
 		//chooser.addObject("Auto Place Gear using Vision Simple", new AutoPlaceDropGearVision(1, 60, 0, -20, 0.5));
 		chooser.addObject("Auto Turn To Peg", new AutoTurnToPeg());
+		chooser.addObject("Auto Turn & Drive To Peg (Vision Target)", new AutoTurnToPeg2());
 		chooser.addObject("Auto Turn To Peg Simple", new AutoTurnToPegSimple());
 		//chooser.addObject("Auto Drive Distance", new AutoDriveDistance(108, 10000));
 		chooser.addDefault("None", new AutoNone());
@@ -117,9 +119,12 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Prefs: Vision Kp", prefs.getDouble("Vision Kp", RobotPreferences.VISION_KP_DEFAULT));
 		SmartDashboard.putNumber("Prefs: Vision Ki", prefs.getDouble("Vision Ki", RobotPreferences.VISION_KI_DEFAULT));
 		SmartDashboard.putNumber("Prefs: Vision Kd", prefs.getDouble("Vision Kd", RobotPreferences.VISION_KD_DEFAULT));
+		SmartDashboard.putNumber("Prefs: Vision Max Output Range", prefs.getDouble("Vision Max Output Range", RobotPreferences.VISION_MAX_OUTPUT_RANGE_DEFAULT));
 		SmartDashboard.putNumber("Prefs: Vision Update Delay", prefs.getLong("Vision Update Delay", RobotPreferences.VISION_UPDATE_DELAY_DEFAULT));
 		SmartDashboard.putNumber("Prefs: Turn To Peg Angle", prefs.getDouble("Turn To Peg Angle", RobotPreferences.TURN_TO_PEG_ANGLE_DEFAULT));
 		SmartDashboard.putNumber("Prefs: Vision Time Limit", prefs.getDouble("Auto Vision Time Limit", RobotPreferences.VISION_TIME_DEFAULT));
+		SmartDashboard.putNumber("Prefs: Auto Turn Vision Simple Forward Speed", prefs.getDouble("Auto Turn Vision Simple Forward Speed", RobotPreferences.AUTO_TURN_VISION_SIMPLE_FORWARD_SPEED_DEFAULT));
+		SmartDashboard.putNumber("Prefs: Auto Turn Vision Simple Rotate Speed", prefs.getDouble("Auto Turn Vision Simple Rotate Speed", RobotPreferences.AUTO_TURN_VISION_SIMPLE_ROTATE_SPEED_DEFAULT));
 
 		//Instantiate after all subsystems and preferences - or the world will die
 		//We don't want that, do we?

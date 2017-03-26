@@ -5,6 +5,7 @@ import org.usfirst.frc.team3335.robot.RobotPreferences;
 
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoTurnByVisionSimple extends Command {
 
@@ -27,7 +28,9 @@ public class AutoTurnByVisionSimple extends Command {
 	 * Constructor using default of zero forward speed and rotational speed of 0.5.
 	 */
 	public AutoTurnByVisionSimple() {
-		this(0, 0.3);
+		//this(0, 0.3);
+		this(Preferences.getInstance().getDouble("Auto Turn Vision Simple Forward Speed", RobotPreferences.AUTO_TURN_VISION_SIMPLE_FORWARD_SPEED_DEFAULT),
+				prefs.getDouble("Auto Turn Vision Simple Rotate Speed", RobotPreferences.AUTO_TURN_VISION_SIMPLE_ROTATE_SPEED_DEFAULT));
 	}
 
 	/**
@@ -41,7 +44,8 @@ public class AutoTurnByVisionSimple extends Command {
         requires(Robot.visionTest);
         requires(Robot.navx);
 
-        this.forwardSpeed = -forwardSpeed;
+        //this.forwardSpeed = -forwardSpeed;
+        this.forwardSpeed = forwardSpeed;
         this.rotateRate = Math.abs(rotateSpeed);
     }
 
