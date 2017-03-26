@@ -18,6 +18,7 @@ import org.usfirst.frc.team3335.robot.commands.autonomous.AutoDriveToPeg;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoNone;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceDropGear;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceDropGearVision;
+import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceDropGearVisionTurnPID;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceGear;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnByVision;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnByVisionSimple;
@@ -103,7 +104,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Auto Place Gear using Vision Simple Turn Left", new AutoPlaceDropGearVision(80, -60, 66, -20, 0.5));
 		//chooser.addObject("Auto Place Gear using Vision Simple", new AutoPlaceDropGearVision(1, 60, 0, -20, 0.5));
 		chooser.addObject("Auto Turn To Peg", new AutoTurnToPeg());
-		chooser.addObject("Auto Turn & Drive To Peg (Vision Target)", new AutoTurnToPeg2());
+		chooser.addObject("Auto Turn & Drive To Peg (Vision Target)", new AutoPlaceDropGearVisionTurnPID(0, 0, 80, -20, 0.5));
 		chooser.addObject("Auto Turn To Peg Simple", new AutoTurnToPegSimple());
 		//chooser.addObject("Auto Drive Distance", new AutoDriveDistance(108, 10000));
 		chooser.addDefault("None", new AutoNone());

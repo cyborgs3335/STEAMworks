@@ -45,13 +45,14 @@ public class AutoTurnToPeg2 extends Command {
 	private static final double kD = prefs.getDouble("Vision Kd", RobotPreferences.VISION_KD_DEFAULT); //1.5;
 
 	// Setpoint angle
-	private final double setPointAngle;
+	private double setPointAngle;
 
 	// tolerance in degrees
 	private static final double kToleranceDegrees = 1.0;
 
 	// maximum output range
-	private final double maxOutputRange = 0.4;
+	//private final double maxOutputRange = 0.4;
+	private final double maxOutputRange = prefs.getDouble("Vision Max Output Range", RobotPreferences.VISION_MAX_OUTPUT_RANGE_DEFAULT);
 
 	private double rotateRate;
 
@@ -78,14 +79,6 @@ public class AutoTurnToPeg2 extends Command {
         requires(Robot.visionTest);
         requires(Robot.navx);
 
-        this.haveTarget = Robot.visionTest.isTargetDetected();
-        if (haveTarget) {
-        	this.setPointAngle = Robot.visionTest.pidGet();
-        	this.distance = Robot.visionTest.getTargetDistance();
-        } else {
-        	this.setPointAngle = 0;
-        	this.distance = 0;
-        }
         this.forwardSpeed = forwardSpeed;
 
         turnController = new PIDController(kP, kI, kD, Robot.navx.getAHRS(), new MyPidOutput());
@@ -106,6 +99,16 @@ public class AutoTurnToPeg2 extends Command {
     	Robot.driveTrain.setBrake(true);
     	Robot.navx.zeroYaw();
     	Robot.driveTrain.zeroEncoders();
+
+        this.haveTarget = Robot.visionTest.isTargetDetected();
+        if (haveTarget) {
+        	this.setPointAngle = Robot.visionTest.pidGet();
+        	this.distance = Robot.visionTest.getTargetDistance();
+        } else {
+        	this.setPointAngle = 0;
+        	this.distance = 0;
+        }
+
     	timeFinished = System.currentTimeMillis() + timeMax;
     	turnController.setSetpoint(setPointAngle);
     }
@@ -124,9 +127,13 @@ public class AutoTurnToPeg2 extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-    	double driveTrainDist = Robot.driveTrain.getDistance();
-    	if (Math.abs(driveTrainDist) > Math.abs(distance))
+    	if (!haveTarget) {
     		return true;
+    	}
+    	double driveTrainDist = Robot.driveTrain.getDistance();
+    	if (Math.abs(driveTrainDist) > Math.abs(distance)) {
+    		return true;
+    	}
     	//if (turnController.onTarget())
     	//	return true;
     	if (System.currentTimeMillis() > timeFinished) {
@@ -143,6 +150,7 @@ public class AutoTurnToPeg2 extends Command {
     @Override
     protected void end() {
         Robot.driveTrain.drive(0, 0);
+        Robot.driveTrain.setBrake(false);
     }
 
     // Called when another command which requires one or more of the same
