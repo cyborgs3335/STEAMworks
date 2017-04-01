@@ -56,11 +56,17 @@ public class AutoTurnToPeg2 extends Command {
 
 	private double rotateRate;
 
+	private final long pidUpdateDelay = prefs.getLong("Vision Update Delay", RobotPreferences.VISION_UPDATE_DELAY_DEFAULT); // 500 milliseconds
+
+	private long pidTimeSinceUpdate = 0;
+
 	private double distance;
 
 	private double forwardSpeed;
 
 	private boolean haveTarget;
+
+	private boolean updateSetPoint = false;
 
 	private PIDController turnController;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -104,6 +110,7 @@ public class AutoTurnToPeg2 extends Command {
         if (haveTarget) {
         	this.setPointAngle = Robot.visionTest.pidGet();
         	this.distance = Robot.visionTest.getTargetDistance();
+        	pidTimeSinceUpdate = System.currentTimeMillis();
         } else {
         	this.setPointAngle = 0;
         	this.distance = 0;
@@ -116,6 +123,15 @@ public class AutoTurnToPeg2 extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+    	// Update setpoints periodically
+    	if (updateSetPoint && System.currentTimeMillis() - pidTimeSinceUpdate > pidUpdateDelay) {
+    		if (Robot.visionTest.isTargetDetected()) {
+    			double pidVal = Robot.visionTest.pidGet();
+    			turnController.setSetpoint(pidVal);
+    			Robot.navx.zeroYaw();
+    			pidTimeSinceUpdate = System.currentTimeMillis();
+    		}
+    	}
     	turnController.enable();
     	double speed = rotateRate;
 //    	speed /= 2.0;
