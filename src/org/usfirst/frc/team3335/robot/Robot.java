@@ -99,12 +99,14 @@ public class Robot extends IterativeRobot {
 				new AutoPlaceDropGear(80/*110*/, 0, 0, -20, 0.5)); // ~108in dist minus ~29in robot length
 		chooser.addObject("Auto Turn using Vision", new AutoTurnByVision());
 		chooser.addObject("Auto Turn using Vision Simple", new AutoTurnByVisionSimple());
-		chooser.addObject("Auto Place Gear using Vision Simple Turn Right", new AutoPlaceDropGearVision(80, 60, 66, -20, 0.5));
-		chooser.addObject("Auto Place Gear using Vision Simple Straight", new AutoPlaceDropGearVision(0, 0, 80, -20, 0.5));
-		chooser.addObject("Auto Place Gear using Vision Simple Turn Left", new AutoPlaceDropGearVision(80, -60, 66, -20, 0.5));
+		//chooser.addObject("Auto Place Gear using Vision Simple Turn Right", new AutoPlaceDropGearVision(80, 60, 66, -20, 0.5));
+		//chooser.addObject("Auto Place Gear using Vision Simple Straight", new AutoPlaceDropGearVision(0, 0, 80, -20, 0.5));
+		//chooser.addObject("Auto Place Gear using Vision Simple Turn Left", new AutoPlaceDropGearVision(80, -60, 66, -20, 0.5));
 		//chooser.addObject("Auto Place Gear using Vision Simple", new AutoPlaceDropGearVision(1, 60, 0, -20, 0.5));
 		chooser.addObject("Auto Turn To Peg", new AutoTurnToPeg());
-		chooser.addObject("Auto Turn & Drive To Peg (Vision Target)", new AutoPlaceDropGearVisionTurnPID(0, 0, 80, -20, 0.5));
+		chooser.addObject("Auto Turn Right & Drive To Peg (Vision Target)", new AutoPlaceDropGearVisionTurnPID(80, 60, 66, -20, 0.5));
+		chooser.addObject("Auto Turn Straight & Drive To Peg (Vision Target)", new AutoPlaceDropGearVisionTurnPID(0, 0, 80, -20, 0.5));
+		chooser.addObject("Auto Turn Left & Drive To Peg (Vision Target)", new AutoPlaceDropGearVisionTurnPID(80, -60, 66, -20, 0.5));
 		chooser.addObject("Auto Turn To Peg Simple", new AutoTurnToPegSimple());
 		//chooser.addObject("Auto Drive Distance", new AutoDriveDistance(108, 10000));
 		chooser.addDefault("None", new AutoNone());
