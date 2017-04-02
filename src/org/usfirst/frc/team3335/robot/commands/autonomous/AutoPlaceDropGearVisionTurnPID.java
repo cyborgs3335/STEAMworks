@@ -16,6 +16,7 @@ public class AutoPlaceDropGearVisionTurnPID extends CommandGroup {
 		addSequential(new AutoDriveToPeg(distInitial, speed, true, 24, scalar*speed));
 		if (turnAngle != 0) {
 			addSequential(new AutoTurnToPegSimple(turnAngle));
+			addSequential(new AutoDelay(500));
 		}
 		addSequential(new AutoDelay(500));
 
@@ -31,8 +32,10 @@ public class AutoPlaceDropGearVisionTurnPID extends CommandGroup {
 		addSequential(new AutoDelay(500));
 		addSequential(new AutoDriveToPeg(-12, scalar*speed));
 		addSequential(new GateControl(true)); // close
+		/*
 		addSequential(new AutoDriveToPeg(10, scalar*speed));
 		//addSequential(new AutoDelay(500));
 		addSequential(new AutoDriveToPeg(distBack, scalar*speed));
+		*/
 	}
 }
