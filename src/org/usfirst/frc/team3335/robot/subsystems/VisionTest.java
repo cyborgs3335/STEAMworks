@@ -33,6 +33,9 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	// Camera offset: positive=camera to right of center, negative=camera to left of center
 	private final double cameraOffset = -12.5; // inches - Mark 2
 
+	// Distance offset for peg target: peg is ~4in less that distance to target
+	private final double distanceOffset = -4.0;
+
 	private VisionThread visionThread;
 	private double centerX = 0.0;
 	private double targetDistance;
@@ -201,6 +204,8 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 		width += cameraOffset;
 		double azimuth = Math.toDegrees(Math.atan2(width,  distance));
 		targetDistance = distance;
+		// Correct for peg distance offset (closer than peg target)
+		targetDistance += distanceOffset;
 		targetAzimuth =  azimuth;
 		targetOffsetX = width;
 	}
