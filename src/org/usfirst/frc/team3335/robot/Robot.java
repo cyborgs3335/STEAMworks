@@ -51,6 +51,7 @@ public class Robot extends IterativeRobot {
 	public static BallShooter ballShooter;
 	public static Intake intake;
 	public static Gate gate;
+	public static GearEjector gearEjector;
 	public static Flapper flapper;
 	public static Climber climber;
 	public static DoubleUltrasonic ultrasonics;
@@ -74,6 +75,8 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(visionTest);
 		gate = new Gate();
 		subsystemsList.add(gate);
+		gearEjector = new GearEjector();
+		subsystemsList.add(gearEjector);
 		flapper = new Flapper();
 		subsystemsList.add(flapper);
 		ballShifter = new BallShifter();

@@ -62,8 +62,10 @@ public class RobotMap {
 	public static final int GATE_FORWARD_CHANNEL = 2;
 	public static final int GATE_REVERSE_CHANNEL = 3;
 	public static final int RELAY_CHANNEL = 0;
+	public static final int GEAR_EJECTOR_FORWARD_CHANNEL = 6;
+	public static final int GEAR_EJECTOR_REVERSE_CHANNEL = 7;
 	/**/
-	
+
 	// Mark 3
 	/*
 	public static final int DRIVE_TRAIN_FRONT_LEFT = 1;
