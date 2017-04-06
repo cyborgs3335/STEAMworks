@@ -72,10 +72,10 @@ public class RobotMap {
 	public static final int DRIVE_TRAIN_FRONT_RIGHT = 3;
 	public static final int DRIVE_TRAIN_BACK_LEFT = 2;
 	public static final int DRIVE_TRAIN_BACK_RIGHT = 4;
-    public static final int DRIVE_TRAIN_FORWARD_DIRECTION = -1;
+    public static final int DRIVE_TRAIN_FORWARD_DIRECTION = 1;
 	public static final int DRIVE_TRAIN_ENCODER_LEFT_A = 2;//8;//1; //8?
 	public static final int DRIVE_TRAIN_ENCODER_LEFT_B = 3;//9;//0; //9?
-	public static final boolean DRIVE_TRAIN_ENCODER_LEFT_REVERSE = true;
+	public static final boolean DRIVE_TRAIN_ENCODER_LEFT_REVERSE = false;
 	public static final int DRIVE_TRAIN_ENCODER_RIGHT_A = 0;//3;//2; //3?
 	public static final int DRIVE_TRAIN_ENCODER_RIGHT_B = 1;//4;//3; //4?
 	public static final boolean DRIVE_TRAIN_ENCODER_RIGHT_REVERSE = true;
@@ -84,15 +84,15 @@ public class RobotMap {
 	public static final int BALL_SHOOTER_MOTOR = 6;
 	public static final int ANALOG_ULTRASONIC_LEFT = 0;
 	public static final int ANALOG_ULTRASONIC_RIGHT = 1;
-	public static final int FLAPPER_FORWARD_CHANNEL = 4;
-	public static final int FLAPPER_REVERSE_CHANNEL = 5;
-	public static final int BALL_SHIFTER_FORWARD_CHANNEL = 1;
-	public static final int BALL_SHIFTER_REVERSE_CHANNEL = 0;
-	public static final int GATE_FORWARD_CHANNEL = 2;
-	public static final int GATE_REVERSE_CHANNEL = 3;
+	public static final int FLAPPER_FORWARD_CHANNEL = 5;
+	public static final int FLAPPER_REVERSE_CHANNEL = 4;
+	public static final int BALL_SHIFTER_FORWARD_CHANNEL = 0;
+	public static final int BALL_SHIFTER_REVERSE_CHANNEL = 1;
+	public static final int GATE_FORWARD_CHANNEL = 3;
+	public static final int GATE_REVERSE_CHANNEL = 2;
 	public static final int RELAY_CHANNEL = 0;
-	public static final int GEAR_EJECTOR_FORWARD_CHANNEL = 6;
-	public static final int GEAR_EJECTOR_REVERSE_CHANNEL = 7;
+	public static final int GEAR_EJECTOR_FORWARD_CHANNEL = 7;
+	public static final int GEAR_EJECTOR_REVERSE_CHANNEL = 6;
 	/**/
 
 	//Stronghold bot ports
