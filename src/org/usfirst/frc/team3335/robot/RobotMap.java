@@ -73,11 +73,11 @@ public class RobotMap {
 	public static final int DRIVE_TRAIN_BACK_LEFT = 2;
 	public static final int DRIVE_TRAIN_BACK_RIGHT = 4;
     public static final int DRIVE_TRAIN_FORWARD_DIRECTION = -1;
-	public static final int DRIVE_TRAIN_ENCODER_LEFT_A = 8;//1; //8?
-	public static final int DRIVE_TRAIN_ENCODER_LEFT_B = 9;//0; //9?
+	public static final int DRIVE_TRAIN_ENCODER_LEFT_A = 2;//8;//1; //8?
+	public static final int DRIVE_TRAIN_ENCODER_LEFT_B = 3;//9;//0; //9?
 	public static final boolean DRIVE_TRAIN_ENCODER_LEFT_REVERSE = true;
-	public static final int DRIVE_TRAIN_ENCODER_RIGHT_A = 3;//2; //3?
-	public static final int DRIVE_TRAIN_ENCODER_RIGHT_B = 4;//3; //4?
+	public static final int DRIVE_TRAIN_ENCODER_RIGHT_A = 0;//3;//2; //3?
+	public static final int DRIVE_TRAIN_ENCODER_RIGHT_B = 1;//4;//3; //4?
 	public static final boolean DRIVE_TRAIN_ENCODER_RIGHT_REVERSE = true;
 	public static final int CLIMBING_MOTOR = 7;
 	public static final int INTAKE_MOTOR = 5;
