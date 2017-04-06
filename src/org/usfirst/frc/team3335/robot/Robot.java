@@ -107,9 +107,9 @@ public class Robot extends IterativeRobot {
 		//chooser.addObject("Auto Place Gear using Vision Simple Turn Left", new AutoPlaceDropGearVision(80, -60, 66, -20, 0.5));
 		//chooser.addObject("Auto Place Gear using Vision Simple", new AutoPlaceDropGearVision(1, 60, 0, -20, 0.5));
 		chooser.addObject("Auto Turn To Peg", new AutoTurnToPeg());
-		chooser.addObject("Auto Turn Right & Drive To Peg (Vision Target)", new AutoPlaceDropGearVisionTurnPID(80, 60, 66, -20, 0.5));
+		chooser.addObject("Auto Turn Right & Drive To Peg (Vision Target)", new AutoPlaceDropGearVisionTurnPID(76, 60, 66, -20, 0.5));
 		chooser.addObject("Auto Turn Straight & Drive To Peg (Vision Target)", new AutoPlaceDropGearVisionTurnPID(0, 0, 80, -20, 0.5));
-		chooser.addObject("Auto Turn Left & Drive To Peg (Vision Target)", new AutoPlaceDropGearVisionTurnPID(80, -52, 66, -20, 0.5));
+		chooser.addObject("Auto Turn Left & Drive To Peg (Vision Target)", new AutoPlaceDropGearVisionTurnPID(76, -52/*?*/, 66, -20, 0.5));
 		chooser.addObject("Auto Turn To Peg Simple", new AutoTurnToPegSimple());
 		//chooser.addObject("Auto Drive Distance", new AutoDriveDistance(108, 10000));
 		chooser.addDefault("None", new AutoNone());
