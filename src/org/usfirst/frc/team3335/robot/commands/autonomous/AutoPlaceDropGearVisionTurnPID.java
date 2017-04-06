@@ -3,6 +3,7 @@ package org.usfirst.frc.team3335.robot.commands.autonomous;
 import org.usfirst.frc.team3335.robot.commands.Delay;
 import org.usfirst.frc.team3335.robot.commands.BallShiftLow;
 import org.usfirst.frc.team3335.robot.commands.GateControl;
+import org.usfirst.frc.team3335.robot.commands.GearControl;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -29,10 +30,10 @@ public class AutoPlaceDropGearVisionTurnPID extends CommandGroup {
 		//addSequential(new AutoDriveToPeg(distPost));
 
 		// Open gate, pause, backup 12 in, close gate, move forward 10 in, then backup distFinal
-		addSequential(new GateControl(false)); // open
+		addSequential(new GearControl(false)); // open
 		addSequential(new Delay(500));
 		addSequential(new AutoDriveToPeg(-12, scalar*speed));
-		addSequential(new GateControl(true)); // close
+		addSequential(new GearControl(true)); // close
 		/*
 		addSequential(new AutoDriveToPeg(10, scalar*speed));
 		//addSequential(new AutoDelay(500));

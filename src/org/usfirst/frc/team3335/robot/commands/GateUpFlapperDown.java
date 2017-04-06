@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class GateUpFlapperDown extends CommandGroup {
 	
 	public GateUpFlapperDown() {
-		addSequential(new GateControl(true));
+		addSequential(new GearControl(true));
 		addSequential(new FlapperControl(true));
 	}
 

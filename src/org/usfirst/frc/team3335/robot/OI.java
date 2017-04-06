@@ -63,9 +63,9 @@ public class OI {
 
         // Gate
         JoystickButton gateControlUp = addButton(getJoystick(), bGateUp, "Gate Up");
-        gateControlUp.whenPressed(new GateControl(true));
+        gateControlUp.whenPressed(new GearControl(true));
         JoystickButton gateControlDown = addButton(getJoystick(), bGateDown, "Gate Down");
-        gateControlDown.whenPressed(new GateControl(false));
+        gateControlDown.whenPressed(new GearControl(false));
 
         // Flapper
         JoystickButton flapperUp = addButton(getJoystick(), bFlapperUp, "Flapper Up");
