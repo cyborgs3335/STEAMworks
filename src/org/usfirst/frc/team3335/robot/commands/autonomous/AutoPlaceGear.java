@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3335.robot.commands.autonomous;
 
+import org.usfirst.frc.team3335.robot.commands.Delay;
 import org.usfirst.frc.team3335.robot.commands.BallShiftLow;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -13,7 +14,7 @@ public class AutoPlaceGear extends CommandGroup {
 	 *                  positive for cw, negative for ccw
 	 */
 	public AutoPlaceGear(double distInitial, double turnAngle, double distPost) {
-		addSequential(new AutoDelay(2500));
+		addSequential(new Delay(2500));
 		addSequential(new BallShiftLow());
 		addSequential(new AutoDriveToPeg(distInitial));
 		addSequential(new AutoTurnToPeg(turnAngle));

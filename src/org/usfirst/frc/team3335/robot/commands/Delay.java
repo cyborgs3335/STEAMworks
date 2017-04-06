@@ -1,15 +1,15 @@
-package org.usfirst.frc.team3335.robot.commands.autonomous;
+package org.usfirst.frc.team3335.robot.commands;
 
 import org.usfirst.frc.team3335.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class AutoDelay extends Command {
+public class Delay extends Command {
 	
 	private long timeFinished = 0;
 	private final long timeDelay;
 	
-	public AutoDelay(long delayTimeMillis) {
+	public Delay(long delayTimeMillis) {
 		timeDelay = delayTimeMillis;
 	}
 	
