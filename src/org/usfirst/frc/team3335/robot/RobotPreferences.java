@@ -21,9 +21,9 @@ public class RobotPreferences {
     public static final int DRIVE_TRAIN_LEFT_AXIS = 1;
     public static final int DRIVE_TRAIN_RIGHT_AXIS = 5;
 
-	public static final double VISION_TIME_DEFAULT = 10;
-	public static final double VISION_MAX_OUTPUT_RANGE_DEFAULT = 0.4;
+	public static final double VISION_TIME_DEFAULT = 15;
+	public static final double VISION_MAX_OUTPUT_RANGE_DEFAULT = 0.25;
 
-	public static final double AUTO_TURN_VISION_SIMPLE_FORWARD_SPEED_DEFAULT = 0;
-	public static final double AUTO_TURN_VISION_SIMPLE_ROTATE_SPEED_DEFAULT = 0.3;
+	public static final double AUTO_TURN_VISION_SIMPLE_FORWARD_SPEED_DEFAULT = 0.3;
+	public static final double AUTO_TURN_VISION_SIMPLE_ROTATE_SPEED_DEFAULT = 0.15;
 }
