@@ -34,7 +34,7 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	private final double cameraOffset = -12.5; // inches - Mark 2
 
 	// Distance offset for peg target: peg is ~4in less that distance to target
-	private final double distanceOffset = -4.0;
+	private final double distanceOffset = -10.0; //-4.0;
 
 	private VisionThread visionThread;
 	private double centerX = 0.0;
