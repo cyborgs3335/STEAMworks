@@ -62,10 +62,11 @@ public class AutoDriveToPeg extends Command {
     @Override
     protected void execute() {
     	double speed = Math.signum(distance) * speedForward;
+    	double limitSpeed = Math.signum(distance) * limitSpeedForward;
     	if (limitSpeedByDistance) {
-    		speed = limitSpeedByDistance(speed, distance, limitDistance, limitSpeedForward);
+    		speed = limitSpeedByDistance(speed, distance, limitDistance, limitSpeed);
     	}
-    	if (finishDriveDistUltras >= FINISH_DRIVE_DIST_ULTRAS_MAX) {
+    	if (Math.abs(finishDriveDistUltras) >= Math.abs(FINISH_DRIVE_DIST_ULTRAS_MAX)) {
     		finishDriveDistUltras = finishDriveDistanceUltrasonics(36);
     	}
         Robot.driveTrain.drive(speed, speed);
