@@ -62,6 +62,10 @@ public class AutoTurnToPeg2 extends Command {
 
 	private double distance;
 
+	private double distanceLastMoved = 0;
+
+	private long distanceMovedTimeout = 500; // 500 ms
+
 	private double forwardSpeed;
 
 	private boolean haveTarget;
@@ -156,6 +160,7 @@ public class AutoTurnToPeg2 extends Command {
     		Robot.driveTrain.setBrake(false);
     		return true;
     	}
+    	//if ()
     	//if (!Robot.visionTest.isTargetDetected()) {
     	//	return true;
     	//}
