@@ -15,11 +15,14 @@ public class AutoPlaceDropGearVisionTurnPID extends CommandGroup {
 		//addSequential(new Delay(0));
 		addSequential(new BallShiftLow());
 		//addSequential(new AutoDriveToPeg(distInitial, speed));
-		if (Math.abs(distInitial) != 0)
-			addSequential(new AutoDriveToPeg(distInitial, speed, true, 24, scalar*speed));
+		if (Math.abs(distInitial) != 0) {
+			//addSequential(new AutoDriveToPeg(distInitial, speed, true, 24, scalar*speed));
+			addSequential(new AutoDriveToPeg(distInitial, 0.7, true, 24, 0.25));
+		}
 		if (turnAngle != 0) {
-			addSequential(new AutoTurnToPegSimple(turnAngle));
-			addSequential(new Delay(500));
+			//addSequential(new AutoTurnToPegSimple(turnAngle));
+			addSequential(new AutoTurnToPegSimple(turnAngle, 0.3));
+			//addSequential(new Delay(500));
 		}
 		addSequential(new Delay(500));
 
