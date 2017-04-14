@@ -35,9 +35,14 @@ public class OI {
         // Joystick 2
         int bClimberUpSlow = 5; // Left Button
         int bClimberUpFast = 6; // Right Button
-        int bClimberDown = 7; // "Back"
-        int bShooter = 3; // X
-        int bIntake = 1; // A
+        int bClimberDownSlow = 7; // "Back"
+        int bClimberDownFast = 8; // "Start"
+        //int bShooter = 3; // X
+        //int bIntake = 1; // A
+        int bGearPickupDown = 1; // A
+        int bGearPickupUp = 2; // B
+        int bGearPickupClose = 3; // X
+        int bGearPickupOpen = 4; // Y
 
         if (driveMode) {
         	// Joystick 1
@@ -86,25 +91,42 @@ public class OI {
         ballShiftLow.whenPressed(new BallShiftLow());
 
         // Rope climber
-        JoystickButton climbUpSlow = addButton(getJoystick2(), bClimberUpSlow, "Rope Climber Slow");
+        JoystickButton climbUpSlow = addButton(getJoystick2(), bClimberUpSlow, "Rope Climber Up Slow");
         climbUpSlow.whenPressed(new Climb(false, 0.5));
         climbUpSlow.whenReleased(new Climb(true, 0));
-        JoystickButton climbUpFast = addButton(getJoystick2(), bClimberUpFast, "Rope Climber Fast");
+        JoystickButton climbUpFast = addButton(getJoystick2(), bClimberUpFast, "Rope Climber Up Fast");
         climbUpFast.whenPressed(new Climb(false, 1));
         climbUpFast.whenReleased(new Climb(true, 0));
-        JoystickButton climbDown = addButton(getJoystick2(), bClimberDown, "Rope Climber Down");
-        climbDown.whenPressed(new Climb(false, -1));
-        climbDown.whenReleased(new Climb(true, 0));
+        JoystickButton climbDownSlow = addButton(getJoystick2(), bClimberDownSlow, "Rope Climber Down Slow");
+        climbDownSlow.whenPressed(new Climb(false, -0.5));
+        climbDownSlow.whenReleased(new Climb(true, 0));
+        JoystickButton climbDownFast = addButton(getJoystick2(), bClimberDownFast, "Rope Climber Down Fast");
+        climbDownFast.whenPressed(new Climb(false, -1));
+        climbDownFast.whenReleased(new Climb(true, 0));
+
+        // Gear pickup
+        /*JoystickButton gearPickupDown = addButton(getJoystick2(), bGearPickupDown, "Gear Pickup Down");
+        gearPickupDown.whenPressed(new GearPickupDown());
+        JoystickButton gearPickupUp = addButton(getJoystick2(), bGearPickupUp, "Gear Pickup Up");
+        gearPickupUp.whenPressed(new GearPickupUp());
+        JoystickButton gearPickupClose = addButton(getJoystick2(), bGearPickupClose, "Gear Pickup Close");
+        gearPickupClose.whenPressed(new GearPickupClose());
+        JoystickButton gearPickupOpen = addButton(getJoystick2(), bGearPickupOpen, "Gear Pickup Open");
+        gearPickupOpen.whenPressed(new GearPickupOpen());*/
 
         // Shooter
+        /*
         JoystickButton shootBalls = addButton(getJoystick2(), bShooter, "Shoot Balls");
         shootBalls.whenPressed(new ShootBalls(false, -1));
         shootBalls.whenReleased(new ShootBalls(true, 0));
+        */
 
         // Intake
+        /*
         JoystickButton intake = addButton(getJoystick2(), bIntake, "Intake On");
         intake.whenPressed(new IntakeBalls(false, -0.5));
         intake.whenReleased(new IntakeBalls(true, 0));
+        */
 
         // Additional commands to add to dashboard
         /*
