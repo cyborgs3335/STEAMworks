@@ -34,6 +34,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
 	private int direction = RobotMap.DRIVE_TRAIN_FORWARD_DIRECTION; // Mark2 = 1; Mark3 = -1
     //private final double joystickScalar = 1/(1-deadzone);
 	private PIDSourceType pidSourceType = PIDSourceType.kDisplacement;
+	private final double voltageRampRateDefault = 150;
 
     /*
      * Encoder Ratios
@@ -65,7 +66,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
         backLeft.set(0);
         backRight.set(0);
         
-        double voltageRampRate = 150;//20;
+        double voltageRampRate = voltageRampRateDefault;//20;
         frontLeft.setVoltageRampRate(voltageRampRate);
         frontRight.setVoltageRampRate(voltageRampRate);
         backLeft.setVoltageRampRate(voltageRampRate);
@@ -101,6 +102,22 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
         backLeft.enableBrakeMode(brake);
         backRight.enableBrakeMode(brake);
     }
+    
+    public void setRampRate(double voltageRampRate){
+    	frontLeft.setVoltageRampRate(voltageRampRate);
+        frontRight.setVoltageRampRate(voltageRampRate);
+        backLeft.setVoltageRampRate(voltageRampRate);
+        backRight.setVoltageRampRate(voltageRampRate);
+    }
+    
+    public void setDefaltRampRate(){
+    	double voltageRampRate = voltageRampRateDefault;
+    	frontLeft.setVoltageRampRate(voltageRampRate);
+        frontRight.setVoltageRampRate(voltageRampRate);
+        backLeft.setVoltageRampRate(voltageRampRate);
+        backRight.setVoltageRampRate(voltageRampRate);
+    }
+    
 
     public void zeroEncoders() {
     	leftEncoder.reset();
@@ -201,6 +218,14 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
     	} else {
     		return (leftEncoder.getDistance() + rightEncoder.getDistance())/2;
     	}
+    }
+
+    public double getLeftDistance() {
+    	return leftEncoder.getDistance();
+    }
+
+    public double getRightDistance() {
+    	return rightEncoder.getDistance();
     }
 
     @Override
