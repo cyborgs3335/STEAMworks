@@ -19,11 +19,13 @@ import org.usfirst.frc.team3335.robot.commands.autonomous.AutoNone;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceDropGear;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceDropGearVision;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceDropGearVisionTurnPID;
+import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceDropGearVisionTurnPID3;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceGear;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnByVision;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnByVisionSimple;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPeg;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPeg2;
+import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPegEncoders;
 import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPegSimple;
 import org.usfirst.frc.team3335.robot.subsystems.*;
 
@@ -94,14 +96,14 @@ public class Robot extends IterativeRobot {
 
 		// Autonomous
 		//chooser.addObject("AutoDriveToPeg", new AutoDriveToPeg(60));
-		chooser.addObject("Auto Drive Straight 9ft", new AutoPlaceGear(108, 0, 0));
-		chooser.addObject("Auto Place Gear Turn Right", new AutoPlaceGear(90, 60, 60));
-		chooser.addObject("Auto Drive Straight 6ft", new AutoPlaceGear(80, 0, 0));
-		chooser.addObject("Auto Place Gear Turn Left", new AutoPlaceGear(90, -60, 60));
-		chooser.addObject("Auto Place and Drop Gear Straight", 
-				new AutoPlaceDropGear(70/*110*/, 0, 0, -20, 0.5)); // ~108in dist minus ~29in robot length
-		chooser.addObject("Auto Turn using Vision", new AutoTurnByVision());
-		chooser.addObject("Auto Turn using Vision Simple", new AutoTurnByVisionSimple());
+		//chooser.addObject("Auto Drive Straight 9ft", new AutoPlaceGear(108, 0, 0));
+		//chooser.addObject("Auto Place Gear Turn Right", new AutoPlaceGear(90, 60, 60));
+		//chooser.addObject("Auto Drive Straight 6ft", new AutoPlaceGear(80, 0, 0));
+		//chooser.addObject("Auto Place Gear Turn Left", new AutoPlaceGear(90, -60, 60));
+		//chooser.addObject("Auto Place and Drop Gear Straight", 
+		//		new AutoPlaceDropGear(70/*110*/, 0, 0, -20, 0.5)); // ~108in dist minus ~29in robot length
+		//chooser.addObject("Auto Turn using Vision", new AutoTurnByVision());
+		//chooser.addObject("Auto Turn using Vision Simple", new AutoTurnByVisionSimple());
 		//chooser.addObject("Auto Place Gear using Vision Simple Turn Right", new AutoPlaceDropGearVision(80, 60, 66, -20, 0.5));
 		//chooser.addObject("Auto Place Gear using Vision Simple Straight", new AutoPlaceDropGearVision(0, 0, 80, -20, 0.5));
 		//chooser.addObject("Auto Place Gear using Vision Simple Turn Left", new AutoPlaceDropGearVision(80, -60, 66, -20, 0.5));
@@ -110,7 +112,11 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Auto Turn Right & Drive To Peg (Vision Target)", new AutoPlaceDropGearVisionTurnPID(76, 58, 66, -20, 0.5));
 		chooser.addObject("Auto Turn Straight & Drive To Peg (Vision Target)", new AutoPlaceDropGearVisionTurnPID(0, 0, 80, -20, 0.5));
 		chooser.addObject("Auto Turn Left & Drive To Peg (Vision Target)", new AutoPlaceDropGearVisionTurnPID(76, -48/*?*/, 66, -20, 0.5));
-		chooser.addObject("Auto Turn To Peg Simple", new AutoTurnToPegSimple());
+		chooser.addObject("Auto Turn Right & Drive To Peg (new Vision Target)", new AutoPlaceDropGearVisionTurnPID3(72, 58, 66, -20, 0.5));
+		chooser.addObject("Auto Turn Straight & Drive To Peg (new Vision Target)", new AutoPlaceDropGearVisionTurnPID3(0, 0, 80, -20, 0.5));
+		chooser.addObject("Auto Turn Left & Drive To Peg (new Vision Target)", new AutoPlaceDropGearVisionTurnPID3(72, -48, 66, -20, 0.5));
+		//chooser.addObject("Auto Turn To Peg Simple", new AutoTurnToPegSimple(60, 0.5));
+		//chooser.addObject("Auto Turn To Peg Encoder", new AutoTurnToPegEncoders(-60, 0.5));
 		//chooser.addObject("Auto Drive Distance", new AutoDriveDistance(108, 10000));
 		chooser.addDefault("None", new AutoNone());
 		SmartDashboard.putData("Auto Mode", chooser);
