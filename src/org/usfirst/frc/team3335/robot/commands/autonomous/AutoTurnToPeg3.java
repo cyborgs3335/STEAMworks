@@ -82,8 +82,10 @@ public class AutoTurnToPeg3 extends Command {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public AutoTurnToPeg3() {
-		this(Preferences.getInstance().getDouble("Auto Turn Vision Simple Forward Speed", RobotPreferences.AUTO_TURN_VISION_SIMPLE_FORWARD_SPEED_DEFAULT));
+		//this(Preferences.getInstance().getDouble("Auto Turn Vision Simple Forward Speed", RobotPreferences.AUTO_TURN_VISION_SIMPLE_FORWARD_SPEED_DEFAULT));
 		//this(0);
+		this(0.7);
+		//this(0.6);
 	}
 
 	/**
@@ -115,6 +117,7 @@ public class AutoTurnToPeg3 extends Command {
     	Robot.driveTrain.setBrake(true);
     	Robot.navx.zeroYaw();
     	Robot.driveTrain.zeroEncoders();
+    	Robot.driveTrain.setRampRate(5/*20*/);
 
         this.haveTarget = Robot.visionTest.isTargetDetected();
         if (haveTarget) {
@@ -191,6 +194,7 @@ public class AutoTurnToPeg3 extends Command {
     protected void end() {
         Robot.driveTrain.drive(0, 0);
         Robot.driveTrain.setBrake(false);
+        Robot.driveTrain.setDefaltRampRate();
     }
 
     // Called when another command which requires one or more of the same
