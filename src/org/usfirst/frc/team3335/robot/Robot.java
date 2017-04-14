@@ -13,20 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoDriveDistance;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoDriveToPeg;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoNone;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceDropGear;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceDropGearVision;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceDropGearVisionTurnPID;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceDropGearVisionTurnPID3;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceGear;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnByVision;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnByVisionSimple;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPeg;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPeg2;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPegEncoders;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPegSimple;
+import org.usfirst.frc.team3335.robot.commands.autonomous.*;
 import org.usfirst.frc.team3335.robot.subsystems.*;
 
 /**
@@ -54,6 +41,8 @@ public class Robot extends IterativeRobot {
 	public static Intake intake;
 	public static Gate gate;
 	public static GearEjector gearEjector;
+	public static GenericDoubleSolenoid gearPickupUpDown;
+	public static GenericDoubleSolenoid gearPickupOpenClose;
 	public static Flapper flapper;
 	public static Climber climber;
 	public static DoubleUltrasonic ultrasonics;
@@ -83,6 +72,14 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(flapper);
 		ballShifter = new BallShifter();
 		subsystemsList.add(ballShifter);
+		// Gear Pickup
+		gearPickupUpDown = new GenericDoubleSolenoid(1, RobotMap.GEAR_PICKUP_UP_DOWN_FORWARD_CHANNEL,
+				RobotMap.GEAR_PICKUP_UP_DOWN_REVERSE_CHANNEL);
+		subsystemsList.add(gearPickupUpDown);
+		gearPickupOpenClose = new GenericDoubleSolenoid(1, RobotMap.GEAR_PICKUP_OPEN_CLOSE_FORWARD_CHANNEL,
+				RobotMap.GEAR_PICKUP_OPEN_CLOSE_REVERSE_CHANNEL);
+		subsystemsList.add(gearPickupOpenClose);
+
 		ballShooter = new BallShooter();
 		subsystemsList.add(ballShooter);
 		intake = new Intake();
