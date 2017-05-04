@@ -39,17 +39,17 @@ public class OI {
         int bClimberDownFast = 8; // "Start"
         //int bShooter = 3; // X
         //int bIntake = 1; // A
-        int bGearPickupDown = 1; // A
-        int bGearPickupUp = 2; // B
-        int bGearPickupClose = 3; // X
-        int bGearPickupOpen = 4; // Y
+        int bGearPickupDown = 3; // X
+        int bGearPickupUp = 2; // Y
+        int bGearPickupClose = 4; // B
+        int bGearPickupOpen = 5; // A
 
         if (driveMode) {
         	// Joystick 1
         	bGateUp = 3;
         	bGateDown = 2;
-        	bFlapperUp = 5;
-        	bFlapperDown = 4;
+        	bFlapperUp = 1;
+        	bFlapperDown = 2;
         	bShiftLow = 7;
         	bShiftHigh = 6;
         	bDriveForward = 8;
@@ -73,9 +73,9 @@ public class OI {
         gateControlDown.whenPressed(new GearControl(false));
 
         // Flapper
-        JoystickButton flapperUp = addButton(getJoystick(), bFlapperUp, "Flapper Up");
+        JoystickButton flapperUp = addButton(getJoystick2(), bFlapperUp, "Flapper Up");
         flapperUp.whenPressed(new FlapperControl(false));
-        JoystickButton flapperDown = addButton(getJoystick(), bFlapperDown, "Flapper Down");
+        JoystickButton flapperDown = addButton(getJoystick2(), bFlapperDown, "Flapper Down");
         flapperDown.whenPressed(new FlapperControl(true));
 
         // Drive Mode: Front is Forward vs Back is Forward
@@ -105,13 +105,13 @@ public class OI {
         climbDownFast.whenReleased(new Climb(true, 0));
 
         // Gear pickup
-        JoystickButton gearPickupDown = addButton(getJoystick2(), bGearPickupDown, "Gear Pickup Down");
+        JoystickButton gearPickupDown = addButton(getJoystick(), bGearPickupDown, "Gear Pickup Down");
         gearPickupDown.whenPressed(new GearPickupUpDownControl(false));
-        JoystickButton gearPickupUp = addButton(getJoystick2(), bGearPickupUp, "Gear Pickup Up");
+        JoystickButton gearPickupUp = addButton(getJoystick(), bGearPickupUp, "Gear Pickup Up");
         gearPickupUp.whenPressed(new GearPickupUpDownControl(true));
-        JoystickButton gearPickupClose = addButton(getJoystick2(), bGearPickupClose, "Gear Pickup Close");
+        JoystickButton gearPickupClose = addButton(getJoystick(), bGearPickupClose, "Gear Pickup Close");
         gearPickupClose.whenPressed(new GearPickupOpenCloseControl(false));
-        JoystickButton gearPickupOpen = addButton(getJoystick2(), bGearPickupOpen, "Gear Pickup Open");
+        JoystickButton gearPickupOpen = addButton(getJoystick(), bGearPickupOpen, "Gear Pickup Open");
         gearPickupOpen.whenPressed(new GearPickupOpenCloseControl(true));
 
         // Shooter
