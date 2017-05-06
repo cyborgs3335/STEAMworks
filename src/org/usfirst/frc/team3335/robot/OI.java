@@ -25,12 +25,14 @@ public class OI {
         int bDefault = -1;
         int bGateUp = bDefault;
         int bGateDown = bDefault;
-        int bFlapperUp = bDefault;
-        int bFlapperDown = bDefault;
         int bShiftLow = bDefault;
         int bShiftHigh = bDefault;
         int bDriveForward = bDefault;
         int bDriveBackward = bDefault;
+        int bGearPickupDown = bDefault;
+        int bGearPickupUp = bDefault;
+        int bGearPickupClose = bDefault;
+        int bGearPickupOpen = bDefault;
 
         // Joystick 2
         int bClimberUpSlow = 5; // Left Button
@@ -39,31 +41,33 @@ public class OI {
         int bClimberDownFast = 8; // "Start"
         //int bShooter = 3; // X
         //int bIntake = 1; // A
-        int bGearPickupDown = 3; // X
-        int bGearPickupUp = 2; // Y
-        int bGearPickupClose = 4; // B
-        int bGearPickupOpen = 5; // A
+        int bFlapperUp = 1; // A
+        int bFlapperDown = 2; // B
 
         if (driveMode) {
         	// Joystick 1
         	bGateUp = 3;
         	bGateDown = 2;
-        	bFlapperUp = 1;
-        	bFlapperDown = 2;
         	bShiftLow = 7;
         	bShiftHigh = 6;
         	bDriveForward = 8;
         	bDriveBackward = 9;
+            bGearPickupDown = 3;
+            bGearPickupUp = 2;
+            bGearPickupClose = 4;
+            bGearPickupOpen = 5;
         } else {
         	// Joystick 1
         	bGateUp = 3;
         	bGateDown = 2;
-        	bFlapperUp = 6;
-        	bFlapperDown = 7;
         	bShiftLow = 4;
         	bShiftHigh = 5;
         	bDriveForward = bDefault;
         	bDriveBackward = bDefault;
+            bGearPickupDown = 3;
+            bGearPickupUp = 2;
+            bGearPickupClose = 6;
+            bGearPickupOpen = 7;
         }
 
         // Gate
