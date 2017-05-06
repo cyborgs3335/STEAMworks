@@ -36,6 +36,7 @@ public class Robot extends IterativeRobot {
 	public static Compressor compressor;
 	public static DriveTrain driveTrain;
 	public static VisionTest visionTest;
+	public static CameraStream gearPickupCameraStream;
 	public static BallShifter ballShifter;
 	public static BallShooter ballShooter;
 	public static Intake intake;
@@ -64,6 +65,8 @@ public class Robot extends IterativeRobot {
 		//visionTest = null;
 		visionTest = new VisionTest();
 		subsystemsList.add(visionTest);
+		gearPickupCameraStream = new CameraStream();
+		subsystemsList.add(gearPickupCameraStream);
 		gate = new Gate();
 		subsystemsList.add(gate);
 		gearEjector = new GearEjector();
