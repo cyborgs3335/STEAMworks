@@ -47,18 +47,18 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	private final Object imgLock = new Object();
 
 	public VisionTest() {
-		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-		UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(); // cam0 by default
+		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(); // cam0 by default
+		//UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
 		camera.setBrightness(0);
 //		camera.setExposureManual(100);
 		camera.setExposureAuto();
-		camera2.setResolution(IMG_WIDTH, IMG_HEIGHT);
-		camera2.setBrightness(0);
-		camera2.setExposureAuto();
+		//camera2.setResolution(IMG_WIDTH, IMG_HEIGHT);
+		//camera2.setBrightness(0);
+		//camera2.setExposureAuto();
 
 		CvSource cs= CameraServer.getInstance().putVideo("name", IMG_WIDTH, IMG_HEIGHT);
-		
+
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
 			Mat IMG_MOD = pipeline.hslThresholdOutput();
 	        if (!pipeline.filterContoursOutput().isEmpty()) {
