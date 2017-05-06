@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Climber extends Subsystem implements LoggableSubsystem {
 
 	private CANTalon bagMotor;
+	private CANTalon bagMotor2;
 
 	private final double currentLimit = 100.0; // amps; 100 may be too much
 	//private final double currentLimit = 45.0; // amps; 45 may be too much
@@ -25,31 +26,38 @@ public class Climber extends Subsystem implements LoggableSubsystem {
 	public Climber() {
 		bagMotor = new CANTalon(RobotMap.CLIMBING_MOTOR);
 		bagMotor.enableBrakeMode(false);
+		bagMotor2 = new CANTalon(RobotMap.CLIMBING_MOTOR2);
+		bagMotor2.enableBrakeMode(false);
 		//while(true)if (joystick.getRawButton(4))manualClimb(joystick);
 	}
 
 	protected void climb(double rotations) {
 		double firstNum = bagMotor.getAnalogInPosition();
 		bagMotor.set(-1);
+		bagMotor2.set(-1);
 		while(bagMotor.getAnalogInPosition()<firstNum+(rotations*1024)){;}
 		bagMotor.set(0);
+		bagMotor2.set(0);
 	}
 
 	public void manualClimb(double speed) {
 		if (isCurrentExceeded()) {
 			bagMotor.set(0);
+			bagMotor2.set(0);
 			timeCurrentExceeded = System.currentTimeMillis();
 			return;
 		}
 		if (System.currentTimeMillis() - timeCurrentExceeded < timeOut) {
 			bagMotor.set(0);
+			bagMotor2.set(0);
 			return;
 		}
 		bagMotor.set(speed);
+		bagMotor2.set(speed);
 	}
 
 	public boolean isCurrentExceeded() {
-		return bagMotor.getOutputCurrent() >= currentLimit;
+		return bagMotor.getOutputCurrent() >= currentLimit||bagMotor2.getOutputCurrent() >= currentLimit;
 	}
 
 	@Override
@@ -61,7 +69,7 @@ public class Climber extends Subsystem implements LoggableSubsystem {
 	@Override
 	public void log() {
 		SmartDashboard.putNumber("Climber: talon current", bagMotor.getOutputCurrent());
-		SmartDashboard.putNumber("Climber: pdp   current", Robot.pdp.getCurrent(12));
+		SmartDashboard.putNumber("Climber2: talon current",bagMotor2.getOutputCurrent());
 	}
 
 }
