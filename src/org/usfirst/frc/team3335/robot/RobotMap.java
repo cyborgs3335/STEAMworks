@@ -38,7 +38,7 @@ public class RobotMap {
 	*/
 
 	// Mark 2
-	/*
+	/**/
 	public static final int DRIVE_TRAIN_FRONT_LEFT = 1;
     public static final int DRIVE_TRAIN_FRONT_RIGHT = 3;
     public static final int DRIVE_TRAIN_BACK_LEFT = 2;
@@ -73,7 +73,7 @@ public class RobotMap {
 	/**/
 
 	// Mark 3
-	/**/
+	/*
 	public static final int DRIVE_TRAIN_FRONT_LEFT = 1;
 	public static final int DRIVE_TRAIN_FRONT_RIGHT = 3;
 	public static final int DRIVE_TRAIN_BACK_LEFT = 2;
