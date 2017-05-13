@@ -22,42 +22,61 @@ public class Climber extends Subsystem implements LoggableSubsystem {
 	//private final double currentLimit = 25.0; // amps, for testing only
 	private final double timeOut = 1000; // milliseconds
 	private double timeCurrentExceeded = 0;
+	private boolean hasTwoMotors = false;
 
 	public Climber() {
 		bagMotor = new CANTalon(RobotMap.CLIMBING_MOTOR);
 		bagMotor.enableBrakeMode(false);
-		bagMotor2 = new CANTalon(RobotMap.CLIMBING_MOTOR2);
-		bagMotor2.enableBrakeMode(false);
+		if (hasTwoMotors) {
+			bagMotor2 = new CANTalon(RobotMap.CLIMBING_MOTOR2);
+			bagMotor2.enableBrakeMode(false);
+		} else {
+			bagMotor2 = null;
+		}
 		//while(true)if (joystick.getRawButton(4))manualClimb(joystick);
 	}
 
 	protected void climb(double rotations) {
 		double firstNum = bagMotor.getAnalogInPosition();
 		bagMotor.set(-1);
-		bagMotor2.set(-1);
+		if (hasTwoMotors) {
+			bagMotor2.set(-1);
+		}
 		while(bagMotor.getAnalogInPosition()<firstNum+(rotations*1024)){;}
 		bagMotor.set(0);
-		bagMotor2.set(0);
+		if (hasTwoMotors) {
+			bagMotor2.set(0);
+		}
 	}
 
 	public void manualClimb(double speed) {
 		if (isCurrentExceeded()) {
 			bagMotor.set(0);
-			bagMotor2.set(0);
+			if (hasTwoMotors) {
+				bagMotor2.set(0);
+			}
 			timeCurrentExceeded = System.currentTimeMillis();
 			return;
 		}
 		if (System.currentTimeMillis() - timeCurrentExceeded < timeOut) {
 			bagMotor.set(0);
-			bagMotor2.set(0);
+			if (hasTwoMotors) {
+				bagMotor2.set(0);
+			}
 			return;
 		}
 		bagMotor.set(speed);
-		bagMotor2.set(speed);
+		if (hasTwoMotors) {
+			bagMotor2.set(speed);
+		}
 	}
 
 	public boolean isCurrentExceeded() {
-		return bagMotor.getOutputCurrent() >= currentLimit||bagMotor2.getOutputCurrent() >= currentLimit;
+		if (hasTwoMotors) {
+			return bagMotor.getOutputCurrent() >= currentLimit || bagMotor2.getOutputCurrent() >= currentLimit;
+		}
+		return bagMotor.getOutputCurrent() >= currentLimit;
+			
 	}
 
 	@Override
@@ -69,7 +88,9 @@ public class Climber extends Subsystem implements LoggableSubsystem {
 	@Override
 	public void log() {
 		SmartDashboard.putNumber("Climber: talon current", bagMotor.getOutputCurrent());
-		SmartDashboard.putNumber("Climber2: talon current",bagMotor2.getOutputCurrent());
+		if (hasTwoMotors) {
+			SmartDashboard.putNumber("Climber2: talon current",bagMotor2.getOutputCurrent());
+		}
 	}
 
 }
