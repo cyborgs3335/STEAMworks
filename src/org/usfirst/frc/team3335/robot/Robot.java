@@ -65,10 +65,12 @@ public class Robot extends IterativeRobot {
 		//visionTest = null;
 		visionTest = new VisionTest();
 		subsystemsList.add(visionTest);
-		gearPickupCameraStream = new CameraStream();
+		gearPickupCameraStream = null;
+		//gearPickupCameraStream = new CameraStream();
 		subsystemsList.add(gearPickupCameraStream);
 		gate = new Gate();
 		subsystemsList.add(gate);
+		//gearEjector = null;
 		gearEjector = new GearEjector();
 		subsystemsList.add(gearEjector);
 		flapper = new Flapper();
@@ -76,11 +78,13 @@ public class Robot extends IterativeRobot {
 		ballShifter = new BallShifter();
 		subsystemsList.add(ballShifter);
 		// Gear Pickup
-		gearPickupUpDown = new GenericDoubleSolenoid(1, RobotMap.GEAR_PICKUP_UP_DOWN_FORWARD_CHANNEL,
-				RobotMap.GEAR_PICKUP_UP_DOWN_REVERSE_CHANNEL);
+		gearPickupUpDown = null;
+		//gearPickupUpDown = new GenericDoubleSolenoid(1, RobotMap.GEAR_PICKUP_UP_DOWN_FORWARD_CHANNEL,
+		//		RobotMap.GEAR_PICKUP_UP_DOWN_REVERSE_CHANNEL);
 		subsystemsList.add(gearPickupUpDown);
-		gearPickupOpenClose = new GenericDoubleSolenoid(1, RobotMap.GEAR_PICKUP_OPEN_CLOSE_FORWARD_CHANNEL,
-				RobotMap.GEAR_PICKUP_OPEN_CLOSE_REVERSE_CHANNEL);
+		gearPickupOpenClose = null;
+		//gearPickupOpenClose = new GenericDoubleSolenoid(1, RobotMap.GEAR_PICKUP_OPEN_CLOSE_FORWARD_CHANNEL,
+		//		RobotMap.GEAR_PICKUP_OPEN_CLOSE_REVERSE_CHANNEL);
 		subsystemsList.add(gearPickupOpenClose);
 
 		ballShooter = new BallShooter();

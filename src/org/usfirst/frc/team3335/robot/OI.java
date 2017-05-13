@@ -109,6 +109,7 @@ public class OI {
         climbDownFast.whenReleased(new Climb(true, 0));
 
         // Gear pickup
+        /*
         JoystickButton gearPickupDown = addButton(getJoystick(), bGearPickupDown, "Gear Pickup Down");
         gearPickupDown.whenPressed(new GearPickupUpDownControl(false));
         JoystickButton gearPickupUp = addButton(getJoystick(), bGearPickupUp, "Gear Pickup Up");
@@ -117,6 +118,7 @@ public class OI {
         gearPickupClose.whenPressed(new GearPickupOpenCloseControl(false));
         JoystickButton gearPickupOpen = addButton(getJoystick(), bGearPickupOpen, "Gear Pickup Open");
         gearPickupOpen.whenPressed(new GearPickupOpenCloseControl(true));
+        */
 
         // Shooter
         /*
