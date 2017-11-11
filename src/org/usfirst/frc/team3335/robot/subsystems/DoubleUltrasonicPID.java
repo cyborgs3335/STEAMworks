@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DoubleUltrasonicPID extends Subsystem implements LoggableSubsystem {
@@ -38,7 +39,7 @@ public class DoubleUltrasonicPID extends Subsystem implements LoggableSubsystem 
 
 
 	private AnalogInput ultrasonic = new AnalogInput(kUltrasonicPort);
-	private RobotDrive myRobot = new RobotDrive(kLeftMotorPort, kRightMotorPort);
+	private DifferentialDrive myRobot = new DifferentialDrive(new Talon(kLeftMotorPort), new Talon(kRightMotorPort));
 	private PIDController pidController = new PIDController(kP, kI, kD, ultrasonic, new MyPidOutput());
 
 
@@ -78,7 +79,7 @@ public class DoubleUltrasonicPID extends Subsystem implements LoggableSubsystem 
 	private class MyPidOutput implements PIDOutput {
 		@Override
 		public void pidWrite(double output) {
-			myRobot.drive(output, 0);
+			myRobot.arcadeDrive(output, 0);
 		}
 	}
 }

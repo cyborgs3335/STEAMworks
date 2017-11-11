@@ -1,21 +1,16 @@
 package org.usfirst.frc.team3335.robot.subsystems;
 
-import org.usfirst.frc.team3335.robot.Robot;
 import org.usfirst.frc.team3335.robot.RobotMap;
-import org.usfirst.frc.team3335.robot.commands.ClimbWithJoystick;
 
-import com.ctre.CANTalon;
+import com.ctre.phoenix.MotorControl.CAN.TalonSRX;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Climber extends Subsystem implements LoggableSubsystem {
 
-	private CANTalon bagMotor;
-	private CANTalon bagMotor2;
+	private TalonSRX bagMotor;
+	private TalonSRX bagMotor2;
 
 	private final double currentLimit = 100.0; // amps; 100 may be too much
 	//private final double currentLimit = 45.0; // amps; 45 may be too much
@@ -24,9 +19,9 @@ public class Climber extends Subsystem implements LoggableSubsystem {
 	private double timeCurrentExceeded = 0;
 
 	public Climber() {
-		bagMotor = new CANTalon(RobotMap.CLIMBING_MOTOR);
+		bagMotor = new TalonSRX(RobotMap.CLIMBING_MOTOR);
 		bagMotor.enableBrakeMode(false);
-		bagMotor2 = new CANTalon(RobotMap.CLIMBING_MOTOR2);
+		bagMotor2 = new TalonSRX(RobotMap.CLIMBING_MOTOR2);
 		bagMotor2.enableBrakeMode(false);
 		//while(true)if (joystick.getRawButton(4))manualClimb(joystick);
 	}

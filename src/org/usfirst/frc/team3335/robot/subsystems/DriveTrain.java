@@ -1,14 +1,14 @@
 package org.usfirst.frc.team3335.robot.subsystems;
 
-import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team3335.robot.Robot;
@@ -24,8 +24,8 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
 
     //get the cantalons at http://www.ctr-electronics.com/downloads/installers/CTRE%20Toolsuite%20v4.4.1.9-nonadmin.zip for windows,
     //http://www.ctr-electronics.com//downloads/lib/CTRE_FRCLibs_NON-WINDOWS_v4.4.1.9.zip for other
-    private CANTalon frontLeft, frontRight, backLeft, backRight;
-    private RobotDrive drive;
+    private MyTalonSRX frontLeft, frontRight, backLeft, backRight;
+    private DifferentialDrive drive;
     private Encoder leftEncoder;
     private Encoder rightEncoder;
     private final boolean useTankDrive = false;
@@ -56,10 +56,12 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
 
     public DriveTrain() {
         super();
-        frontLeft = new CANTalon(RobotMap.DRIVE_TRAIN_FRONT_LEFT);
-        frontRight = new CANTalon(RobotMap.DRIVE_TRAIN_FRONT_RIGHT);
-        backLeft = new CANTalon(RobotMap.DRIVE_TRAIN_BACK_LEFT);
-        backRight = new CANTalon(RobotMap.DRIVE_TRAIN_BACK_RIGHT);
+        frontLeft = new MyTalonSRX(RobotMap.DRIVE_TRAIN_FRONT_LEFT);
+        frontRight = new MyTalonSRX(RobotMap.DRIVE_TRAIN_FRONT_RIGHT);
+        backLeft = new MyTalonSRX(RobotMap.DRIVE_TRAIN_BACK_LEFT);
+        backRight = new MyTalonSRX(RobotMap.DRIVE_TRAIN_BACK_RIGHT);
+        SpeedControllerGroup leftGroup = new SpeedControllerGroup(frontLeft, backLeft);
+        SpeedControllerGroup rightGroup = new SpeedControllerGroup(frontRight, backRight);
 
         frontLeft.set(0);
         frontRight.set(0);
@@ -76,7 +78,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
 
         setBrake(false);
 
-        drive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
+        drive = new DifferentialDrive(leftGroup, rightGroup);
 
         // Scale encoder pulses to distance in inches
         double wheelDiameter = 4.0; // inches
