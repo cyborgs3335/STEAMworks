@@ -11,10 +11,10 @@ The Programming project for Team 3335's 2017 robot.
     import edu.wpi.first.wpilibj.drive.DifferentialDrive;
     DifferentialDrive myRobot = new DifferentialDrive(new Talon(0), new Talon(1));
     myRobot.arcadeDrive(move, rotate);
-    // curvatureDrive() is a alternate replacement for RobotDrive.drive()
+    // curvatureDrive() is an alternate replacement for RobotDrive.drive()
     myRobot.curvatureDrive(move, rotate, isQuickTurn);
     ```
-* CANTalon has changed to TalonSRX
+* ```CANTalon``` has changed to ```TalonSRX```
   * 2017:
     ```java
     import com.ctre.CANTalon;
@@ -25,7 +25,7 @@ The Programming project for Team 3335's 2017 robot.
     import com.ctre.phoenix.MotorControl.CAN.TalonSRX;
     TalonSRX motor = new TalonSRX(1);
     ```
-  * For changing a RobotDrive with more than two motors:
+  * For changing a ```RobotDrive``` with more than two motors:
     ```java
     MyTalonSRX frontLeft = new MyTalonSRX(1);
     MyTalonSRX frontRight = new MyTalonSRX(2);
