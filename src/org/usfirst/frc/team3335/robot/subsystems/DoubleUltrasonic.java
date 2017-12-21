@@ -29,6 +29,10 @@ public class DoubleUltrasonic extends Subsystem implements LoggableSubsystem {
 		return getDistance(ultrasonicRight);
 	}
 
+    public double getDistance() {
+    	return 0.5 * (getDistanceLeft() + getDistanceRight());
+    }
+
 	private double getDistance(AnalogInput ultrasonic) {
 		//return ultrasonic.getValue() * kValueToInches;
 		return ultrasonic.getAverageVoltage()*kVoltageToInches;

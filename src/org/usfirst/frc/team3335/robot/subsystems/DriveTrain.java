@@ -31,9 +31,10 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
     private final boolean useTankDrive = false;
     private double deadzone = .1;
     private final double trainingSpeedMax = 1;
-	private int direction = -1; // Mark2 = 1; Mark3 = -1?
+	private int direction = RobotMap.DRIVE_TRAIN_FORWARD_DIRECTION; // Mark2 = 1; Mark3 = -1
     //private final double joystickScalar = 1/(1-deadzone);
 	private PIDSourceType pidSourceType = PIDSourceType.kDisplacement;
+	private final double voltageRampRateDefault = 150;
 
     /*
      * Encoder Ratios
@@ -65,7 +66,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
         backLeft.set(0);
         backRight.set(0);
         
-        double voltageRampRate = 150;//20;
+        double voltageRampRate = voltageRampRateDefault;//20;
         frontLeft.setVoltageRampRate(voltageRampRate);
         frontRight.setVoltageRampRate(voltageRampRate);
         backLeft.setVoltageRampRate(voltageRampRate);
@@ -86,11 +87,11 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
         distancePerPulse /= stage3Ratio;
 
         leftEncoder = new Encoder(RobotMap.DRIVE_TRAIN_ENCODER_LEFT_A, RobotMap.DRIVE_TRAIN_ENCODER_LEFT_B,
-        		true, EncodingType.k4X);
+        		RobotMap.DRIVE_TRAIN_ENCODER_LEFT_REVERSE, EncodingType.k4X);
         leftEncoder.reset();
         leftEncoder.setDistancePerPulse(distancePerPulse);
         rightEncoder = new Encoder(RobotMap.DRIVE_TRAIN_ENCODER_RIGHT_A, RobotMap.DRIVE_TRAIN_ENCODER_RIGHT_B,
-        		true, EncodingType.k4X);
+        		RobotMap.DRIVE_TRAIN_ENCODER_RIGHT_REVERSE, EncodingType.k4X);
         rightEncoder.reset();
         rightEncoder.setDistancePerPulse(distancePerPulse);
     }
@@ -101,6 +102,22 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
         backLeft.enableBrakeMode(brake);
         backRight.enableBrakeMode(brake);
     }
+    
+    public void setRampRate(double voltageRampRate){
+    	frontLeft.setVoltageRampRate(voltageRampRate);
+        frontRight.setVoltageRampRate(voltageRampRate);
+        backLeft.setVoltageRampRate(voltageRampRate);
+        backRight.setVoltageRampRate(voltageRampRate);
+    }
+    
+    public void setDefaltRampRate(){
+    	double voltageRampRate = voltageRampRateDefault;
+    	frontLeft.setVoltageRampRate(voltageRampRate);
+        frontRight.setVoltageRampRate(voltageRampRate);
+        backLeft.setVoltageRampRate(voltageRampRate);
+        backRight.setVoltageRampRate(voltageRampRate);
+    }
+    
 
     public void zeroEncoders() {
     	leftEncoder.reset();
@@ -117,33 +134,6 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
     	driveNew(joystick);
     }
 
-    public void driveOrig(Joystick joystick) {
-    	if (useTankDrive) {
-    		int sign = -1;
-    		if (-joystick.getRawAxis(1)>=0) sign = 1;
-    		if (Math.abs(joystick.getRawAxis(1))>=trainingSpeedMax)
-    			drive(trainingSpeedMax*sign, map(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
-    		else
-    			drive(map(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS)), map(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
-    	} 
-    	else {
-    		int sign = -1;
-    		if (-joystick.getRawAxis(1)>=0) sign = 1;
-    		if(Math.abs(joystick.getRawAxis(0))<=deadzone) {
-    			if (Math.abs(joystick.getRawAxis(1))>=trainingSpeedMax)
-    				driveArcade(trainingSpeedMax*sign, 0.0);
-    			else
-    				driveArcade(map(-joystick.getRawAxis(1)), 0.0);
-    		}
-    		else {
-    			if (Math.abs(joystick.getRawAxis(1))>=trainingSpeedMax)
-    				driveArcade(trainingSpeedMax*sign, map(-joystick.getRawAxis(0)));
-    			else
-    				driveArcade(map(-joystick.getRawAxis(1)), map(-joystick.getRawAxis(0)));
-    		}
-    	}
-    }
-    
     public double map(double input ) {
     	if (Math.abs(input) < deadzone) {
     		return 0;
@@ -162,7 +152,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
 	 * @param direction : 1 for forward, -1 for backward
 	 */
 	public void setDirection(int direction) {
-		this.direction = -direction;
+		this.direction = direction * RobotMap.DRIVE_TRAIN_FORWARD_DIRECTION;
 	}
     
     public void driveNew(Joystick joystick) {
@@ -170,31 +160,52 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
     		int sign = direction;
     		if (joystick.getRawAxis(1) <= 0) sign = -direction;
     		if (Math.abs(joystick.getRawAxis(1))>trainingSpeedMax)
-    			drive(trainingSpeedMax*sign, map(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
+    			drivePrivate(trainingSpeedMax*sign, map(-joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
     		else
-    			drive(map(direction *joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS)),
+    			drivePrivate(map(direction *joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_LEFT_AXIS)),
     					map(direction *joystick.getRawAxis(RobotPreferences.DRIVE_TRAIN_RIGHT_AXIS)));
     	} 
     	else {
     		int sign = direction;
     		if (joystick.getRawAxis(1) <= 0) sign = -direction;
     		if (Math.abs(joystick.getRawAxis(1))>trainingSpeedMax)
-    			driveArcade(sign*trainingSpeedMax, map(/*direction * */ joystick.getRawAxis(0)));
+    			driveArcadePrivate(sign*trainingSpeedMax, map(/*direction * */ joystick.getRawAxis(0)));
     		else
-    			driveArcade(map(direction *joystick.getRawAxis(1)), map(/*direction * */ joystick.getRawAxis(0)));
+    			driveArcadePrivate(map(direction *joystick.getRawAxis(1)), map(/*direction * */ joystick.getRawAxis(0)));
     	}
     }
 
     public void drive(double left, double right) {
-        drive.tankDrive(left, right, true);
+    	int sign = RobotMap.DRIVE_TRAIN_FORWARD_DIRECTION == 1 ? -1 : 1;
+    	drivePrivate(sign * left, sign * right, false/*true*/);
     }
-    
+
+    private void drivePrivate(double left, double right, boolean squareInputs) {
+    	drive.tankDrive(left, right, squareInputs);
+    }
+
+    private void drivePrivate(double left, double right) {
+    	drive.tankDrive(left, right, true);
+    }
+
+    /**
+     * Arcade drive.  Takes into account whether DRIVE_TRAIN_FORWARD_DIRECTION is 1 or -1.
+     * @param move value to move forward/backward
+     * @param rotate value to rotate right/left
+     * @param squared if true, square inputs to decrease sensitivity at low speeds
+     */
     public void driveArcade(double move, double rotate, boolean squared) {
+    	int sign = RobotMap.DRIVE_TRAIN_FORWARD_DIRECTION == 1 ? -1 : 1;
+    	drive.arcadeDrive(sign * move, rotate, squared);
+    	//drive.arcadeDrive(move, rotate, squared);
+    }
+
+    private void driveArcadePrivate(double move, double rotate, boolean squared) {
     	drive.arcadeDrive(move, rotate, squared);
     }
 
-    public void driveArcade(double move, double rotate) {
-    	driveArcade(move, rotate, true);
+    private void driveArcadePrivate(double move, double rotate) {
+    	driveArcadePrivate(move, rotate, true);
     }
     
     public double getDistance() {
@@ -207,6 +218,14 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
     	} else {
     		return (leftEncoder.getDistance() + rightEncoder.getDistance())/2;
     	}
+    }
+
+    public double getLeftDistance() {
+    	return leftEncoder.getDistance();
+    }
+
+    public double getRightDistance() {
+    	return rightEncoder.getDistance();
     }
 
     @Override

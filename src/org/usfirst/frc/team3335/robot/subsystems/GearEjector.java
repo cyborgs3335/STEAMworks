@@ -8,18 +8,18 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Solenoid;
 
 @SuppressWarnings("unused")
-public class Flapper extends Subsystem implements LoggableSubsystem {
+public class GearEjector extends Subsystem implements LoggableSubsystem {
 
 	private DoubleSolenoid solenoid;
 	
-	public Flapper() {
-		solenoid = new DoubleSolenoid(RobotMap.FLAPPER_FORWARD_CHANNEL, RobotMap.FLAPPER_REVERSE_CHANNEL);
+	public GearEjector() {
+		solenoid = new DoubleSolenoid(RobotMap.GEAR_EJECTOR_FORWARD_CHANNEL, RobotMap.GEAR_EJECTOR_REVERSE_CHANNEL);
 		solenoid.set(Value.kReverse);
 		//solenoid.set(Value.kForward);
 	}
 	
 	public void switchPos(DoubleSolenoid.Value val) {
-        solenoid.set(val);
+		solenoid.set(val);
     }
 	
 	@Override

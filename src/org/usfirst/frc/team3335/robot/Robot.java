@@ -13,12 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoDriveDistance;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoDriveToPeg;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoNone;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoPlaceGear;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnByVision;
-import org.usfirst.frc.team3335.robot.commands.autonomous.AutoTurnToPeg;
+import org.usfirst.frc.team3335.robot.commands.autonomous.*;
 import org.usfirst.frc.team3335.robot.subsystems.*;
 
 /**
@@ -41,10 +36,14 @@ public class Robot extends IterativeRobot {
 	public static Compressor compressor;
 	public static DriveTrain driveTrain;
 	public static VisionTest visionTest;
+	public static CameraStream gearPickupCameraStream;
 	public static BallShifter ballShifter;
 	public static BallShooter ballShooter;
 	public static Intake intake;
 	public static Gate gate;
+	public static GearEjector gearEjector;
+	public static GenericDoubleSolenoid gearPickupUpDown;
+	public static GenericDoubleSolenoid gearPickupOpenClose;
 	public static Flapper flapper;
 	public static Climber climber;
 	public static DoubleUltrasonic ultrasonics;
@@ -66,12 +65,24 @@ public class Robot extends IterativeRobot {
 		//visionTest = null;
 		visionTest = new VisionTest();
 		subsystemsList.add(visionTest);
+		gearPickupCameraStream = new CameraStream();
+		subsystemsList.add(gearPickupCameraStream);
 		gate = new Gate();
 		subsystemsList.add(gate);
+		gearEjector = new GearEjector();
+		subsystemsList.add(gearEjector);
 		flapper = new Flapper();
 		subsystemsList.add(flapper);
 		ballShifter = new BallShifter();
 		subsystemsList.add(ballShifter);
+		// Gear Pickup
+		gearPickupUpDown = new GenericDoubleSolenoid(1, RobotMap.GEAR_PICKUP_UP_DOWN_FORWARD_CHANNEL,
+				RobotMap.GEAR_PICKUP_UP_DOWN_REVERSE_CHANNEL);
+		subsystemsList.add(gearPickupUpDown);
+		gearPickupOpenClose = new GenericDoubleSolenoid(1, RobotMap.GEAR_PICKUP_OPEN_CLOSE_FORWARD_CHANNEL,
+				RobotMap.GEAR_PICKUP_OPEN_CLOSE_REVERSE_CHANNEL);
+		subsystemsList.add(gearPickupOpenClose);
+
 		ballShooter = new BallShooter();
 		subsystemsList.add(ballShooter);
 		intake = new Intake();
@@ -84,13 +95,29 @@ public class Robot extends IterativeRobot {
 		subsystemsList.add(navx);
 
 		// Autonomous
-		chooser.addObject("AutoDriveToPeg", new AutoDriveToPeg(108));
-		chooser.addObject("Auto Place Gear Turn Right", new AutoPlaceGear(108, 60));
-		chooser.addObject("Auto Place Gear Straight", new AutoPlaceGear(108, 0));
-		chooser.addObject("Auto Place Gear Turn Left", new AutoPlaceGear(108, -60));
-		chooser.addObject("Auto Turn using Vision", new AutoTurnByVision(0));
+		//chooser.addObject("AutoDriveToPeg", new AutoDriveToPeg(60));
+		//chooser.addObject("Auto Drive Straight 9ft", new AutoPlaceGear(108, 0, 0));
+		//chooser.addObject("Auto Place Gear Turn Right", new AutoPlaceGear(90, 60, 60));
+		//chooser.addObject("Auto Drive Straight 6ft", new AutoPlaceGear(80, 0, 0));
+		//chooser.addObject("Auto Place Gear Turn Left", new AutoPlaceGear(90, -60, 60));
+		//chooser.addObject("Auto Place and Drop Gear Straight", 
+		//		new AutoPlaceDropGear(70/*110*/, 0, 0, -20, 0.5)); // ~108in dist minus ~29in robot length
+		//chooser.addObject("Auto Turn using Vision", new AutoTurnByVision());
+		//chooser.addObject("Auto Turn using Vision Simple", new AutoTurnByVisionSimple());
+		//chooser.addObject("Auto Place Gear using Vision Simple Turn Right", new AutoPlaceDropGearVision(80, 60, 66, -20, 0.5));
+		//chooser.addObject("Auto Place Gear using Vision Simple Straight", new AutoPlaceDropGearVision(0, 0, 80, -20, 0.5));
+		//chooser.addObject("Auto Place Gear using Vision Simple Turn Left", new AutoPlaceDropGearVision(80, -60, 66, -20, 0.5));
+		//chooser.addObject("Auto Place Gear using Vision Simple", new AutoPlaceDropGearVision(1, 60, 0, -20, 0.5));
 		chooser.addObject("Auto Turn To Peg", new AutoTurnToPeg());
-		chooser.addObject("Auto Drive Distance", new AutoDriveDistance(108, 10000));
+		chooser.addObject("Auto Turn Right & Drive To Peg (Vision Target)", new AutoPlaceDropGearVisionTurnPID(76, 58, 66, -20, 0.5));
+		chooser.addObject("Auto Turn Straight & Drive To Peg (Vision Target)", new AutoPlaceDropGearVisionTurnPID(0, 0, 80, -20, 0.5));
+		chooser.addObject("Auto Turn Left & Drive To Peg (Vision Target)", new AutoPlaceDropGearVisionTurnPID(76, -48/*?*/, 66, -20, 0.5));
+		chooser.addObject("Auto Turn Right & Drive To Peg (new Vision Target)", new AutoPlaceDropGearVisionTurnPID3(72, 58, 66, -20, 0.5));
+		chooser.addObject("Auto Turn Straight & Drive To Peg (new Vision Target)", new AutoPlaceDropGearVisionTurnPID3(0, 0, 80, -20, 0.5));
+		chooser.addObject("Auto Turn Left & Drive To Peg (new Vision Target)", new AutoPlaceDropGearVisionTurnPID3(72, -48, 66, -20, 0.5));
+		//chooser.addObject("Auto Turn To Peg Simple", new AutoTurnToPegSimple(60, 0.5));
+		//chooser.addObject("Auto Turn To Peg Encoder", new AutoTurnToPegEncoders(-60, 0.5));
+		//chooser.addObject("Auto Drive Distance", new AutoDriveDistance(108, 10000));
 		chooser.addDefault("None", new AutoNone());
 		SmartDashboard.putData("Auto Mode", chooser);
 
@@ -104,9 +131,12 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Prefs: Vision Kp", prefs.getDouble("Vision Kp", RobotPreferences.VISION_KP_DEFAULT));
 		SmartDashboard.putNumber("Prefs: Vision Ki", prefs.getDouble("Vision Ki", RobotPreferences.VISION_KI_DEFAULT));
 		SmartDashboard.putNumber("Prefs: Vision Kd", prefs.getDouble("Vision Kd", RobotPreferences.VISION_KD_DEFAULT));
+		SmartDashboard.putNumber("Prefs: Vision Max Output Range", prefs.getDouble("Vision Max Output Range", RobotPreferences.VISION_MAX_OUTPUT_RANGE_DEFAULT));
 		SmartDashboard.putNumber("Prefs: Vision Update Delay", prefs.getLong("Vision Update Delay", RobotPreferences.VISION_UPDATE_DELAY_DEFAULT));
 		SmartDashboard.putNumber("Prefs: Turn To Peg Angle", prefs.getDouble("Turn To Peg Angle", RobotPreferences.TURN_TO_PEG_ANGLE_DEFAULT));
 		SmartDashboard.putNumber("Prefs: Vision Time Limit", prefs.getDouble("Auto Vision Time Limit", RobotPreferences.VISION_TIME_DEFAULT));
+		SmartDashboard.putNumber("Prefs: Auto Turn Vision Simple Forward Speed", prefs.getDouble("Auto Turn Vision Simple Forward Speed", RobotPreferences.AUTO_TURN_VISION_SIMPLE_FORWARD_SPEED_DEFAULT));
+		SmartDashboard.putNumber("Prefs: Auto Turn Vision Simple Rotate Speed", prefs.getDouble("Auto Turn Vision Simple Rotate Speed", RobotPreferences.AUTO_TURN_VISION_SIMPLE_ROTATE_SPEED_DEFAULT));
 
 		//Instantiate after all subsystems and preferences - or the world will die
 		//We don't want that, do we?

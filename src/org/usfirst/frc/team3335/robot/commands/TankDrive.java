@@ -17,6 +17,7 @@ public class TankDrive extends Command{
     protected void initialize() {
         // System.out.println(this.getClass().getName() + ": initialize");
     	Robot.driveTrain.setBrake(false);
+    	Robot.driveTrain.setDefaltRampRate();
     }
 
     // Called repeatedly when this Command is scheduled to run

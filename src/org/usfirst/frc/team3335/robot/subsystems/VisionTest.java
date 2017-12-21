@@ -30,7 +30,11 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	private static final int IMG_WIDTH = 320;
 	private static final int IMG_HEIGHT = 240;
 
-	private final double cameraOffset = 12; // inches - Mark 2
+	// Camera offset: positive=camera to right of center, negative=camera to left of center
+	private final double cameraOffset = -12; // inches - Mark 2
+
+	// Distance offset for peg target: peg is ~4in less that distance to target
+	private final double distanceOffset = -10.0; //-4.0;
 
 	private VisionThread visionThread;
 	private double centerX = 0.0;
@@ -44,10 +48,14 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 
 	public VisionTest() {
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(); // cam0 by default
+		//UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
 		camera.setBrightness(0);
 //		camera.setExposureManual(100);
 		camera.setExposureAuto();
+		//camera2.setResolution(IMG_WIDTH, IMG_HEIGHT);
+		//camera2.setBrightness(0);
+		//camera2.setExposureAuto();
 
 		CvSource cs= CameraServer.getInstance().putVideo("name", IMG_WIDTH, IMG_HEIGHT);
 
@@ -196,14 +204,22 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 		distance *= 1.47; // Fudge factor [equal to 1/tan(68.5/2)]
 		double targetCx = rec.x + rec.width / 2;
 		double width = (targetCx - pixelFOV / 2) * targetFeet / rec.width;
+		// Correct for camera offset
+		width += cameraOffset;
 		double azimuth = Math.toDegrees(Math.atan2(width,  distance));
 		targetDistance = distance;
+		// Correct for peg distance offset (closer than peg target)
+		targetDistance += distanceOffset;
 		targetAzimuth =  azimuth;
 		targetOffsetX = width;
 	}
 
 	public boolean isTargetDetected() {
 		return targetDetected;
+	}
+
+	public double getTargetDistance() {
+		return targetDistance;
 	}
 
 	@Override
