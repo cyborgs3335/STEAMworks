@@ -5,6 +5,7 @@ import org.usfirst.frc.team3335.robot.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.Solenoid;
 
 @SuppressWarnings("unused")
@@ -17,7 +18,7 @@ public class GenericDoubleSolenoid extends Subsystem implements LoggableSubsyste
 	}
 
 	public GenericDoubleSolenoid(int forwardChannel, int reverseChannel, DoubleSolenoid.Value value) {
-		this(DoubleSolenoid.getDefaultSolenoidModule(), forwardChannel, reverseChannel, value);
+		this(/*DoubleSolenoid*/SensorBase.getDefaultSolenoidModule(), forwardChannel, reverseChannel, value);
 	}
 
 	public GenericDoubleSolenoid(int moduleNumber, int forwardChannel, int reverseChannel) {

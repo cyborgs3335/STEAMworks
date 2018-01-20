@@ -16,6 +16,9 @@ import org.usfirst.frc.team3335.robot.RobotMap;
 import org.usfirst.frc.team3335.robot.RobotPreferences;
 import org.usfirst.frc.team3335.robot.commands.TankDrive;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 /**
  * Created by jacob on 1/14/17.
  * A subsystem for a west coast drive train.
@@ -24,7 +27,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
 
     //get the cantalons at http://www.ctr-electronics.com/downloads/installers/CTRE%20Toolsuite%20v4.4.1.9-nonadmin.zip for windows,
     //http://www.ctr-electronics.com//downloads/lib/CTRE_FRCLibs_NON-WINDOWS_v4.4.1.9.zip for other
-    private MyTalonSRX frontLeft, frontRight, backLeft, backRight;
+    private WPI_TalonSRX frontLeft, frontRight, backLeft, backRight;
     private DifferentialDrive drive;
     private Encoder leftEncoder;
     private Encoder rightEncoder;
@@ -56,10 +59,10 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
 
     public DriveTrain() {
         super();
-        frontLeft = new MyTalonSRX(RobotMap.DRIVE_TRAIN_FRONT_LEFT);
-        frontRight = new MyTalonSRX(RobotMap.DRIVE_TRAIN_FRONT_RIGHT);
-        backLeft = new MyTalonSRX(RobotMap.DRIVE_TRAIN_BACK_LEFT);
-        backRight = new MyTalonSRX(RobotMap.DRIVE_TRAIN_BACK_RIGHT);
+        frontLeft = new WPI_TalonSRX(RobotMap.DRIVE_TRAIN_FRONT_LEFT);
+        frontRight = new WPI_TalonSRX(RobotMap.DRIVE_TRAIN_FRONT_RIGHT);
+        backLeft = new WPI_TalonSRX(RobotMap.DRIVE_TRAIN_BACK_LEFT);
+        backRight = new WPI_TalonSRX(RobotMap.DRIVE_TRAIN_BACK_RIGHT);
         SpeedControllerGroup leftGroup = new SpeedControllerGroup(frontLeft, backLeft);
         SpeedControllerGroup rightGroup = new SpeedControllerGroup(frontRight, backRight);
 
@@ -69,10 +72,7 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
         backRight.set(0);
         
         double voltageRampRate = voltageRampRateDefault;//20;
-        frontLeft.setVoltageRampRate(voltageRampRate);
-        frontRight.setVoltageRampRate(voltageRampRate);
-        backLeft.setVoltageRampRate(voltageRampRate);
-        backRight.setVoltageRampRate(voltageRampRate);
+        setRampRate(voltageRampRate);
         
         //backRight.setCurrentLimit(0);
 
@@ -99,27 +99,42 @@ public class DriveTrain extends Subsystem implements LoggableSubsystem, PIDSourc
     }
 
     public void setBrake(boolean brake) {
-    	frontLeft.enableBrakeMode(brake);
-        frontRight.enableBrakeMode(brake);
-        backLeft.enableBrakeMode(brake);
-        backRight.enableBrakeMode(brake);
+    	// Formerly: frontLeft.enableBrakeMode(brake);
+    	// See https://github.com/CrossTheRoadElec/Phoenix-Documentation#installing-phoenix-framework-onto-your-frc-robot
+    	NeutralMode mode = brake ? NeutralMode.Brake : NeutralMode.Coast;
+    	frontLeft.setNeutralMode(mode);
+    	frontRight.setNeutralMode(mode);
+    	backLeft.setNeutralMode(mode);
+    	backRight.setNeutralMode(mode);
     }
-    
+
+    public void setRampRateTime(double secondsFromNeutralToFull) {
+    	// See https://github.com/CrossTheRoadElec/Phoenix-Documentation#installing-phoenix-framework-onto-your-frc-robot
+    	// TODO also see section on limiting current rate, both peak and continuous
+    	// TODO which will be useful for climbing motors
+    	// (2, 0) ramps from neutral to full voltage in 2 sec, with no timeout
+    	frontLeft.configOpenloopRamp(secondsFromNeutralToFull, 0);
+    	frontRight.configOpenloopRamp(secondsFromNeutralToFull, 0);
+    	backLeft.configOpenloopRamp(secondsFromNeutralToFull, 0);
+    	backRight.configOpenloopRamp(secondsFromNeutralToFull, 0);
+    }
+
+    @Deprecated
     public void setRampRate(double voltageRampRate){
-    	frontLeft.setVoltageRampRate(voltageRampRate);
-        frontRight.setVoltageRampRate(voltageRampRate);
-        backLeft.setVoltageRampRate(voltageRampRate);
-        backRight.setVoltageRampRate(voltageRampRate);
+    	// Formerly: frontLeft.setVoltageRampRate(voltageRampRate);
+    	//    where voltageRampRate was in volts/sec???
+    	//          or was it in percent voltage / sec ???
+    	//    used 150 as default, and 5 for slow rate during auto
+    	// Assuming volts/sec, then
+    	//     150 V/sec is nominal 12V / 150 V/sec = 0.08 sec
+    	//     5 V/sec is nominal 12V / 5 V/sec = 2.4 sec
+    	setRampRateTime(12.0 / voltageRampRate);
     }
     
     public void setDefaltRampRate(){
     	double voltageRampRate = voltageRampRateDefault;
-    	frontLeft.setVoltageRampRate(voltageRampRate);
-        frontRight.setVoltageRampRate(voltageRampRate);
-        backLeft.setVoltageRampRate(voltageRampRate);
-        backRight.setVoltageRampRate(voltageRampRate);
+    	setRampRate(voltageRampRate);
     }
-    
 
     public void zeroEncoders() {
     	leftEncoder.reset();

@@ -2,15 +2,16 @@ package org.usfirst.frc.team3335.robot.subsystems;
 
 import org.usfirst.frc.team3335.robot.RobotMap;
 
-import com.ctre.phoenix.MotorControl.CAN.TalonSRX;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Climber extends Subsystem implements LoggableSubsystem {
 
-	private TalonSRX bagMotor;
-	private TalonSRX bagMotor2;
+	private WPI_TalonSRX bagMotor;
+	private WPI_TalonSRX bagMotor2;
 
 	private final double currentLimit = 100.0; // amps; 100 may be too much
 	//private final double currentLimit = 45.0; // amps; 45 may be too much
@@ -19,18 +20,19 @@ public class Climber extends Subsystem implements LoggableSubsystem {
 	private double timeCurrentExceeded = 0;
 
 	public Climber() {
-		bagMotor = new TalonSRX(RobotMap.CLIMBING_MOTOR);
-		bagMotor.enableBrakeMode(false);
-		bagMotor2 = new TalonSRX(RobotMap.CLIMBING_MOTOR2);
-		bagMotor2.enableBrakeMode(false);
+		bagMotor = new WPI_TalonSRX(RobotMap.CLIMBING_MOTOR);
+		bagMotor.setNeutralMode(NeutralMode.Coast);
+		bagMotor2 = new WPI_TalonSRX(RobotMap.CLIMBING_MOTOR2);
+		bagMotor2.setNeutralMode(NeutralMode.Coast);
 		//while(true)if (joystick.getRawButton(4))manualClimb(joystick);
 	}
 
 	protected void climb(double rotations) {
-		double firstNum = bagMotor.getAnalogInPosition();
+		// 2017: bagMotor.getAnalogInPosition();
+		double firstNum = bagMotor.getSensorCollection().getAnalogIn();
 		bagMotor.set(-1);
 		bagMotor2.set(-1);
-		while(bagMotor.getAnalogInPosition()<firstNum+(rotations*1024)){;}
+		while(bagMotor.getSensorCollection().getAnalogIn()<firstNum+(rotations*1024)){;}
 		bagMotor.set(0);
 		bagMotor2.set(0);
 	}

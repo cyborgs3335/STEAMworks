@@ -3,18 +3,18 @@ package org.usfirst.frc.team3335.robot.subsystems;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team3335.robot.RobotMap;
 
-import com.ctre.phoenix.MotorControl.CAN.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Intake extends Subsystem implements LoggableSubsystem {
 
-	private TalonSRX motor;
-	
+	private WPI_TalonSRX motor;
+
 	private double motorValue = 1.0; //0.5;
 	
 	public Intake() {
-		motor = new TalonSRX(RobotMap.INTAKE_MOTOR);
+		motor = new WPI_TalonSRX(RobotMap.INTAKE_MOTOR);
 		motor.set(0);
 		//motor.setControlMode();
 	}
