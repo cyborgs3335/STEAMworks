@@ -30,11 +30,20 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 	private static final int IMG_WIDTH = 320;
 	private static final int IMG_HEIGHT = 240;
 
-	// Camera offset: positive=camera to right of center, negative=camera to left of center
+	/** Camera offset: positive=camera to right of center, negative=camera to left of center */
 	private final double cameraOffset = -12; // inches - Mark 2
 
-	// Distance offset for peg target: peg is ~4in less that distance to target
+	/** Distance offset for peg target: peg is ~4in less that distance to target */
 	private final double distanceOffset = -10.0; //-4.0;
+
+	/** Target contour ratio */
+	//private final double targetRatio = 0.4; // STEAMworks
+	private final double targetRatio = 0.13; // PowerUp: 2/15.3
+
+	/** Target width in inches */
+	//private final double targetWidthInches = 20.0; // Stronghold
+	//private final double targetWidthInches = 10.25; // STEAMworks
+	private final double targetWidthInches = 8.0; // PowerUp
 
 	private VisionThread visionThread;
 	private double centerX = 0.0;
@@ -59,8 +68,8 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 
 		CvSource cs= CameraServer.getInstance().putVideo("name", IMG_WIDTH, IMG_HEIGHT);
 
-		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
-			Mat IMG_MOD = pipeline.hslThresholdOutput();
+		visionThread = new VisionThread(camera, new GripPipline2018(), pipeline -> { 
+			Mat IMG_MOD = pipeline.rgbThresholdOutput();
 	        if (!pipeline.filterContoursOutput().isEmpty()) {
 	            //Rect recCombine = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
                 Rect recCombine = computeBoundingRectangle(pipeline.filterContoursOutput());
@@ -174,7 +183,6 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 		// Score aspect ratio -- exact ratio is 0.4
 		final Rect bb = Imgproc.boundingRect(mop);
 		final double ratio = bb.width / (double)bb.height;
-		final double targetRatio = 0.4;
 		final double minRatio = 0.0;
 		final double maxRatio = 1.0;
 		double scoreAspectRatio = 0;
@@ -196,14 +204,11 @@ public class VisionTest extends Subsystem implements LoggableSubsystem, PIDSourc
 
 	private void computeCoords(Rect rec) {
 		double pixelFOV = IMG_WIDTH;
-		//double targetFeet = 20.0 / 12.0; // Stronghold target width / 12 in
-		//double targetFeet = 10.25 / 12.0; // Steamworks target width / 12 in
-		double targetFeet = 10.25; // INCHES!!!! // Steamworks target width in inches
-		double diagonalFOVDegrees = 68.5;  // Field-Of-View angle in degress for Microsoft LifeCam HD-3000(?)
-		double distance = targetFeet * pixelFOV / (2 * rec.width * Math.tan(Math.toRadians(diagonalFOVDegrees / 2)));
+		double diagonalFOVDegrees = 68.5;  // Field-Of-View angle in degrees for Microsoft LifeCam HD-3000(?)
+		double distance = targetWidthInches * pixelFOV / (2 * rec.width * Math.tan(Math.toRadians(diagonalFOVDegrees / 2)));
 		distance *= 1.47; // Fudge factor [equal to 1/tan(68.5/2)]
 		double targetCx = rec.x + rec.width / 2;
-		double width = (targetCx - pixelFOV / 2) * targetFeet / rec.width;
+		double width = (targetCx - pixelFOV / 2) * targetWidthInches / rec.width;
 		// Correct for camera offset
 		width += cameraOffset;
 		double azimuth = Math.toDegrees(Math.atan2(width,  distance));
