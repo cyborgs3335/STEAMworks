@@ -51,3 +51,11 @@ The Programming project for Team 3335's 2017 robot.
         }
     }
     ```
+  * New Updates with CTRE Phoenix Framework v5.0.5.1
+    * ```TalonSRX.set(value)``` changed to ```TalonSRX.set(mode, value)```; e.g.,
+      ```TalonSRX.set(ControlMode.PercentOutput, value)```
+    * ```TalonSRX.get()``` must be changed to a mode-specific get method; e.g.,
+      ```TalonSRX.getMotorOutputPercent()``` to get the output for in PercentOutput mode.
+    * ```enableBrakeMode(boolean brake)``` changes to ```setNeutralModel(NeutralMode mode)```,
+      where ```mode``` might be ```NeutralMode.Coast``` or ```NeutralMode.Brake```.
+
